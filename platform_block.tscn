@@ -1,0 +1,30 @@
+[gd_scene load_steps=7 format=3 uid="uid://tpbnjr26nitk"]
+
+[ext_resource type="Texture2D" uid="uid://buyflaxqb4frg" path="res://assets/BlockBoxTexture.svg" id="1_e2bc6"]
+[ext_resource type="Script" uid="uid://cav7obdlsyea" path="res://scripts/StateMachine/StateMachine.gd" id="3_jxdnk"]
+[ext_resource type="Script" uid="uid://c4ewknypbfw1m" path="res://scripts/Platform/States/PlatformIdle.gd" id="4_jxdnk"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_4l05e"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ms3jd"]
+albedo_texture = ExtResource("1_e2bc6")
+uv1_scale = Vector3(3, 2, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_x1i2l"]
+material = SubResource("StandardMaterial3D_ms3jd")
+
+[node name="platform_block" type="StaticBody3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_4l05e")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_x1i2l")
+skeleton = NodePath("../..")
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
+script = ExtResource("3_jxdnk")
+initial_state = NodePath("Idle")
+
+[node name="Idle" type="Node" parent="StateMachine"]
+script = ExtResource("4_jxdnk")

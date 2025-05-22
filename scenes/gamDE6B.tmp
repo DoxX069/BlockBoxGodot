@@ -1,0 +1,65 @@
+[gd_scene load_steps=10 format=3 uid="uid://dwx2pgyrss8sp"]
+
+[ext_resource type="Script" path="res://scenes/cameraController.gd" id="1_quken"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_18xyh"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_oleb4"]
+sky_material = SubResource("ProceduralSkyMaterial_18xyh")
+
+[sub_resource type="Environment" id="Environment_cac5q"]
+background_mode = 2
+sky = SubResource("Sky_oleb4")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_vfk8q"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_phncm"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_sr0w8"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_h2x2m"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_2c8uk"]
+margin = 0.4
+size = Vector3(20, 2, 20)
+
+[node name="Game" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_cac5q")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+shadow_enabled = true
+
+[node name="CameraRig" type="Node3D" parent="."]
+script = ExtResource("1_quken")
+
+[node name="Camera3D" type="Camera3D" parent="CameraRig"]
+transform = Transform3D(0.707107, -0.5, 0.5, 0, 0.707107, 0.707107, -0.707107, -0.5, 0.5, 60, 82.5, 60)
+fov = 15.0
+
+[node name="Block" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.20822, 2.84759, -4.92933)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Block"]
+mesh = SubResource("BoxMesh_vfk8q")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Block"]
+shape = SubResource("BoxShape3D_phncm")
+
+[node name="Floor" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+physics_material_override = SubResource("PhysicsMaterial_sr0w8")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor"]
+transform = Transform3D(20, 0, 0, 0, 2, 0, 0, 0, 20, 0, 0, 0)
+mesh = SubResource("BoxMesh_h2x2m")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor"]
+shape = SubResource("BoxShape3D_2c8uk")
