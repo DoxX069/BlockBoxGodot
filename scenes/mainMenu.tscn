@@ -1,66 +1,74 @@
-[gd_scene load_steps=6 format=3 uid="uid://bs4x6rnuq1umm"]
+[gd_scene load_steps=3 format=3 uid="uid://bs4x6rnuq1umm"]
 
-[ext_resource type="Script" uid="uid://iqbgw4fj4riw" path="res://scripts/sceneManager.gd" id="1_5y5f7"]
-[ext_resource type="FontFile" uid="uid://vv336o85oxbs" path="res://assets/fonts/ArchivoBlack-Regular.ttf" id="2_6ed26"]
+[ext_resource type="FontFile" uid="uid://vv336o85oxbs" path="res://assets/fonts/ArchivoBlack-Regular.ttf" id="1_qkhwq"]
 
-[sub_resource type="SystemFont" id="SystemFont_3d1i7"]
-
-[sub_resource type="LabelSettings" id="LabelSettings_48ign"]
-font = SubResource("SystemFont_3d1i7")
+[sub_resource type="LabelSettings" id="LabelSettings_c7uy4"]
+font = ExtResource("1_qkhwq")
 font_size = 100
-outline_size = 20
-outline_color = Color(0, 0, 0, 1)
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_vb0id"]
-
-[node name="MainMenu" type="Node2D"]
-script = ExtResource("1_5y5f7")
-
-[node name="buttonManager" type="Control" parent="."]
+[node name="Control" type="Control"]
 layout_mode = 3
-anchors_preset = 0
-offset_right = 1024.0
-offset_bottom = 600.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
 
-[node name="Label" type="Label" parent="buttonManager"]
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_fonts/font = ExtResource("2_6ed26")
-theme_override_font_sizes/font_size = 40
-text = "BlockBOX"
-label_settings = SubResource("LabelSettings_48ign")
+metadata/_edit_use_anchors_ = true
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="AspectRatioContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="AspectRatioContainer/VBoxContainer2"]
+layout_mode = 2
+text = "BlockBox"
+label_settings = SubResource("LabelSettings_c7uy4")
 horizontal_alignment = 1
 vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
 
-[node name="newBuild" type="Button" parent="buttonManager"]
-layout_mode = 0
-offset_left = 314.0
-offset_top = 715.0
-offset_right = 564.0
-offset_bottom = 815.0
-text = "new Build"
+[node name="HBoxContainer" type="HBoxContainer" parent="AspectRatioContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+alignment = 1
 
-[node name="loadBuild" type="Button" parent="buttonManager"]
-layout_mode = 0
-offset_left = 318.0
-offset_top = 850.0
-offset_right = 568.0
-offset_bottom = 950.0
-text = "load Build"
+[node name="Button" type="Button" parent="AspectRatioContainer/VBoxContainer2/HBoxContainer"]
+custom_minimum_size = Vector2(200, 100)
+layout_mode = 2
+text = "25%"
 
-[node name="quit" type="Button" parent="buttonManager"]
-layout_mode = 0
-offset_left = 761.0
-offset_top = 46.0
-offset_right = 837.0
-offset_bottom = 122.0
-text = "quit"
-icon = SubResource("ViewportTexture_vb0id")
+[node name="Button2" type="Button" parent="AspectRatioContainer/VBoxContainer2/HBoxContainer"]
+custom_minimum_size = Vector2(200, 100)
+layout_mode = 2
+text = "50%"
 
-[connection signal="pressed" from="buttonManager/newBuild" to="." method="_on_new_build_pressed"]
-[connection signal="pressed" from="buttonManager/loadBuild" to="." method="_on_load_build_pressed"]
-[connection signal="pressed" from="buttonManager/quit" to="." method="_on_quit_pressed"]
+[node name="Button3" type="Button" parent="AspectRatioContainer/VBoxContainer2/HBoxContainer"]
+custom_minimum_size = Vector2(200, 100)
+layout_mode = 2
+text = "75%"
+
+[node name="Button4" type="Button" parent="AspectRatioContainer/VBoxContainer2/HBoxContainer"]
+custom_minimum_size = Vector2(200, 100)
+layout_mode = 2
+text = "100%"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="AspectRatioContainer/VBoxContainer2"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="AspectRatioContainer/VBoxContainer2/HBoxContainer2"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="AspectRatioContainer/VBoxContainer2/HBoxContainer2"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
