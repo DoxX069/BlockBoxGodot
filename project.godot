@@ -23,6 +23,8 @@ Global="*res://scripts/global.gd"
 
 window/size/viewport_width=880
 window/size/viewport_height=1688
+window/stretch/mode="canvas_items"
+window/stretch/aspect="expand"
 window/handheld/orientation=1
 
 [dotnet]

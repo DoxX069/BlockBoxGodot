@@ -1,11 +1,11 @@
 fc8a56933c4b1c8d796fdb8f7a9f9475
-::res://::1748079551
+::res://::1748323444
 export_presets.cfg::TextFile/TextFile::-1::1747906026::0::1::::<><><>0<>0<><>::
 icon.svg::CompressedTexture2D/CompressedTexture2D::4426155498678653369::1745231975::1747926834::1::::<><><>0<>0<>a7372e52d62a3c1a9c5a33c25a7e49f3<>res://.godot/imported/icon.svg-218a8f2b3041327d8a5756f3a245f83b.ctex::
 platform_block.tscn::PackedScene/PackedScene::1364638127987572136::1747906055::0::1::::<><><>0<>0<><>::uid://buyflaxqb4frg::::res://assets/BlockBoxTexture.svg<>uid://cav7obdlsyea::::res://scripts/StateMachine/StateMachine.gd<>uid://c4ewknypbfw1m::::res://scripts/Platform/States/PlatformIdle.gd
 README.md::TextFile/TextFile::-1::1747926390::0::1::::<><><>0<>0<><>::
 ::res://addons/::1747310955
-::res://addons/Todo_Manager/::1748079551
+::res://addons/Todo_Manager/::1748323444
 ColourPicker.gd::GDScript/GDScript::8038094490891496189::1746694773::0::1::::<>HBoxContainer<><>0<>1<><>::
 Current.gd::GDScript/GDScript::3224465670140345902::1746694773::0::1::::<>Panel<><>0<>1<><>::
 Dock.gd::GDScript/GDScript::4799641591314460178::1746694773::0::1::::<>Control<><>0<>1<><>::
@@ -13,7 +13,7 @@ Pattern.gd::GDScript/GDScript::388749085464519594::1746694773::0::1::::<>HBoxCon
 plugin.cfg::TextFile/TextFile::-1::1746694774::0::1::::<><><>0<>0<><>::
 plugin.gd::GDScript/GDScript::2100141717233904251::1746694774::0::1::::<>EditorPlugin<><>0<>1<><>::
 Project.gd::GDScript/GDScript::5714506763352169982::1746694773::0::1::::<>Panel<><>0<>1<><>::
-todo.cfg::TextFile::-1::1748079551::0::1::::<><><>0<>0<><>::
+todo.cfg::TextFile::-1::1748323444::0::1::::<><><>0<>0<><>::
 todoItem_class.gd::GDScript/GDScript::7227119010972010469::1746694774::0::1::::<>RefCounted<><>0<>1<><>::
 todo_class.gd::GDScript/GDScript::737482530032542512::1746694774::0::1::::<>RefCounted<><>0<>1<><>::
 ::res://addons/Todo_Manager/doc/::1746695488
@@ -41,10 +41,10 @@ ArchivoBlack-Regular.ttf::FontFile/FontFile::1519069378651885696::1745231975::17
 grid.png::CompressedTexture2D/CompressedTexture2D::8083018605628927759::1745231975::1747926834::1::::<><><>0<>0<>5fedac993dea485ec6f48e2a3d062180<>res://.godot/imported/grid.png-82fdb5d890da4db510e99756c7918606.s3tc.ctex<*>res://.godot/imported/grid.png-82fdb5d890da4db510e99756c7918606.etc2.ctex::
 istockphoto-838296134-612x612.jpg::CompressedTexture2D/CompressedTexture2D::5582873058434051226::1745231975::1747926834::1::::<><><>0<>0<>c60aa7a3abeddf05707f09659d9a8d09<>res://.godot/imported/istockphoto-838296134-612x612.jpg-745cbebfbff92066e237f26510581fab.s3tc.ctex<*>res://.godot/imported/istockphoto-838296134-612x612.jpg-745cbebfbff92066e237f26510581fab.etc2.ctex::
 rm301-eye-10-a.jpg::CompressedTexture2D/CompressedTexture2D::3504126685606087381::1745231975::1747926834::1::::<><><>0<>0<>8a94da82bf9c5de475bc98eaf369d2cb<>res://.godot/imported/rm301-eye-10-a.jpg-4c3035d52fd43e65dc40e4d4362b2816.s3tc.ctex<*>res://.godot/imported/rm301-eye-10-a.jpg-4c3035d52fd43e65dc40e4d4362b2816.etc2.ctex::
-::res://scenes/::1748078788
-block.tscn::PackedScene::8458009269906356154::1748077927::0::1::::<><><>0<>0<><>::uid://cav7obdlsyea::::res://scripts/StateMachine/StateMachine.gd<>uid://bbem15uhj3ttc::::res://scripts/Block/States/BlockIdle.gd<>uid://cjnetusoycm5n::::res://scripts/Block/States/BlockDrag.gd<>uid://b30th4fumxis5::::res://scripts/Block/States/BlockDrop.gd<>uid://dpedjnw8yvawj::::res://scripts/Block/States/BlockFall.gd
-game.tscn::PackedScene::8752563798185267783::1748077927::0::1::::<><><>0<>0<><>::uid://05n7qgn4kay0::::res://scripts/Camera/cameraController.gd<>uid://dr5jfxpwxtwue::::res://scripts/Camera/raycast.gd<>uid://dsregasvvg6p7::::res://scenes/block.tscn<>uid://da8630ltllk5m::::res://scenes/platform.tscn<>uid://tpbnjr26nitk::::res://platform_block.tscn
-mainMenu.tscn::PackedScene::3711139588400643076::1748078788::0::1::::<><><>0<>0<><>::uid://iqbgw4fj4riw::::res://scripts/sceneManager.gd
+::res://scenes/::1748207311
+block.tscn::PackedScene/PackedScene::8458009269906356154::1748077927::0::1::::<><><>0<>0<><>::uid://cav7obdlsyea::::res://scripts/StateMachine/StateMachine.gd<>uid://bbem15uhj3ttc::::res://scripts/Block/States/BlockIdle.gd<>uid://cjnetusoycm5n::::res://scripts/Block/States/BlockDrag.gd<>uid://b30th4fumxis5::::res://scripts/Block/States/BlockDrop.gd<>uid://dpedjnw8yvawj::::res://scripts/Block/States/BlockFall.gd
+game.tscn::PackedScene::8752563798185267783::1748205617::0::1::::<><><>0<>0<><>::uid://05n7qgn4kay0::::res://scripts/Camera/cameraController.gd<>uid://dr5jfxpwxtwue::::res://scripts/Camera/raycast.gd<>uid://dsregasvvg6p7::::res://scenes/block.tscn<>uid://da8630ltllk5m::::res://scenes/platform.tscn<>uid://tpbnjr26nitk::::res://platform_block.tscn
+mainMenu.tscn::PackedScene::3711139588400643076::1748207311::0::1::::<><><>0<>0<><>::uid://vv336o85oxbs::::res://assets/fonts/ArchivoBlack-Regular.ttf
 platform.tscn::PackedScene/PackedScene::7229320076923393112::1747906055::0::1::::<><><>0<>0<><>::uid://d1q2ffoxrc31y::::res://scripts/Platform/platform_mesh.gd
 savedBuilds.tscn::PackedScene/PackedScene::8281469962218955044::1745770014::0::1::::<><><>0<>0<><>::uid://dlwd26kod7pkl::::res://scripts/savedBuilds.gd<>uid://vv336o85oxbs::::res://assets/fonts/ArchivoBlack-Regular.ttf
 state_mashine.tscn::PackedScene/PackedScene::5214891587313478311::1747754284::0::1::::<><><>0<>0<><>::uid://cav7obdlsyea::::res://scripts/StateMachine/StateMachine.gd

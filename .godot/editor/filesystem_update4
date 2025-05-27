@@ -1,1 +1,3 @@
+res://scripts/sceneManager.gd
 res://scenes/mainMenu.tscn
+res://scenes/game.tscn
