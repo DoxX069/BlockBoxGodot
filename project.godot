@@ -35,6 +35,10 @@ project/assembly_name="BlockBox"
 
 enabled=PackedStringArray("res://addons/Todo_Manager/plugin.cfg")
 
+[gui]
+
+theme/custom="uid://dptnmxdt7dlk6"
+
 [input]
 
 rotate+={

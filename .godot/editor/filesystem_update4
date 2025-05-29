@@ -1,3 +1,7 @@
-res://scripts/sceneManager.gd
-res://scenes/mainMenu.tscn
 res://scenes/game.tscn
+res://new_theme.tres
+res://scenes/mainMenu.tscn
+res://scenes/block.tscn
+res://platform_block.tscn
+res://scripts/Block/States/BlockDrag.gd
+res://scripts/Camera/raycast.gd

@@ -1,15 +1,20 @@
-[gd_scene load_steps=5 format=3 uid="uid://bs4x6rnuq1umm"]
+[gd_scene load_steps=6 format=3 uid="uid://bs4x6rnuq1umm"]
 
 [ext_resource type="Script" uid="uid://iqbgw4fj4riw" path="res://scripts/sceneManager.gd" id="1_3d1i7"]
 [ext_resource type="FontFile" uid="uid://vv336o85oxbs" path="res://assets/fonts/ArchivoBlack-Regular.ttf" id="1_qkhwq"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3d1i7"]
+bg_color = Color(0.94, 0.900833, 0.846, 1)
+
 [sub_resource type="LabelSettings" id="LabelSettings_c7uy4"]
 font = ExtResource("1_qkhwq")
 font_size = 100
+font_color = Color(0, 0, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_qkhwq"]
 font = ExtResource("1_qkhwq")
 font_size = 75
+font_color = Color(0, 0, 0, 1)
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -20,6 +25,15 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_3d1i7")
 metadata/_edit_use_anchors_ = true
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_3d1i7")
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -64,6 +78,7 @@ size_flags_vertical = 6
 metadata/_edit_use_anchors_ = true
 
 [node name="Button" type="Button" parent="VBoxContainer3"]
+texture_repeat = 2
 custom_minimum_size = Vector2(500, 200)
 layout_mode = 2
 size_flags_vertical = 3

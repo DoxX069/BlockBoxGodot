@@ -7,6 +7,8 @@
 [sub_resource type="BoxShape3D" id="BoxShape3D_4l05e"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ms3jd"]
+specular_mode = 1
+albedo_color = Color(1, 0.9675, 0.95, 1)
 albedo_texture = ExtResource("1_e2bc6")
 uv1_scale = Vector3(3, 2, 1)
 

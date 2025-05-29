@@ -29,7 +29,9 @@ environment = SubResource("Environment_cac5q")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.866024, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.75, -0.43301, 4.95614, 20.017, -9.49701)
+light_energy = 0.5
 shadow_enabled = true
+shadow_blur = 0.0
 
 [node name="CameraRig" type="Node3D" parent="."]
 script = ExtResource("2_1g5jo")
