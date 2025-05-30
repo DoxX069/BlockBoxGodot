@@ -1,0 +1,18 @@
+[gd_resource type="Theme" load_steps=4 format=3 uid="uid://dptnmxdt7dlk6"]
+
+[ext_resource type="FontFile" uid="uid://bglgbxfp7aub3" path="res://assets/fonts/PlusJakartaSans-ExtraBold.ttf" id="1_muy3k"]
+[ext_resource type="Texture2D" uid="uid://saln7trubny5" path="res://assets/ButtonTexture.svg" id="2_muy3k"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_qaeoe"]
+texture = ExtResource("2_muy3k")
+texture_margin_left = 8.0
+texture_margin_top = 8.0
+texture_margin_right = 8.0
+texture_margin_bottom = 8.0
+
+[resource]
+Button/font_sizes/font_size = 50
+Button/fonts/font = ExtResource("1_muy3k")
+Button/styles/hover = SubResource("StyleBoxTexture_qaeoe")
+Label/font_sizes/font_size = 100
+Label/fonts/font = ExtResource("1_muy3k")

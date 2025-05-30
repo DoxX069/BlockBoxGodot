@@ -5,3 +5,5 @@ res://scenes/block.tscn
 res://platform_block.tscn
 res://scripts/Block/States/BlockDrag.gd
 res://scripts/Camera/raycast.gd
+res://scripts/global.gd
+res://BlockBoxTheme.tres
