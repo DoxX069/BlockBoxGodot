@@ -1,11 +1,7 @@
-[gd_scene load_steps=10 format=3 uid="uid://dsregasvvg6p7"]
+[gd_scene load_steps=6 format=3 uid="uid://dsregasvvg6p7"]
 
 [ext_resource type="Texture2D" uid="uid://buyflaxqb4frg" path="res://assets/BlockBoxTexture.svg" id="1_bk4tb"]
-[ext_resource type="Script" uid="uid://cav7obdlsyea" path="res://scripts/StateMachine/StateMachine.gd" id="2_cgrg5"]
-[ext_resource type="Script" uid="uid://bbem15uhj3ttc" path="res://scripts/Block/States/BlockIdle.gd" id="3_4kun4"]
-[ext_resource type="Script" uid="uid://cjnetusoycm5n" path="res://scripts/Block/States/BlockDrag.gd" id="4_ojgcc"]
-[ext_resource type="Script" uid="uid://b30th4fumxis5" path="res://scripts/Block/States/BlockDrop.gd" id="5_1bw7o"]
-[ext_resource type="Script" uid="uid://dpedjnw8yvawj" path="res://scripts/Block/States/BlockFall.gd" id="7_om4np"]
+[ext_resource type="Script" uid="uid://b2ocwahal2p7u" path="res://scripts/Block/block.gd" id="1_kfh62"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1bw7o"]
 specular_mode = 1
@@ -26,6 +22,7 @@ axis_lock_angular_x = true
 axis_lock_angular_y = true
 axis_lock_angular_z = true
 gravity_scale = 0.0
+script = ExtResource("1_kfh62")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("BoxMesh_p57ef")
@@ -33,23 +30,5 @@ mesh = SubResource("BoxMesh_p57ef")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("BoxShape3D_cgrg5")
 
-[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
-script = ExtResource("2_cgrg5")
-initial_state = NodePath("Idle")
-
-[node name="Idle" type="Node" parent="StateMachine"]
-script = ExtResource("3_4kun4")
-
-[node name="Drag" type="Node" parent="StateMachine"]
-script = ExtResource("4_ojgcc")
-
-[node name="Drop" type="Node" parent="StateMachine"]
-script = ExtResource("5_1bw7o")
-
-[node name="Fall" type="Node" parent="StateMachine"]
-script = ExtResource("7_om4np")
-
-[connection signal="body_entered" from="." to="StateMachine/Drag" method="_on_block_body_entered"]
-[connection signal="body_exited" from="." to="StateMachine/Drag" method="_on_block_body_exited"]
-[connection signal="mouse_entered" from="." to="StateMachine/Idle" method="_on_block_mouse_entered"]
-[connection signal="mouse_exited" from="." to="StateMachine/Idle" method="_on_block_mouse_exited"]
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

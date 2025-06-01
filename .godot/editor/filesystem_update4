@@ -1,9 +1,11 @@
 res://scenes/game.tscn
-res://new_theme.tres
+res://BlockBoxTheme.tres
+res://assets/tiles.tres
 res://scenes/mainMenu.tscn
 res://scenes/block.tscn
 res://platform_block.tscn
 res://scripts/Block/States/BlockDrag.gd
-res://scripts/Camera/raycast.gd
-res://scripts/global.gd
-res://BlockBoxTheme.tres
+res://scripts/StateMachine/State.gd
+res://scripts/StateMachine/callable_state_machine.gd
+res://scripts/Block/block.gd
+res://scenes/platform.tscn
