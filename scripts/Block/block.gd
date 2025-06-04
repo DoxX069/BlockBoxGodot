@@ -27,7 +27,8 @@ func _physics_process(_delta) ->void:
 
 func enter_state_idle() ->void:
 	if Global.last_intersection:
-		reset_material(Global.last_intersection.collider)
+		pass
+		#reset_material(Global.last_intersection.collider)
 
 
 func state_idle() ->void:
@@ -55,7 +56,7 @@ func state_drag() ->void:
 	if Global.intersection:# and space_is_free(self, self.position):
 		#change_material(Global.last_intersection.collider)
 		# Change position while dragging
-		self.position = lerp(self.position, Global.intersection.position + Global.intersection.normal * 0.5, 25 * delta)
+		self.position = lerp(self.position, Global.intersection.position + Global.intersection.normal * 0.5, 45 * delta)
 	
 	if Input.is_action_just_released("drag"):
 		state_machine.change_state(state_drop)

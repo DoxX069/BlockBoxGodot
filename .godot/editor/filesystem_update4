@@ -1,11 +1,10 @@
 res://scenes/game.tscn
-res://BlockBoxTheme.tres
-res://assets/tiles.tres
+res://assets/BlockBoxTheme.tres
 res://scenes/mainMenu.tscn
 res://scenes/block.tscn
 res://platform_block.tscn
-res://scripts/Block/States/BlockDrag.gd
-res://scripts/StateMachine/State.gd
-res://scripts/StateMachine/callable_state_machine.gd
+res://scripts/game.gd
+res://scripts/sceneManager.gd
 res://scripts/Block/block.gd
-res://scenes/platform.tscn
+res://scripts/game_uigd.gd
+res://scripts/game_ui.gd
