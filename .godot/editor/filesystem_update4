@@ -8,3 +8,5 @@ res://scripts/sceneManager.gd
 res://scripts/Block/block.gd
 res://scripts/game_uigd.gd
 res://scripts/game_ui.gd
+res://scripts/Camera/raycast.gd
+res://scripts/global.gd

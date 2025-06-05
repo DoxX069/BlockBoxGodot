@@ -2,10 +2,16 @@ extends RigidBody3D
 
 var state_machine: CallableStateMachine = CallableStateMachine.new()
 var draggable := false
+var dragged_block: Node3D
 var ground_distance: float
 var dropable := true
-const ray_length = 1000
+var falling:= false
+const ray_length = 50
 var ray_down: Dictionary
+@onready var camera: Camera3D = $"../../CameraRig/Camera3D"
+var intersection: Dictionary
+var last_intersection: Dictionary
+
 
 func _ready() ->void:
 	state_machine.add_states(Callable(self, "state_idle"), Callable(self, "enter_state_idle"), Callable(self, "leave_state_idle"))
@@ -26,17 +32,18 @@ func _physics_process(_delta) ->void:
 # States:
 
 func enter_state_idle() ->void:
-	if Global.last_intersection:
+	if last_intersection:
 		pass
 		#reset_material(Global.last_intersection.collider)
 
 
 func state_idle() ->void:
+	raycast()
 	raycast_down()
 	if ray_down:
 		ground_distance = ray_down.position.distance_to(self.global_transform.origin)
 		
-	if ground_distance > 1 and not Global.falling:
+	if ground_distance > 1 and not falling:
 		state_machine.change_state(state_fall)
 	
 	if Input.is_action_just_pressed("drag") and draggable:
@@ -52,11 +59,12 @@ func enter_state_drag() ->void:
 
 
 func state_drag() ->void:
+	raycast()
 	var delta = get_process_delta_time()
-	if Global.intersection:# and space_is_free(self, self.position):
+	if intersection:# and space_is_free(self, self.position):
 		#change_material(Global.last_intersection.collider)
 		# Change position while dragging
-		self.position = lerp(self.position, Global.intersection.position + Global.intersection.normal * 0.5, 45 * delta)
+		self.position = lerp(self.position, intersection.position + intersection.normal * 0.5, 45 * delta)
 	
 	if Input.is_action_just_released("drag"):
 		state_machine.change_state(state_drop)
@@ -67,19 +75,20 @@ func leave_state_drag() ->void:
 
 
 func enter_state_drop() ->void:
+	raycast()
 	raycast_down()
 	var current_tween := get_tree().create_tween().set_trans(Tween.TRANS_EXPO)
-	if Global.intersection:
+	if intersection:
 		# Drop to the last raycast collider
-		if Global.intersection.normal == Vector3(0,1,0):
-			current_tween.tween_property(self,"global_position",Global.last_intersection.collider.position + Global.last_intersection.normal,0.5)
+		if intersection.normal == Vector3(0,1,0):
+			current_tween.tween_property(self,"global_position",last_intersection.collider.position + last_intersection.normal,0.5)
 			await current_tween.finished
 			current_tween.kill()
 			# Change state
 			state_machine.change_state(state_idle)
 
 		# Fall when dropped on the side
-		elif Global.intersection.normal != Vector3(0,1,0) and ray_down:
+		elif intersection.normal != Vector3(0,1,0) and ray_down:
 			current_tween.tween_property(self,"global_position",ray_down.collider.position + Vector3(0,1,0),0.5)
 			await current_tween.finished
 			current_tween.kill()
@@ -97,12 +106,12 @@ func leave_state_drop() ->void:
 	
 func enter_state_fall() ->void:
 	raycast_down()
-	Global.falling = true
+	falling = true
 	if ray_down:
 		var current_tween := get_tree().create_tween().set_trans(Tween.TRANS_EXPO)
 		current_tween.tween_property(self,"global_position",ray_down.collider.position + Vector3(0,1,0),0.15)
 		await current_tween.finished
-		Global.falling = false
+		falling = false
 		state_machine.change_state(state_idle)
 	else:
 		state_machine.change_state(state_idle)
@@ -118,6 +127,23 @@ func leave_state_fall() ->void:
 	
 	
 # Functions:
+
+func raycast():
+	# Raycast from camera to mouse
+	var space_state = get_world_3d().direct_space_state
+	var mousepos = get_viewport().get_mouse_position()
+	var origin = camera.project_ray_origin(mousepos)
+	var end = origin + camera.project_ray_normal(mousepos) * ray_length
+	var query = PhysicsRayQueryParameters3D.create(origin, end)
+	if dragged_block:
+		query.exclude = [dragged_block]
+	query.collide_with_areas = true
+	intersection = space_state.intersect_ray(query)
+	# Store last intersection except for the platform area
+	if intersection and intersection.collider != $"../../platform/Area3D":
+		last_intersection = intersection
+		#print(Global.intersection.collider)
+
 
 func space_is_free(block: Node3D, pos: Vector3) -> bool:
 	var space = get_world_3d().direct_space_state
@@ -141,12 +167,12 @@ func space_is_free(block: Node3D, pos: Vector3) -> bool:
 
 func _on_mouse_entered() -> void:
 	draggable = true
-	Global.dragged_block = self # For ignoring dragged block in raycast intersection
+	dragged_block = self # For ignoring dragged block in raycast intersection
 
 
 func _on_mouse_exited() -> void:
 	draggable = false
-	Global.dragged_block = null # For ignoring dragged block in raycast intersection
+	dragged_block = null # For ignoring dragged block in raycast intersection
 
 
 func raycast_down() ->void:

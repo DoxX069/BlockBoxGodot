@@ -1,8 +1,7 @@
-[gd_scene load_steps=10 format=3 uid="uid://dwx2pgyrss8sp"]
+[gd_scene load_steps=9 format=3 uid="uid://dwx2pgyrss8sp"]
 
 [ext_resource type="Script" uid="uid://bsnptigvvmtqu" path="res://scripts/game.gd" id="1_p57ef"]
 [ext_resource type="Script" uid="uid://05n7qgn4kay0" path="res://scripts/Camera/cameraController.gd" id="2_1g5jo"]
-[ext_resource type="Script" uid="uid://dr5jfxpwxtwue" path="res://scripts/Camera/raycast.gd" id="2_iywne"]
 [ext_resource type="PackedScene" uid="uid://dsregasvvg6p7" path="res://scenes/block.tscn" id="2_lnu2h"]
 [ext_resource type="PackedScene" uid="uid://tpbnjr26nitk" path="res://platform_block.tscn" id="4_p57ef"]
 [ext_resource type="Script" uid="uid://xhlo7mh3pnyy" path="res://scripts/game_ui.gd" id="7_u5sy4"]
@@ -33,11 +32,10 @@ environment = SubResource("Environment_u5sy4")
 script = ExtResource("2_1g5jo")
 
 [node name="Camera3D" type="Camera3D" parent="CameraRig"]
-transform = Transform3D(0.707107, -0.5, 0.5, 0, 0.707107, 0.707107, -0.707107, -0.5, 0.5, 35, 50, 35)
+transform = Transform3D(0.707107, -0.5, 0.5, 0, 0.707107, 0.707107, -0.707107, -0.5, 0.5, 5, 8, 5)
+keep_aspect = 0
 projection = 1
-fov = 15.0
-size = 20.0
-script = ExtResource("2_iywne")
+size = 8.0
 
 [node name="Blocks" type="Node3D" parent="."]
 
@@ -66,17 +64,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0)
 [node name="platform_block3" parent="platform" instance=ExtResource("4_p57ef")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 0)
 
-[node name="platform_block4" parent="platform" instance=ExtResource("4_p57ef")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, 0)
-
 [node name="platform_block6" parent="platform" instance=ExtResource("4_p57ef")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
 
 [node name="platform_block7" parent="platform" instance=ExtResource("4_p57ef")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
-
-[node name="platform_block8" parent="platform" instance=ExtResource("4_p57ef")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3)
 
 [node name="platform_block10" parent="platform" instance=ExtResource("4_p57ef")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 1)
@@ -84,26 +76,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 1)
 [node name="platform_block11" parent="platform" instance=ExtResource("4_p57ef")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 1)
 
-[node name="platform_block12" parent="platform" instance=ExtResource("4_p57ef")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, 1)
-
 [node name="platform_block14" parent="platform" instance=ExtResource("4_p57ef")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 2)
 
 [node name="platform_block15" parent="platform" instance=ExtResource("4_p57ef")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 2)
-
-[node name="platform_block16" parent="platform" instance=ExtResource("4_p57ef")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, 2)
-
-[node name="platform_block18" parent="platform" instance=ExtResource("4_p57ef")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 3)
-
-[node name="platform_block19" parent="platform" instance=ExtResource("4_p57ef")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 3)
-
-[node name="platform_block20" parent="platform" instance=ExtResource("4_p57ef")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, 3)
 
 [node name="platform_block26" parent="platform" instance=ExtResource("4_p57ef")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
@@ -111,17 +88,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
 [node name="platform_block27" parent="platform" instance=ExtResource("4_p57ef")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2)
 
-[node name="platform_block28" parent="platform" instance=ExtResource("4_p57ef")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3)
-
 [node name="platform_block30" parent="platform" instance=ExtResource("4_p57ef")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 0)
 
 [node name="platform_block31" parent="platform" instance=ExtResource("4_p57ef")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 0)
-
-[node name="platform_block32" parent="platform" instance=ExtResource("4_p57ef")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, 0)
 
 [node name="platform_block34" parent="platform" instance=ExtResource("4_p57ef")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -1)
@@ -129,26 +100,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -1)
 [node name="platform_block35" parent="platform" instance=ExtResource("4_p57ef")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -2)
 
-[node name="platform_block36" parent="platform" instance=ExtResource("4_p57ef")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -3)
-
 [node name="platform_block38" parent="platform" instance=ExtResource("4_p57ef")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -1)
 
 [node name="platform_block39" parent="platform" instance=ExtResource("4_p57ef")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -2)
-
-[node name="platform_block40" parent="platform" instance=ExtResource("4_p57ef")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -3)
-
-[node name="platform_block42" parent="platform" instance=ExtResource("4_p57ef")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, -1)
-
-[node name="platform_block43" parent="platform" instance=ExtResource("4_p57ef")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, -2)
-
-[node name="platform_block44" parent="platform" instance=ExtResource("4_p57ef")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, -3)
 
 [node name="platform_block50" parent="platform" instance=ExtResource("4_p57ef")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, -1)
@@ -156,26 +112,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, -1)
 [node name="platform_block51" parent="platform" instance=ExtResource("4_p57ef")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, -2)
 
-[node name="platform_block52" parent="platform" instance=ExtResource("4_p57ef")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, -3)
-
 [node name="platform_block54" parent="platform" instance=ExtResource("4_p57ef")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, -1)
 
 [node name="platform_block55" parent="platform" instance=ExtResource("4_p57ef")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, -2)
-
-[node name="platform_block56" parent="platform" instance=ExtResource("4_p57ef")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, -3)
-
-[node name="platform_block58" parent="platform" instance=ExtResource("4_p57ef")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, -1)
-
-[node name="platform_block59" parent="platform" instance=ExtResource("4_p57ef")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, -2)
-
-[node name="platform_block60" parent="platform" instance=ExtResource("4_p57ef")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, -3)
 
 [node name="platform_block66" parent="platform" instance=ExtResource("4_p57ef")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 1)
@@ -183,26 +124,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 1)
 [node name="platform_block67" parent="platform" instance=ExtResource("4_p57ef")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 2)
 
-[node name="platform_block68" parent="platform" instance=ExtResource("4_p57ef")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 3)
-
 [node name="platform_block70" parent="platform" instance=ExtResource("4_p57ef")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 1)
 
 [node name="platform_block71" parent="platform" instance=ExtResource("4_p57ef")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 2)
-
-[node name="platform_block72" parent="platform" instance=ExtResource("4_p57ef")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 3)
-
-[node name="platform_block74" parent="platform" instance=ExtResource("4_p57ef")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, 1)
-
-[node name="platform_block75" parent="platform" instance=ExtResource("4_p57ef")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, 2)
-
-[node name="platform_block76" parent="platform" instance=ExtResource("4_p57ef")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, 3)
 
 [node name="Area3D" type="Area3D" parent="platform"]
 
@@ -210,26 +136,63 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, 3)
 shape = SubResource("BoxShape3D_iywne")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
-visible = false
 
 [node name="PanelContainer" type="PanelContainer" parent="CanvasLayer"]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -135.0
-offset_top = -63.5
-offset_right = 135.0
-offset_bottom = 63.5
-grow_horizontal = 2
-grow_vertical = 2
+anchors_preset = -1
+anchor_top = 0.1
+anchor_bottom = 0.1
+size_flags_horizontal = 0
+size_flags_vertical = 4
+mouse_filter = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="MoneyLabel" type="Label" parent="CanvasLayer/PanelContainer"]
+layout_mode = 2
+text = "0.00$"
+horizontal_alignment = 1
+
+[node name="PanelContainer2" type="PanelContainer" parent="CanvasLayer"]
+anchors_preset = -1
+anchor_left = 1.0
+anchor_top = 0.1
+anchor_right = 1.0
+anchor_bottom = 0.1
+grow_horizontal = 0
+size_flags_horizontal = 0
+size_flags_vertical = 4
 mouse_filter = 2
 
-[node name="Label" type="Label" parent="CanvasLayer/PanelContainer"]
+[node name="MultiplierLabel" type="Label" parent="CanvasLayer/PanelContainer2"]
 layout_mode = 2
-text = "STOP"
+text = "x0.5"
 horizontal_alignment = 1
+
+[node name="PanelContainer3" type="PanelContainer" parent="CanvasLayer"]
+anchors_preset = -1
+anchor_left = 1.0
+anchor_top = 0.9
+anchor_right = 1.0
+anchor_bottom = 0.9
+grow_horizontal = 0
+grow_vertical = 0
+size_flags_horizontal = 0
+size_flags_vertical = 4
+
+[node name="ContinueButton" type="Button" parent="CanvasLayer/PanelContainer3"]
+layout_mode = 2
+text = "Continue"
+
+[node name="PanelContainer4" type="PanelContainer" parent="CanvasLayer"]
+anchors_preset = -1
+anchor_top = 0.9
+anchor_bottom = 0.9
+grow_vertical = 0
+size_flags_horizontal = 0
+size_flags_vertical = 4
+
+[node name="CashoutButton" type="Button" parent="CanvasLayer/PanelContainer4"]
+layout_mode = 2
+text = "Cashout"
 
 [node name="TimerCanvasLayer" type="CanvasLayer" parent="."]
 layer = -1
@@ -246,11 +209,11 @@ script = ExtResource("7_u5sy4")
 
 [node name="TextureProgressBar" type="TextureProgressBar" parent="TimerCanvasLayer/PanelContainer"]
 layout_mode = 2
-step = 0.1
+step = 0.01
 fill_mode = 3
 nine_patch_stretch = true
 texture_progress = ExtResource("8_gee14")
-tint_progress = Color(1, 0.5745, 0.31, 1)
+tint_progress = Color(0.92, 0.852227, 0.7636, 1)
 
 [node name="Timer" type="Timer" parent="TimerCanvasLayer/PanelContainer"]
 process_callback = 0
