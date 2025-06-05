@@ -21,7 +21,6 @@ axis_lock_linear_z = true
 axis_lock_angular_x = true
 axis_lock_angular_y = true
 axis_lock_angular_z = true
-gravity_scale = 0.0
 script = ExtResource("1_kfh62")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]

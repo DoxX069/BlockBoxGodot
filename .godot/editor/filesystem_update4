@@ -10,3 +10,5 @@ res://scripts/game_uigd.gd
 res://scripts/game_ui.gd
 res://scripts/Camera/raycast.gd
 res://scripts/global.gd
+res://scripts/Camera/swipe_detection.gd
+res://scripts/Camera/cameraController.gd

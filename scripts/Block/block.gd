@@ -43,7 +43,7 @@ func state_idle() ->void:
 	if ray_down:
 		ground_distance = ray_down.position.distance_to(self.global_transform.origin)
 		
-	if ground_distance > 1 and not falling:
+	if ground_distance > 1 and not Global.falling:
 		state_machine.change_state(state_fall)
 	
 	if Input.is_action_just_pressed("drag") and draggable:
@@ -77,7 +77,7 @@ func leave_state_drag() ->void:
 func enter_state_drop() ->void:
 	raycast()
 	raycast_down()
-	var current_tween := get_tree().create_tween().set_trans(Tween.TRANS_EXPO)
+	var current_tween := get_tree().create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_EXPO)
 	if intersection:
 		# Drop to the last raycast collider
 		if intersection.normal == Vector3(0,1,0):
@@ -106,12 +106,12 @@ func leave_state_drop() ->void:
 	
 func enter_state_fall() ->void:
 	raycast_down()
-	falling = true
+	Global.falling = true
 	if ray_down:
-		var current_tween := get_tree().create_tween().set_trans(Tween.TRANS_EXPO)
-		current_tween.tween_property(self,"global_position",ray_down.collider.position + Vector3(0,1,0),0.15)
+		var current_tween := get_tree().create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_EXPO)
+		current_tween.tween_property(self,"global_position",ray_down.position + Vector3(0,0.5,0),0.10)
 		await current_tween.finished
-		falling = false
+		Global.falling = false
 		state_machine.change_state(state_idle)
 	else:
 		state_machine.change_state(state_idle)
