@@ -1,9 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://dwx2pgyrss8sp"]
+[gd_scene load_steps=9 format=3 uid="uid://dwx2pgyrss8sp"]
 
 [ext_resource type="Script" uid="uid://bsnptigvvmtqu" path="res://scripts/game.gd" id="1_p57ef"]
 [ext_resource type="Script" uid="uid://05n7qgn4kay0" path="res://scripts/Camera/cameraController.gd" id="2_1g5jo"]
 [ext_resource type="PackedScene" uid="uid://dsregasvvg6p7" path="res://scenes/block.tscn" id="2_lnu2h"]
-[ext_resource type="Script" uid="uid://bk54lr87rwmid" path="res://scripts/Camera/swipe_detection.gd" id="3_u5sy4"]
 [ext_resource type="PackedScene" uid="uid://tpbnjr26nitk" path="res://platform_block.tscn" id="4_p57ef"]
 [ext_resource type="Script" uid="uid://xhlo7mh3pnyy" path="res://scripts/game_ui.gd" id="7_u5sy4"]
 [ext_resource type="Texture2D" uid="uid://83t5nd7354ef" path="res://assets/blank.png" id="8_gee14"]
@@ -36,7 +35,6 @@ script = ExtResource("2_1g5jo")
 transform = Transform3D(0.707107, -0.5, 0.5, 0, 0.707107, 0.707107, -0.707107, -0.5, 0.5, 5, 8, 5)
 projection = 1
 size = 17.0
-script = ExtResource("3_u5sy4")
 
 [node name="Blocks" type="Node3D" parent="."]
 

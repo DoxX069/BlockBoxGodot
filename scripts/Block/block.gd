@@ -6,9 +6,10 @@ var dragged_block: Node3D
 var ground_distance: float
 var dropable := true
 var falling:= false
+
+@onready var camera: Camera3D = $"../../CameraRig/Camera3D"
 const ray_length = 50
 var ray_down: Dictionary
-@onready var camera: Camera3D = $"../../CameraRig/Camera3D"
 var intersection: Dictionary
 var last_intersection: Dictionary
 
@@ -64,7 +65,7 @@ func state_drag() ->void:
 	if intersection:# and space_is_free(self, self.position):
 		#change_material(Global.last_intersection.collider)
 		# Change position while dragging
-		self.position = lerp(self.position, intersection.position + intersection.normal * 0.5, 45 * delta)
+		self.position = lerp(self.position, intersection.position + Vector3(intersection.normal.x*0.5,0.5,intersection.normal.z*0.5), 25 * delta)
 	
 	if Input.is_action_just_released("drag"):
 		state_machine.change_state(state_drop)

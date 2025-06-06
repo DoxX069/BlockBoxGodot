@@ -10,21 +10,43 @@ var zoom_increment:= 3
 var current_zoom:= 17
 var is_zooming:= false
 
+const length := 125
+var startPos: Vector2
+var curPos: Vector2
+var swiping:= false
+var threshold := 50
 
-func _physics_process(delta: float) -> void:
-	rotation()
-	zoom()	
+const ray_length = 50
+var intersection: Dictionary= {}
 
 
-func rotation() ->void:
-	var current_tween = get_tree().create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_EXPO)
-	if Input.is_action_just_pressed("rotate-") and not is_rotating:
-		is_rotating = true
-		current_tween.tween_property(self,"rotation_degrees:y",current_rotation_angle - rotation_angle, 0.35)
-		await current_tween.finished
-		is_rotating = false
-		current_rotation_angle = self.rotation_degrees.y
-	elif Input.is_action_just_pressed("rotate+") and not is_rotating:
+func _physics_process(_delta: float) -> void:
+	if Input.is_action_just_pressed("drag") and not swiping and not mouse_on_object():
+		swiping = true
+		startPos = get_viewport().get_mouse_position()
+		pass
+	if Input.is_action_pressed("drag") and swiping:
+		curPos = get_viewport().get_mouse_position()
+		if startPos.distance_to(curPos) >= length:
+			if abs(startPos.y - curPos.y) <= threshold:
+				if startPos.x > curPos.x:
+					swiping = false
+					rotation_left()
+				elif startPos.x < curPos.x:
+					swiping = false
+					rotation_right()
+			elif abs(startPos.x - curPos.x) <= threshold:
+				if startPos.y > curPos.y:
+					swiping = false
+					zoom_in()
+				elif startPos.y < curPos.y:
+					swiping = false
+					zoom_out()
+			
+
+func rotation_left() ->void:
+	if is_rotating == false:
+		var current_tween = get_tree().create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_EXPO)
 		is_rotating = true
 		current_tween.tween_property(self,"rotation_degrees:y",current_rotation_angle + rotation_angle, 0.35)
 		await current_tween.finished
@@ -32,18 +54,46 @@ func rotation() ->void:
 		current_rotation_angle = self.rotation_degrees.y
 
 
-func zoom() ->void:
+func rotation_right() ->void:
+	if is_rotating == false:
+		var current_tween = get_tree().create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_EXPO)
+		is_rotating = true
+		current_tween.tween_property(self,"rotation_degrees:y",current_rotation_angle - rotation_angle, 0.35)
+		await current_tween.finished
+		is_rotating = false
+		current_rotation_angle = self.rotation_degrees.y
+
+
+func zoom_in() ->void:
 	var current_tween = get_tree().create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_EXPO)
-	if Input.is_action_just_pressed("zoom in") and not is_zooming:
+	if not is_zooming:
 		is_zooming = true
-		current_tween.tween_property(camera,"size",clamp(current_zoom - zoom_increment,5,20), 0.35)
+		current_tween.tween_property(camera,"size",clamp(current_zoom - zoom_increment,14,26), 0.35)
 		await current_tween.finished
 		is_zooming = false
 		current_zoom = camera.size
-	elif Input.is_action_just_pressed("zoom out") and not is_zooming:
+	
+		
+func zoom_out() ->void:
+	var current_tween = get_tree().create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_EXPO)
+	if not is_zooming:
 		is_zooming = true
 		current_tween.tween_property(camera,"size",clamp(current_zoom + zoom_increment,5,20), 0.35)
 		await current_tween.finished
 		is_zooming = false
 		current_zoom = camera.size
-	
+
+
+func mouse_on_object() ->bool:
+	# Raycast from camera to mouse
+	var space_state = get_world_3d().direct_space_state
+	var mousepos = get_viewport().get_mouse_position()
+	var origin = camera.project_ray_origin(mousepos)
+	var end = origin + camera.project_ray_normal(mousepos) * ray_length
+	var query = PhysicsRayQueryParameters3D.create(origin, end)
+	var result = space_state.intersect_ray(query)
+	# Store last intersection
+	if result == {}:
+		return false
+	else:
+		return true
