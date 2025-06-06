@@ -138,60 +138,22 @@ shape = SubResource("BoxShape3D_iywne")
 
 [node name="PanelContainer" type="PanelContainer" parent="CanvasLayer"]
 anchors_preset = -1
-anchor_top = 0.1
-anchor_bottom = 0.1
+anchor_left = 0.5
+anchor_top = 0.05
+anchor_right = 0.5
+anchor_bottom = 0.05
+offset_left = -158.0
+offset_right = 158.0
+offset_bottom = 127.0
+grow_horizontal = 2
 size_flags_horizontal = 0
 size_flags_vertical = 4
 mouse_filter = 2
-metadata/_edit_use_anchors_ = true
 
 [node name="MoneyLabel" type="Label" parent="CanvasLayer/PanelContainer"]
 layout_mode = 2
 text = "0.00$"
 horizontal_alignment = 1
-
-[node name="PanelContainer2" type="PanelContainer" parent="CanvasLayer"]
-anchors_preset = -1
-anchor_left = 1.0
-anchor_top = 0.1
-anchor_right = 1.0
-anchor_bottom = 0.1
-grow_horizontal = 0
-size_flags_horizontal = 0
-size_flags_vertical = 4
-mouse_filter = 2
-
-[node name="MultiplierLabel" type="Label" parent="CanvasLayer/PanelContainer2"]
-layout_mode = 2
-text = "x0.5"
-horizontal_alignment = 1
-
-[node name="PanelContainer3" type="PanelContainer" parent="CanvasLayer"]
-anchors_preset = -1
-anchor_left = 1.0
-anchor_top = 0.9
-anchor_right = 1.0
-anchor_bottom = 0.9
-grow_horizontal = 0
-grow_vertical = 0
-size_flags_horizontal = 0
-size_flags_vertical = 4
-
-[node name="ContinueButton" type="Button" parent="CanvasLayer/PanelContainer3"]
-layout_mode = 2
-text = "Continue"
-
-[node name="PanelContainer4" type="PanelContainer" parent="CanvasLayer"]
-anchors_preset = -1
-anchor_top = 0.9
-anchor_bottom = 0.9
-grow_vertical = 0
-size_flags_horizontal = 0
-size_flags_vertical = 4
-
-[node name="CashoutButton" type="Button" parent="CanvasLayer/PanelContainer4"]
-layout_mode = 2
-text = "Cashout"
 
 [node name="TimerCanvasLayer" type="CanvasLayer" parent="."]
 layer = -1

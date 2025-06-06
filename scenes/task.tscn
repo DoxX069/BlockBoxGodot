@@ -1,0 +1,216 @@
+[gd_scene load_steps=7 format=3 uid="uid://243f7rs4pmbl"]
+
+[ext_resource type="Script" uid="uid://05n7qgn4kay0" path="res://scripts/Camera/cameraController.gd" id="1_3qeyo"]
+[ext_resource type="Script" uid="uid://bh1bmlrci5yg0" path="res://scripts/task.gd" id="1_qe5cv"]
+[ext_resource type="PackedScene" uid="uid://dsregasvvg6p7" path="res://scenes/block.tscn" id="2_qe5cv"]
+[ext_resource type="PackedScene" uid="uid://tpbnjr26nitk" path="res://platform_block.tscn" id="3_mpid7"]
+
+[sub_resource type="Environment" id="Environment_nrbgo"]
+background_mode = 3
+ambient_light_source = 3
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_yx810"]
+size = Vector3(100, 1, 100)
+
+[node name="task" type="Node3D"]
+script = ExtResource("1_qe5cv")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866024, -0.433016, 0.25, 0, 0.499998, 0.866027, -0.500003, 0.75, -0.43301, 4.95614, 20.017, -9.49701)
+shadow_blur = 0.0
+
+[node name="DirectionalLight3D2" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.664104, -0.721411, -0.196295, 0.301633, 0.0182953, 0.953248, -0.684093, -0.692265, 0.229752, -14.9446, 20.017, 14.4912)
+shadow_blur = 0.0
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_nrbgo")
+
+[node name="CameraRig" type="Node3D" parent="."]
+script = ExtResource("1_3qeyo")
+
+[node name="Camera3D" type="Camera3D" parent="CameraRig"]
+transform = Transform3D(0.707107, -0.5, 0.5, 0, 0.707107, 0.707107, -0.707107, -0.5, 0.5, 5, 8, 5)
+projection = 1
+size = 17.0
+
+[node name="Blocks" type="Node3D" parent="."]
+
+[node name="Block1" parent="Blocks" instance=ExtResource("2_qe5cv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="Block2" parent="Blocks" instance=ExtResource("2_qe5cv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 1, -2)
+
+[node name="Block3" parent="Blocks" instance=ExtResource("2_qe5cv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 1, 2)
+
+[node name="Block4" parent="Blocks" instance=ExtResource("2_qe5cv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 1, 2)
+
+[node name="Block5" parent="Blocks" instance=ExtResource("2_qe5cv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 1, -2)
+
+[node name="platform" type="Node3D" parent="."]
+
+[node name="platform_block" parent="platform" instance=ExtResource("3_mpid7")]
+
+[node name="platform_block2" parent="platform" instance=ExtResource("3_mpid7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0)
+
+[node name="platform_block3" parent="platform" instance=ExtResource("3_mpid7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 0)
+
+[node name="platform_block6" parent="platform" instance=ExtResource("3_mpid7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
+
+[node name="platform_block7" parent="platform" instance=ExtResource("3_mpid7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
+
+[node name="platform_block10" parent="platform" instance=ExtResource("3_mpid7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 1)
+
+[node name="platform_block11" parent="platform" instance=ExtResource("3_mpid7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 1)
+
+[node name="platform_block14" parent="platform" instance=ExtResource("3_mpid7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 2)
+
+[node name="platform_block15" parent="platform" instance=ExtResource("3_mpid7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 2)
+
+[node name="platform_block26" parent="platform" instance=ExtResource("3_mpid7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
+
+[node name="platform_block27" parent="platform" instance=ExtResource("3_mpid7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2)
+
+[node name="platform_block30" parent="platform" instance=ExtResource("3_mpid7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 0)
+
+[node name="platform_block31" parent="platform" instance=ExtResource("3_mpid7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 0)
+
+[node name="platform_block34" parent="platform" instance=ExtResource("3_mpid7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -1)
+
+[node name="platform_block35" parent="platform" instance=ExtResource("3_mpid7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -2)
+
+[node name="platform_block38" parent="platform" instance=ExtResource("3_mpid7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -1)
+
+[node name="platform_block39" parent="platform" instance=ExtResource("3_mpid7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -2)
+
+[node name="platform_block50" parent="platform" instance=ExtResource("3_mpid7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, -1)
+
+[node name="platform_block51" parent="platform" instance=ExtResource("3_mpid7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, -2)
+
+[node name="platform_block54" parent="platform" instance=ExtResource("3_mpid7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, -1)
+
+[node name="platform_block55" parent="platform" instance=ExtResource("3_mpid7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, -2)
+
+[node name="platform_block66" parent="platform" instance=ExtResource("3_mpid7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 1)
+
+[node name="platform_block67" parent="platform" instance=ExtResource("3_mpid7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 2)
+
+[node name="platform_block70" parent="platform" instance=ExtResource("3_mpid7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 1)
+
+[node name="platform_block71" parent="platform" instance=ExtResource("3_mpid7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 2)
+
+[node name="Area3D" type="Area3D" parent="platform"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="platform/Area3D"]
+shape = SubResource("BoxShape3D_yx810")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer"]
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.05
+anchor_right = 0.5
+anchor_bottom = 0.05
+offset_left = -158.0
+offset_right = 158.0
+offset_bottom = 127.0
+grow_horizontal = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+mouse_filter = 2
+
+[node name="MoneyLabel" type="Label" parent="CanvasLayer/PanelContainer"]
+layout_mode = 2
+text = "0.00$"
+horizontal_alignment = 1
+
+[node name="PanelContainer2" type="PanelContainer" parent="CanvasLayer"]
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.15
+anchor_right = 0.5
+anchor_bottom = 0.15
+offset_left = 115.28
+offset_top = -3.05176e-05
+offset_right = 115.28
+offset_bottom = -3.05176e-05
+grow_horizontal = 0
+size_flags_horizontal = 0
+size_flags_vertical = 4
+mouse_filter = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="MultiplierLabel" type="Label" parent="CanvasLayer/PanelContainer2"]
+layout_mode = 2
+text = "x0.5"
+horizontal_alignment = 1
+
+[node name="PanelContainer3" type="PanelContainer" parent="CanvasLayer"]
+anchors_preset = -1
+anchor_left = 0.7
+anchor_top = 0.8
+anchor_right = 0.7
+anchor_bottom = 0.8
+offset_left = 116.16
+offset_top = 35.4479
+offset_right = 116.16
+offset_bottom = 35.4479
+grow_horizontal = 0
+grow_vertical = 0
+size_flags_horizontal = 0
+size_flags_vertical = 4
+metadata/_edit_use_anchors_ = true
+
+[node name="ContinueButton" type="Button" parent="CanvasLayer/PanelContainer3"]
+layout_mode = 2
+text = "Continue"
+
+[node name="PanelContainer4" type="PanelContainer" parent="CanvasLayer"]
+anchors_preset = -1
+anchor_left = 0.3
+anchor_top = 0.8
+anchor_right = 0.3
+anchor_bottom = 0.8
+offset_left = -107.36
+offset_top = 35.448
+offset_right = -107.36
+offset_bottom = 35.448
+grow_vertical = 0
+size_flags_horizontal = 0
+size_flags_vertical = 4
+metadata/_edit_use_anchors_ = true
+
+[node name="CashoutButton" type="Button" parent="CanvasLayer/PanelContainer4"]
+layout_mode = 2
+text = "Cashout"
+
+[connection signal="pressed" from="CanvasLayer/PanelContainer3/ContinueButton" to="." method="_on_continue_button_pressed"]

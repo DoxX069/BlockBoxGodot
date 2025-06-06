@@ -5,3 +5,7 @@ res://scenes/block.tscn
 res://platform_block.tscn
 res://scripts/Block/block.gd
 res://scripts/Camera/cameraController.gd
+res://scenes/task.tscn
+res://scripts/game.gd
+res://scripts/task.gd
+res://scripts/main_menu.gd

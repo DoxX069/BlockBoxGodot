@@ -35,13 +35,6 @@ func _physics_process(_delta: float) -> void:
 				elif startPos.x < curPos.x:
 					swiping = false
 					rotation_right()
-			elif abs(startPos.x - curPos.x) <= threshold:
-				if startPos.y > curPos.y:
-					swiping = false
-					zoom_in()
-				elif startPos.y < curPos.y:
-					swiping = false
-					zoom_out()
 			
 
 func rotation_left() ->void:
@@ -62,27 +55,6 @@ func rotation_right() ->void:
 		await current_tween.finished
 		is_rotating = false
 		current_rotation_angle = self.rotation_degrees.y
-
-
-func zoom_in() ->void:
-	var current_tween = get_tree().create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_EXPO)
-	if not is_zooming:
-		is_zooming = true
-		current_tween.tween_property(camera,"size",clamp(current_zoom - zoom_increment,14,26), 0.35)
-		await current_tween.finished
-		is_zooming = false
-		current_zoom = camera.size
-	
-		
-func zoom_out() ->void:
-	var current_tween = get_tree().create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_EXPO)
-	if not is_zooming:
-		is_zooming = true
-		current_tween.tween_property(camera,"size",clamp(current_zoom + zoom_increment,5,20), 0.35)
-		await current_tween.finished
-		is_zooming = false
-		current_zoom = camera.size
-
 
 func mouse_on_object() ->bool:
 	# Raycast from camera to mouse
