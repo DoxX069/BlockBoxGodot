@@ -3,12 +3,3 @@ res://assets/BlockBoxTheme.tres
 res://scenes/mainMenu.tscn
 res://scenes/block.tscn
 res://platform_block.tscn
-res://scripts/game.gd
-res://scripts/sceneManager.gd
-res://scripts/Block/block.gd
-res://scripts/game_uigd.gd
-res://scripts/game_ui.gd
-res://scripts/Camera/raycast.gd
-res://scripts/global.gd
-res://scripts/Camera/swipe_detection.gd
-res://scripts/Camera/cameraController.gd

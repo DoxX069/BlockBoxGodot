@@ -5,6 +5,8 @@ var startPos: Vector2
 var curPos: Vector2
 var swiping:= false
 
+var threshold := 50
+
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("drag"):
 		if swiping == false:
@@ -15,8 +17,12 @@ func _process(delta: float) -> void:
 		if swiping:
 			curPos = get_viewport().get_mouse_position()
 			if startPos.distance_to(curPos) >= length:
-				print("Swipe Detected!")
-				swiping = false
+				if abs(startPos.y - curPos.y) <= threshold:
+					print("Horizontal Swipe!")
+					swiping = false
+				elif abs(startPos.x - curPos.x) <= threshold:
+					print("Vertical Swipe!")
+					swiping = false
 	else: 
 		swiping = false
 				

@@ -221,5 +221,6 @@ tint_progress = Color(0.92, 0.852227, 0.7636, 1)
 process_callback = 0
 wait_time = 10.0
 one_shot = true
+autostart = true
 
 [connection signal="timeout" from="TimerCanvasLayer/PanelContainer/Timer" to="." method="_on_timer_timeout"]
