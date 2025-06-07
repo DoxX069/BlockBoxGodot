@@ -6,11 +6,15 @@
       .st0 {
         fill: #fff;
       }
+
+      .st1 {
+        fill: #191919;
+      }
     </style>
   </defs>
-  <rect class="st0" width="1000" height="1000"/>
-  <rect width="35" height="1000"/>
-  <rect x="965" width="35" height="1000"/>
-  <rect x="482.5" y="-482.5" width="35" height="1000" transform="translate(517.5 -482.5) rotate(90)"/>
-  <rect x="482.5" y="482.5" width="35" height="1000" transform="translate(1482.5 482.5) rotate(90)"/>
+  <rect class="st1" width="1000" height="1000"/>
+  <rect class="st0" width="35" height="1000"/>
+  <rect class="st0" x="965" width="35" height="1000"/>
+  <rect class="st0" width="1000" height="35"/>
+  <rect class="st0" y="965" width="1000" height="35"/>
 </svg>

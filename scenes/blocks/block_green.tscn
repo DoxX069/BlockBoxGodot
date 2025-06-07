@@ -1,0 +1,37 @@
+[gd_scene load_steps=6 format=3 uid="uid://bqhwhho13jgy"]
+
+[ext_resource type="Script" uid="uid://b2ocwahal2p7u" path="res://scripts/Block/block.gd" id="1_0sthl"]
+[ext_resource type="Texture2D" uid="uid://buyflaxqb4frg" path="res://assets/BlockBoxTexture.svg" id="2_s0s8t"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1bw7o"]
+shading_mode = 2
+diffuse_mode = 3
+specular_mode = 1
+albedo_color = Color(0, 0.69, 0.2185, 1)
+albedo_texture = ExtResource("2_s0s8t")
+rim_enabled = true
+heightmap_scale = 2.27
+uv1_scale = Vector3(3, 2, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_p57ef"]
+material = SubResource("StandardMaterial3D_1bw7o")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_cgrg5"]
+
+[node name="Block" type="RigidBody3D" groups=["dropable"]]
+axis_lock_linear_x = true
+axis_lock_linear_y = true
+axis_lock_linear_z = true
+axis_lock_angular_x = true
+axis_lock_angular_y = true
+axis_lock_angular_z = true
+script = ExtResource("1_0sthl")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_p57ef")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_cgrg5")
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

@@ -1,15 +1,17 @@
-[gd_scene load_steps=9 format=3 uid="uid://dwx2pgyrss8sp"]
+[gd_scene load_steps=12 format=3 uid="uid://dwx2pgyrss8sp"]
 
 [ext_resource type="Script" uid="uid://bsnptigvvmtqu" path="res://scripts/game.gd" id="1_p57ef"]
 [ext_resource type="Script" uid="uid://05n7qgn4kay0" path="res://scripts/Camera/cameraController.gd" id="2_1g5jo"]
-[ext_resource type="PackedScene" uid="uid://dsregasvvg6p7" path="res://scenes/block.tscn" id="2_lnu2h"]
-[ext_resource type="PackedScene" uid="uid://tpbnjr26nitk" path="res://platform_block.tscn" id="4_p57ef"]
+[ext_resource type="PackedScene" uid="uid://hwy0fscersv6" path="res://scenes/blocks/block_blue.tscn" id="4_gee14"]
+[ext_resource type="PackedScene" uid="uid://tpbnjr26nitk" path="res://scenes/platform_block.tscn" id="4_p57ef"]
+[ext_resource type="PackedScene" uid="uid://dnwxufwb6r8ha" path="res://scenes/blocks/block_red.tscn" id="4_u5sy4"]
+[ext_resource type="PackedScene" uid="uid://bqhwhho13jgy" path="res://scenes/blocks/block_green.tscn" id="5_0tnpc"]
+[ext_resource type="PackedScene" uid="uid://cdb5khjfuassp" path="res://scenes/blocks/block_orange.tscn" id="6_vtaks"]
 [ext_resource type="Script" uid="uid://xhlo7mh3pnyy" path="res://scripts/game_ui.gd" id="7_u5sy4"]
 [ext_resource type="Texture2D" uid="uid://83t5nd7354ef" path="res://assets/blank.png" id="8_gee14"]
 
 [sub_resource type="Environment" id="Environment_u5sy4"]
 background_mode = 3
-ambient_light_source = 3
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_iywne"]
 size = Vector3(100, 1, 100)
@@ -17,41 +19,48 @@ size = Vector3(100, 1, 100)
 [node name="Game" type="Node3D"]
 script = ExtResource("1_p57ef")
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(-0.866024, -0.433016, 0.25, 0, 0.499998, 0.866027, -0.500003, 0.75, -0.43301, 4.95614, 20.017, -9.49701)
-shadow_blur = 0.0
-
-[node name="DirectionalLight3D2" type="DirectionalLight3D" parent="."]
-transform = Transform3D(0.664104, -0.721411, -0.196295, 0.301633, 0.0182953, 0.953248, -0.684093, -0.692265, 0.229752, -14.9446, 20.017, 14.4912)
-shadow_blur = 0.0
-
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_u5sy4")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-4.26336e-08, -0.533615, 0.845728, 9.64699e-09, 0.845728, 0.533615, -1, 3.09086e-08, -3.09086e-08, 20, 9.39365, 0)
+light_energy = 0.9
+shadow_blur = 0.2
+
+[node name="DirectionalLight3D2" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-4.23457e-08, 0.509642, -0.860386, -1.0841e-08, 0.860386, 0.509642, 1, 3.09086e-08, -3.09086e-08, -20, 8.70473, 0)
+light_energy = 0.9
+
+[node name="DirectionalLight3D3" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.963979, 0.265977, 0, -0.265977, 0.963979, 0, 5.53966, 20)
+light_energy = 0.9
+
+[node name="DirectionalLight3D4" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-1, 6.18173e-08, -6.18173e-08, 2.27829e-08, 0.866949, 0.498397, 8.44019e-08, 0.498397, -0.866949, 0, 9.4271, -20)
+light_energy = 0.9
 
 [node name="CameraRig" type="Node3D" parent="."]
 script = ExtResource("2_1g5jo")
 
 [node name="Camera3D" type="Camera3D" parent="CameraRig"]
 transform = Transform3D(0.707107, -0.5, 0.5, 0, 0.707107, 0.707107, -0.707107, -0.5, 0.5, 5, 8, 5)
+keep_aspect = 0
 projection = 1
-size = 17.0
+size = 8.0
 
 [node name="Blocks" type="Node3D" parent="."]
 
-[node name="Block1" parent="Blocks" instance=ExtResource("2_lnu2h")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+[node name="BlockRed" parent="Blocks" instance=ExtResource("4_u5sy4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 1, -1)
 
-[node name="Block2" parent="Blocks" instance=ExtResource("2_lnu2h")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 1, -2)
+[node name="BlockBlue" parent="Blocks" instance=ExtResource("4_gee14")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, -1)
 
-[node name="Block3" parent="Blocks" instance=ExtResource("2_lnu2h")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 1, 2)
+[node name="BlockGreen" parent="Blocks" instance=ExtResource("5_0tnpc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 1, 1)
 
-[node name="Block4" parent="Blocks" instance=ExtResource("2_lnu2h")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 1, 2)
-
-[node name="Block5" parent="Blocks" instance=ExtResource("2_lnu2h")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 1, -2)
+[node name="BlockOrange" parent="Blocks" instance=ExtResource("6_vtaks")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 1)
 
 [node name="platform" type="Node3D" parent="."]
 
@@ -170,12 +179,14 @@ script = ExtResource("7_u5sy4")
 
 [node name="TextureProgressBar" type="TextureProgressBar" parent="TimerCanvasLayer/PanelContainer"]
 layout_mode = 2
+mouse_filter = 2
 step = 0.01
 fill_mode = 3
 nine_patch_stretch = true
+texture_under = ExtResource("8_gee14")
 texture_progress = ExtResource("8_gee14")
-tint_under = Color(1, 1, 1, 0)
-tint_progress = Color(0.92, 0.852227, 0.7636, 1)
+tint_under = Color(0.1, 0.1, 0.1, 1)
+tint_progress = Color(0.15, 0.15, 0.15, 1)
 
 [node name="Timer" type="Timer" parent="TimerCanvasLayer/PanelContainer"]
 process_callback = 0

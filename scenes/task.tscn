@@ -1,13 +1,16 @@
-[gd_scene load_steps=7 format=3 uid="uid://243f7rs4pmbl"]
+[gd_scene load_steps=10 format=3 uid="uid://243f7rs4pmbl"]
 
 [ext_resource type="Script" uid="uid://05n7qgn4kay0" path="res://scripts/Camera/cameraController.gd" id="1_3qeyo"]
 [ext_resource type="Script" uid="uid://bh1bmlrci5yg0" path="res://scripts/task.gd" id="1_qe5cv"]
-[ext_resource type="PackedScene" uid="uid://dsregasvvg6p7" path="res://scenes/block.tscn" id="2_qe5cv"]
-[ext_resource type="PackedScene" uid="uid://tpbnjr26nitk" path="res://platform_block.tscn" id="3_mpid7"]
+[ext_resource type="PackedScene" uid="uid://tpbnjr26nitk" path="res://scenes/platform_block.tscn" id="3_mpid7"]
+[ext_resource type="PackedScene" uid="uid://dnwxufwb6r8ha" path="res://scenes/blocks/block_red.tscn" id="3_yx810"]
+[ext_resource type="PackedScene" uid="uid://hwy0fscersv6" path="res://scenes/blocks/block_blue.tscn" id="4_lxhym"]
+[ext_resource type="PackedScene" uid="uid://bqhwhho13jgy" path="res://scenes/blocks/block_green.tscn" id="5_q2rnq"]
+[ext_resource type="PackedScene" uid="uid://cdb5khjfuassp" path="res://scenes/blocks/block_orange.tscn" id="6_snyv3"]
 
-[sub_resource type="Environment" id="Environment_nrbgo"]
-background_mode = 3
-ambient_light_source = 3
+[sub_resource type="Environment" id="Environment_yx810"]
+background_mode = 1
+background_color = Color(0.1, 0.1, 0.1, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_yx810"]
 size = Vector3(100, 1, 100)
@@ -15,41 +18,48 @@ size = Vector3(100, 1, 100)
 [node name="task" type="Node3D"]
 script = ExtResource("1_qe5cv")
 
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_yx810")
+
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(-0.866024, -0.433016, 0.25, 0, 0.499998, 0.866027, -0.500003, 0.75, -0.43301, 4.95614, 20.017, -9.49701)
-shadow_blur = 0.0
+transform = Transform3D(-4.26336e-08, -0.533615, 0.845728, 9.64699e-09, 0.845728, 0.533615, -1, 3.09086e-08, -3.09086e-08, 20, 9.39365, 0)
+light_energy = 0.9
+shadow_blur = 0.2
 
 [node name="DirectionalLight3D2" type="DirectionalLight3D" parent="."]
-transform = Transform3D(0.664104, -0.721411, -0.196295, 0.301633, 0.0182953, 0.953248, -0.684093, -0.692265, 0.229752, -14.9446, 20.017, 14.4912)
-shadow_blur = 0.0
+transform = Transform3D(-4.23457e-08, 0.509642, -0.860386, -1.0841e-08, 0.860386, 0.509642, 1, 3.09086e-08, -3.09086e-08, -20, 8.70473, 0)
+light_energy = 0.9
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_nrbgo")
+[node name="DirectionalLight3D3" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.963979, 0.265977, 0, -0.265977, 0.963979, 0, 5.53966, 20)
+light_energy = 0.9
+
+[node name="DirectionalLight3D4" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-1, 6.18173e-08, -6.18172e-08, 2.27829e-08, 0.866949, 0.498397, 8.44019e-08, 0.498397, -0.866949, 0, 9.4271, -20)
+light_energy = 0.9
 
 [node name="CameraRig" type="Node3D" parent="."]
 script = ExtResource("1_3qeyo")
 
 [node name="Camera3D" type="Camera3D" parent="CameraRig"]
 transform = Transform3D(0.707107, -0.5, 0.5, 0, 0.707107, 0.707107, -0.707107, -0.5, 0.5, 5, 8, 5)
+keep_aspect = 0
 projection = 1
-size = 17.0
+size = 8.0
 
 [node name="Blocks" type="Node3D" parent="."]
 
-[node name="Block1" parent="Blocks" instance=ExtResource("2_qe5cv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+[node name="BlockRed" parent="Blocks" instance=ExtResource("3_yx810")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 1, -2)
 
-[node name="Block2" parent="Blocks" instance=ExtResource("2_qe5cv")]
+[node name="BlockBlue" parent="Blocks" instance=ExtResource("4_lxhym")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 1, -2)
 
-[node name="Block3" parent="Blocks" instance=ExtResource("2_qe5cv")]
+[node name="BlockGreen" parent="Blocks" instance=ExtResource("5_q2rnq")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 1, 2)
 
-[node name="Block4" parent="Blocks" instance=ExtResource("2_qe5cv")]
+[node name="BlockOrange" parent="Blocks" instance=ExtResource("6_snyv3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 1, 2)
-
-[node name="Block5" parent="Blocks" instance=ExtResource("2_qe5cv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 1, -2)
 
 [node name="platform" type="Node3D" parent="."]
 

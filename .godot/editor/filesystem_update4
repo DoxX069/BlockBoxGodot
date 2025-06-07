@@ -1,11 +1,9 @@
 res://scenes/game.tscn
 res://assets/BlockBoxTheme.tres
 res://scenes/mainMenu.tscn
-res://scenes/block.tscn
-res://platform_block.tscn
-res://scripts/Block/block.gd
-res://scripts/Camera/cameraController.gd
 res://scenes/task.tscn
-res://scripts/game.gd
-res://scripts/task.gd
-res://scripts/main_menu.gd
+res://scenes/blocks/block_orange.tscn
+res://scenes/blocks/block_red.tscn
+res://scenes/blocks/block_green.tscn
+res://scenes/blocks/block_blue.tscn
+res://scenes/platform_block.tscn

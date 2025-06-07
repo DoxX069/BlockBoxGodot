@@ -1,3 +1,4 @@
+SpotLight3D
 Button
 CanvasLayer
 Label
@@ -12,4 +13,3 @@ Control
 Timer
 SpinBox
 Panel
-MarginContainer

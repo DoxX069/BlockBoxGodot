@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 1000 1000">
+  <!-- Generator: Adobe Illustrator 29.5.0, SVG Export Plug-In . SVG Version: 2.1.0 Build 137)  -->
+  <defs>
+    <style>
+      .st0 {
+        fill: #fff;
+      }
+    </style>
+  </defs>
+  <rect class="st0" width="1000" height="1000"/>
+  <rect width="35" height="1000"/>
+  <rect x="965" width="35" height="1000"/>
+  <rect x="482.5" y="-482.5" width="35" height="1000" transform="translate(517.5 -482.5) rotate(90)"/>
+  <rect x="482.5" y="482.5" width="35" height="1000" transform="translate(1482.5 482.5) rotate(90)"/>
+</svg>

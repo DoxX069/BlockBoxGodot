@@ -1,12 +1,16 @@
-[gd_scene load_steps=6 format=3 uid="uid://dsregasvvg6p7"]
+[gd_scene load_steps=6 format=3 uid="uid://cdb5khjfuassp"]
 
-[ext_resource type="Texture2D" uid="uid://buyflaxqb4frg" path="res://assets/BlockBoxTexture.svg" id="1_bk4tb"]
-[ext_resource type="Script" uid="uid://b2ocwahal2p7u" path="res://scripts/Block/block.gd" id="1_kfh62"]
+[ext_resource type="Script" uid="uid://b2ocwahal2p7u" path="res://scripts/Block/block.gd" id="1_6y5ky"]
+[ext_resource type="Texture2D" uid="uid://buyflaxqb4frg" path="res://assets/BlockBoxTexture.svg" id="2_sfxc7"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1bw7o"]
+shading_mode = 2
+diffuse_mode = 3
 specular_mode = 1
-albedo_color = Color(1, 0.589167, 0.15, 1)
-albedo_texture = ExtResource("1_bk4tb")
+albedo_color = Color(1, 0.616667, 0, 1)
+albedo_texture = ExtResource("2_sfxc7")
+rim_enabled = true
+heightmap_scale = 2.27
 uv1_scale = Vector3(3, 2, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_p57ef"]
@@ -21,7 +25,7 @@ axis_lock_linear_z = true
 axis_lock_angular_x = true
 axis_lock_angular_y = true
 axis_lock_angular_z = true
-script = ExtResource("1_kfh62")
+script = ExtResource("1_6y5ky")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("BoxMesh_p57ef")
