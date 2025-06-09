@@ -1,9 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://bpimp50qc1j40"]
+[gd_scene load_steps=7 format=3 uid="uid://bpimp50qc1j40"]
 
 [ext_resource type="Script" uid="uid://05n7qgn4kay0" path="res://scripts/Camera/camera_controller.gd" id="1_3qeyo"]
 [ext_resource type="Script" uid="uid://bh1bmlrci5yg0" path="res://scripts/task.gd" id="1_qe5cv"]
-[ext_resource type="PackedScene" uid="uid://tpbnjr26nitk" path="res://scenes/platform_block.tscn" id="3_mpid7"]
 [ext_resource type="PackedScene" uid="uid://dbcmfwk4g8o0i" path="res://scenes/blocks/task_blocks.tscn" id="4_mpid7"]
+[ext_resource type="PackedScene" uid="uid://qbd2bnunqisi" path="res://scenes/platform.tscn" id="4_qe5cv"]
 
 [sub_resource type="Environment" id="Environment_lxhym"]
 background_mode = 1
@@ -12,9 +12,6 @@ fog_mode = 1
 fog_light_color = Color(0.1955, 0.208725, 0.23, 1)
 fog_density = 1.0
 fog_depth_curve = 2.0
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_q2rnq"]
-size = Vector3(100, 1, 100)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qe5cv"]
 bg_color = Color(0.1, 0.1, 0.1, 1)
@@ -49,92 +46,13 @@ script = ExtResource("1_3qeyo")
 transform = Transform3D(0.707107, -0.5, 0.5, 0, 0.707107, 0.707107, -0.707107, -0.5, 0.5, 5, 8, 5)
 keep_aspect = 0
 projection = 1
-size = 8.0
+size = 6.0
 
 [node name="Blocks" type="Node3D" parent="."]
 
 [node name="TaskBlocks" parent="Blocks" instance=ExtResource("4_mpid7")]
 
-[node name="platform" type="Node3D" parent="."]
-
-[node name="platform_block1" parent="platform" instance=ExtResource("3_mpid7")]
-
-[node name="platform_block2" parent="platform" instance=ExtResource("3_mpid7")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0)
-
-[node name="platform_block3" parent="platform" instance=ExtResource("3_mpid7")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 0)
-
-[node name="platform_block4" parent="platform" instance=ExtResource("3_mpid7")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
-
-[node name="platform_block5" parent="platform" instance=ExtResource("3_mpid7")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
-
-[node name="platform_block6" parent="platform" instance=ExtResource("3_mpid7")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 1)
-
-[node name="platform_block7" parent="platform" instance=ExtResource("3_mpid7")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 1)
-
-[node name="platform_block8" parent="platform" instance=ExtResource("3_mpid7")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 2)
-
-[node name="platform_block9" parent="platform" instance=ExtResource("3_mpid7")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 2)
-
-[node name="platform_block10" parent="platform" instance=ExtResource("3_mpid7")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
-
-[node name="platform_block11" parent="platform" instance=ExtResource("3_mpid7")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2)
-
-[node name="platform_block12" parent="platform" instance=ExtResource("3_mpid7")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 0)
-
-[node name="platform_block13" parent="platform" instance=ExtResource("3_mpid7")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 0)
-
-[node name="platform_block14" parent="platform" instance=ExtResource("3_mpid7")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -1)
-
-[node name="platform_block15" parent="platform" instance=ExtResource("3_mpid7")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -2)
-
-[node name="platform_block16" parent="platform" instance=ExtResource("3_mpid7")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -1)
-
-[node name="platform_block17" parent="platform" instance=ExtResource("3_mpid7")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -2)
-
-[node name="platform_block18" parent="platform" instance=ExtResource("3_mpid7")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, -1)
-
-[node name="platform_block19" parent="platform" instance=ExtResource("3_mpid7")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, -2)
-
-[node name="platform_block20" parent="platform" instance=ExtResource("3_mpid7")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, -1)
-
-[node name="platform_block21" parent="platform" instance=ExtResource("3_mpid7")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, -2)
-
-[node name="platform_block22" parent="platform" instance=ExtResource("3_mpid7")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 1)
-
-[node name="platform_block23" parent="platform" instance=ExtResource("3_mpid7")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 2)
-
-[node name="platform_block24" parent="platform" instance=ExtResource("3_mpid7")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 1)
-
-[node name="platform_block25" parent="platform" instance=ExtResource("3_mpid7")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 2)
-
-[node name="Area3D" type="Area3D" parent="platform"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="platform/Area3D"]
-shape = SubResource("BoxShape3D_q2rnq")
+[node name="platform" parent="." instance=ExtResource("4_qe5cv")]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 

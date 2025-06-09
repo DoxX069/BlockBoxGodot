@@ -52,7 +52,7 @@ script = ExtResource("2_1g5jo")
 transform = Transform3D(0.707107, -0.5, 0.5, 0, 0.707107, 0.707107, -0.707107, -0.5, 0.5, 5, 8, 5)
 keep_aspect = 0
 projection = 1
-size = 8.0
+size = 6.0
 
 [node name="Blocks" type="Node3D" parent="."]
 script = ExtResource("3_dinhu")
@@ -60,16 +60,16 @@ script = ExtResource("3_dinhu")
 [node name="BuildBlocks" type="Node3D" parent="Blocks"]
 
 [node name="BlockRed" parent="Blocks/BuildBlocks" instance=ExtResource("4_u5sy4")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 1, -2)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 1, -1)
 
 [node name="BlockBlue" parent="Blocks/BuildBlocks" instance=ExtResource("4_gee14")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 1, -2)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, -1)
 
 [node name="BlockGreen" parent="Blocks/BuildBlocks" instance=ExtResource("5_0tnpc")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 1, 2)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 1, 1)
 
 [node name="BlockOrange" parent="Blocks/BuildBlocks" instance=ExtResource("6_vtaks")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 1, 2)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 1)
 
 [node name="TaskBlocks" parent="Blocks" instance=ExtResource("8_kvpfn")]
 visible = false
@@ -124,7 +124,7 @@ tint_progress = Color(0.2, 0.2, 0.2, 1)
 
 [node name="Timer" type="Timer" parent="TimerCanvasLayer/PanelContainer"]
 process_callback = 0
-wait_time = 10.0
+wait_time = 45.0
 one_shot = true
 autostart = true
 
