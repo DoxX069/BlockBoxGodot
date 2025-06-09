@@ -1,25 +1,29 @@
-[gd_scene load_steps=10 format=3 uid="uid://243f7rs4pmbl"]
+[gd_scene load_steps=8 format=3 uid="uid://bpimp50qc1j40"]
 
-[ext_resource type="Script" uid="uid://05n7qgn4kay0" path="res://scripts/Camera/cameraController.gd" id="1_3qeyo"]
+[ext_resource type="Script" uid="uid://05n7qgn4kay0" path="res://scripts/Camera/camera_controller.gd" id="1_3qeyo"]
 [ext_resource type="Script" uid="uid://bh1bmlrci5yg0" path="res://scripts/task.gd" id="1_qe5cv"]
 [ext_resource type="PackedScene" uid="uid://tpbnjr26nitk" path="res://scenes/platform_block.tscn" id="3_mpid7"]
-[ext_resource type="PackedScene" uid="uid://dnwxufwb6r8ha" path="res://scenes/blocks/block_red.tscn" id="3_yx810"]
-[ext_resource type="PackedScene" uid="uid://hwy0fscersv6" path="res://scenes/blocks/block_blue.tscn" id="4_lxhym"]
-[ext_resource type="PackedScene" uid="uid://bqhwhho13jgy" path="res://scenes/blocks/block_green.tscn" id="5_q2rnq"]
-[ext_resource type="PackedScene" uid="uid://cdb5khjfuassp" path="res://scenes/blocks/block_orange.tscn" id="6_snyv3"]
+[ext_resource type="PackedScene" uid="uid://dbcmfwk4g8o0i" path="res://scenes/blocks/task_blocks.tscn" id="4_mpid7"]
 
-[sub_resource type="Environment" id="Environment_yx810"]
+[sub_resource type="Environment" id="Environment_lxhym"]
 background_mode = 1
 background_color = Color(0.1, 0.1, 0.1, 1)
+fog_mode = 1
+fog_light_color = Color(0.1955, 0.208725, 0.23, 1)
+fog_density = 1.0
+fog_depth_curve = 2.0
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_yx810"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_q2rnq"]
 size = Vector3(100, 1, 100)
 
-[node name="task" type="Node3D"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qe5cv"]
+bg_color = Color(0.1, 0.1, 0.1, 1)
+
+[node name="Task" type="Node3D"]
 script = ExtResource("1_qe5cv")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_yx810")
+environment = SubResource("Environment_lxhym")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-4.26336e-08, -0.533615, 0.845728, 9.64699e-09, 0.845728, 0.533615, -1, 3.09086e-08, -3.09086e-08, 20, 9.39365, 0)
@@ -35,7 +39,7 @@ transform = Transform3D(1, 0, 0, 0, 0.963979, 0.265977, 0, -0.265977, 0.963979, 
 light_energy = 0.9
 
 [node name="DirectionalLight3D4" type="DirectionalLight3D" parent="."]
-transform = Transform3D(-1, 6.18173e-08, -6.18172e-08, 2.27829e-08, 0.866949, 0.498397, 8.44019e-08, 0.498397, -0.866949, 0, 9.4271, -20)
+transform = Transform3D(-1, 6.18173e-08, -6.18173e-08, 2.27829e-08, 0.866949, 0.498397, 8.44019e-08, 0.498397, -0.866949, 0, 9.4271, -20)
 light_energy = 0.9
 
 [node name="CameraRig" type="Node3D" parent="."]
@@ -49,21 +53,11 @@ size = 8.0
 
 [node name="Blocks" type="Node3D" parent="."]
 
-[node name="BlockRed" parent="Blocks" instance=ExtResource("3_yx810")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 1, -2)
-
-[node name="BlockBlue" parent="Blocks" instance=ExtResource("4_lxhym")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 1, -2)
-
-[node name="BlockGreen" parent="Blocks" instance=ExtResource("5_q2rnq")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 1, 2)
-
-[node name="BlockOrange" parent="Blocks" instance=ExtResource("6_snyv3")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 1, 2)
+[node name="TaskBlocks" parent="Blocks" instance=ExtResource("4_mpid7")]
 
 [node name="platform" type="Node3D" parent="."]
 
-[node name="platform_block" parent="platform" instance=ExtResource("3_mpid7")]
+[node name="platform_block1" parent="platform" instance=ExtResource("3_mpid7")]
 
 [node name="platform_block2" parent="platform" instance=ExtResource("3_mpid7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0)
@@ -71,76 +65,76 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0)
 [node name="platform_block3" parent="platform" instance=ExtResource("3_mpid7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 0)
 
-[node name="platform_block6" parent="platform" instance=ExtResource("3_mpid7")]
+[node name="platform_block4" parent="platform" instance=ExtResource("3_mpid7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
 
-[node name="platform_block7" parent="platform" instance=ExtResource("3_mpid7")]
+[node name="platform_block5" parent="platform" instance=ExtResource("3_mpid7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
 
-[node name="platform_block10" parent="platform" instance=ExtResource("3_mpid7")]
+[node name="platform_block6" parent="platform" instance=ExtResource("3_mpid7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 1)
 
-[node name="platform_block11" parent="platform" instance=ExtResource("3_mpid7")]
+[node name="platform_block7" parent="platform" instance=ExtResource("3_mpid7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 1)
 
-[node name="platform_block14" parent="platform" instance=ExtResource("3_mpid7")]
+[node name="platform_block8" parent="platform" instance=ExtResource("3_mpid7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 2)
 
-[node name="platform_block15" parent="platform" instance=ExtResource("3_mpid7")]
+[node name="platform_block9" parent="platform" instance=ExtResource("3_mpid7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 2)
 
-[node name="platform_block26" parent="platform" instance=ExtResource("3_mpid7")]
+[node name="platform_block10" parent="platform" instance=ExtResource("3_mpid7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
 
-[node name="platform_block27" parent="platform" instance=ExtResource("3_mpid7")]
+[node name="platform_block11" parent="platform" instance=ExtResource("3_mpid7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2)
 
-[node name="platform_block30" parent="platform" instance=ExtResource("3_mpid7")]
+[node name="platform_block12" parent="platform" instance=ExtResource("3_mpid7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 0)
 
-[node name="platform_block31" parent="platform" instance=ExtResource("3_mpid7")]
+[node name="platform_block13" parent="platform" instance=ExtResource("3_mpid7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 0)
 
-[node name="platform_block34" parent="platform" instance=ExtResource("3_mpid7")]
+[node name="platform_block14" parent="platform" instance=ExtResource("3_mpid7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -1)
 
-[node name="platform_block35" parent="platform" instance=ExtResource("3_mpid7")]
+[node name="platform_block15" parent="platform" instance=ExtResource("3_mpid7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -2)
 
-[node name="platform_block38" parent="platform" instance=ExtResource("3_mpid7")]
+[node name="platform_block16" parent="platform" instance=ExtResource("3_mpid7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -1)
 
-[node name="platform_block39" parent="platform" instance=ExtResource("3_mpid7")]
+[node name="platform_block17" parent="platform" instance=ExtResource("3_mpid7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -2)
 
-[node name="platform_block50" parent="platform" instance=ExtResource("3_mpid7")]
+[node name="platform_block18" parent="platform" instance=ExtResource("3_mpid7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, -1)
 
-[node name="platform_block51" parent="platform" instance=ExtResource("3_mpid7")]
+[node name="platform_block19" parent="platform" instance=ExtResource("3_mpid7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, -2)
 
-[node name="platform_block54" parent="platform" instance=ExtResource("3_mpid7")]
+[node name="platform_block20" parent="platform" instance=ExtResource("3_mpid7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, -1)
 
-[node name="platform_block55" parent="platform" instance=ExtResource("3_mpid7")]
+[node name="platform_block21" parent="platform" instance=ExtResource("3_mpid7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, -2)
 
-[node name="platform_block66" parent="platform" instance=ExtResource("3_mpid7")]
+[node name="platform_block22" parent="platform" instance=ExtResource("3_mpid7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 1)
 
-[node name="platform_block67" parent="platform" instance=ExtResource("3_mpid7")]
+[node name="platform_block23" parent="platform" instance=ExtResource("3_mpid7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 2)
 
-[node name="platform_block70" parent="platform" instance=ExtResource("3_mpid7")]
+[node name="platform_block24" parent="platform" instance=ExtResource("3_mpid7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 1)
 
-[node name="platform_block71" parent="platform" instance=ExtResource("3_mpid7")]
+[node name="platform_block25" parent="platform" instance=ExtResource("3_mpid7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 2)
 
 [node name="Area3D" type="Area3D" parent="platform"]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="platform/Area3D"]
-shape = SubResource("BoxShape3D_yx810")
+shape = SubResource("BoxShape3D_q2rnq")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -157,70 +151,30 @@ grow_horizontal = 2
 size_flags_horizontal = 0
 size_flags_vertical = 4
 mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_qe5cv")
 
 [node name="MoneyLabel" type="Label" parent="CanvasLayer/PanelContainer"]
 layout_mode = 2
 text = "0.00$"
 horizontal_alignment = 1
 
-[node name="PanelContainer2" type="PanelContainer" parent="CanvasLayer"]
+[node name="MiddleButton" type="Button" parent="CanvasLayer"]
+custom_minimum_size = Vector2(175, 175)
 anchors_preset = -1
 anchor_left = 0.5
-anchor_top = 0.15
+anchor_top = 0.85
 anchor_right = 0.5
-anchor_bottom = 0.15
-offset_left = 115.28
-offset_top = -3.05176e-05
-offset_right = 115.28
-offset_bottom = -3.05176e-05
-grow_horizontal = 0
-size_flags_horizontal = 0
+anchor_bottom = 0.85
+offset_left = -4.0
+offset_top = -4.0
+offset_right = 4.0
+offset_bottom = 4.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
 size_flags_vertical = 4
-mouse_filter = 2
+icon_alignment = 1
+expand_icon = true
 metadata/_edit_use_anchors_ = true
 
-[node name="MultiplierLabel" type="Label" parent="CanvasLayer/PanelContainer2"]
-layout_mode = 2
-text = "x0.5"
-horizontal_alignment = 1
-
-[node name="PanelContainer3" type="PanelContainer" parent="CanvasLayer"]
-anchors_preset = -1
-anchor_left = 0.7
-anchor_top = 0.8
-anchor_right = 0.7
-anchor_bottom = 0.8
-offset_left = 116.16
-offset_top = 35.4479
-offset_right = 116.16
-offset_bottom = 35.4479
-grow_horizontal = 0
-grow_vertical = 0
-size_flags_horizontal = 0
-size_flags_vertical = 4
-metadata/_edit_use_anchors_ = true
-
-[node name="ContinueButton" type="Button" parent="CanvasLayer/PanelContainer3"]
-layout_mode = 2
-text = "Continue"
-
-[node name="PanelContainer4" type="PanelContainer" parent="CanvasLayer"]
-anchors_preset = -1
-anchor_left = 0.3
-anchor_top = 0.8
-anchor_right = 0.3
-anchor_bottom = 0.8
-offset_left = -107.36
-offset_top = 35.448
-offset_right = -107.36
-offset_bottom = 35.448
-grow_vertical = 0
-size_flags_horizontal = 0
-size_flags_vertical = 4
-metadata/_edit_use_anchors_ = true
-
-[node name="CashoutButton" type="Button" parent="CanvasLayer/PanelContainer4"]
-layout_mode = 2
-text = "Cashout"
-
-[connection signal="pressed" from="CanvasLayer/PanelContainer3/ContinueButton" to="." method="_on_continue_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/MiddleButton" to="." method="_on_middle_button_pressed"]

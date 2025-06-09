@@ -5,6 +5,7 @@ func _ready():
 
 func _process(_delta):
 	pass
+	
 
-func _on_button_pressed() -> void:
+func _on_middle_button_pressed() -> void:
 	get_tree().change_scene_to_file("res://scenes/task.tscn")

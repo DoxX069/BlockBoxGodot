@@ -42,3 +42,6 @@ func _set_state(state_name: String) ->void:
 	var enter_callable = state_dictionary[current_state].enter as Callable
 	if !enter_callable.is_null():
 		enter_callable.call()
+
+func get_state() ->String:
+	return current_state

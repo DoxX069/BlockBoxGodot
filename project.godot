@@ -73,6 +73,12 @@ drag={
 ]
 }
 
+[layer_names]
+
+3d_physics/layer_1="blocks"
+3d_physics/layer_2="platform_blocks"
+3d_physics/layer_3="task_blocks"
+
 [rendering]
 
 textures/canvas_textures/default_texture_repeat=1

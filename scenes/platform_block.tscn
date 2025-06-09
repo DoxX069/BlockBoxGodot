@@ -16,6 +16,7 @@ uv1_scale = Vector3(3, 2, 1)
 material = SubResource("StandardMaterial3D_ms3jd")
 
 [node name="platform_block" type="StaticBody3D"]
+collision_layer = 2
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("BoxShape3D_4l05e")

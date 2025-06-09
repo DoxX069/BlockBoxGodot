@@ -7,7 +7,7 @@ var ground_distance: float
 var dropable := true
 var falling:= false
 
-@onready var camera: Camera3D = $"../../CameraRig/Camera3D"
+@onready var camera: Camera3D = $"../../../CameraRig/Camera3D"
 const ray_length = 50
 var ray_down: Dictionary
 var intersection: Dictionary
@@ -135,13 +135,14 @@ func raycast():
 	var mousepos = get_viewport().get_mouse_position()
 	var origin = camera.project_ray_origin(mousepos)
 	var end = origin + camera.project_ray_normal(mousepos) * ray_length
-	var query = PhysicsRayQueryParameters3D.create(origin, end)
+	var layers = 1 | 2
+	var query = PhysicsRayQueryParameters3D.create(origin, end, layers,[])
 	if dragged_block:
 		query.exclude = [dragged_block]
 	query.collide_with_areas = true
 	intersection = space_state.intersect_ray(query)
 	# Store last intersection except for the platform area
-	if intersection and intersection.collider != $"../../platform/Area3D":
+	if intersection and intersection.collider != $"../../../platform/Area3D":
 		last_intersection = intersection
 		#print(Global.intersection.collider)
 
@@ -180,7 +181,8 @@ func raycast_down() ->void:
 	var space_state = self.get_world_3d().direct_space_state
 	var origin = self.position
 	var end = origin + Vector3(0,-1,0) * ray_length
-	var query = PhysicsRayQueryParameters3D.create(origin, end)
+	var layers = 1 | 2
+	var query = PhysicsRayQueryParameters3D.create(origin, end, layers, [])
 	var result = space_state.intersect_ray(query)
 	if result:
 		ray_down = result

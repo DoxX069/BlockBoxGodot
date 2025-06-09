@@ -1,20 +1,26 @@
-[gd_scene load_steps=12 format=3 uid="uid://dwx2pgyrss8sp"]
+[gd_scene load_steps=14 format=3 uid="uid://dwx2pgyrss8sp"]
 
 [ext_resource type="Script" uid="uid://bsnptigvvmtqu" path="res://scripts/game.gd" id="1_p57ef"]
-[ext_resource type="Script" uid="uid://05n7qgn4kay0" path="res://scripts/Camera/cameraController.gd" id="2_1g5jo"]
+[ext_resource type="Script" uid="uid://05n7qgn4kay0" path="res://scripts/Camera/camera_controller.gd" id="2_1g5jo"]
+[ext_resource type="Script" uid="uid://c6l1lnnrmgj13" path="res://scripts/block_manager.gd" id="3_dinhu"]
 [ext_resource type="PackedScene" uid="uid://hwy0fscersv6" path="res://scenes/blocks/block_blue.tscn" id="4_gee14"]
-[ext_resource type="PackedScene" uid="uid://tpbnjr26nitk" path="res://scenes/platform_block.tscn" id="4_p57ef"]
 [ext_resource type="PackedScene" uid="uid://dnwxufwb6r8ha" path="res://scenes/blocks/block_red.tscn" id="4_u5sy4"]
 [ext_resource type="PackedScene" uid="uid://bqhwhho13jgy" path="res://scenes/blocks/block_green.tscn" id="5_0tnpc"]
 [ext_resource type="PackedScene" uid="uid://cdb5khjfuassp" path="res://scenes/blocks/block_orange.tscn" id="6_vtaks"]
 [ext_resource type="Script" uid="uid://xhlo7mh3pnyy" path="res://scripts/game_ui.gd" id="7_u5sy4"]
 [ext_resource type="Texture2D" uid="uid://83t5nd7354ef" path="res://assets/blank.png" id="8_gee14"]
+[ext_resource type="PackedScene" uid="uid://dbcmfwk4g8o0i" path="res://scenes/blocks/task_blocks.tscn" id="8_kvpfn"]
+[ext_resource type="PackedScene" uid="uid://qbd2bnunqisi" path="res://scenes/platform.tscn" id="9_kvpfn"]
 
 [sub_resource type="Environment" id="Environment_u5sy4"]
 background_mode = 3
+fog_mode = 1
+fog_light_color = Color(0.1955, 0.208725, 0.23, 1)
+fog_density = 1.0
+fog_depth_curve = 2.0
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_iywne"]
-size = Vector3(100, 1, 100)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dinhu"]
+bg_color = Color(0.1, 0.1, 0.1, 1)
 
 [node name="Game" type="Node3D"]
 script = ExtResource("1_p57ef")
@@ -49,99 +55,26 @@ projection = 1
 size = 8.0
 
 [node name="Blocks" type="Node3D" parent="."]
+script = ExtResource("3_dinhu")
 
-[node name="BlockRed" parent="Blocks" instance=ExtResource("4_u5sy4")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 1, -1)
+[node name="BuildBlocks" type="Node3D" parent="Blocks"]
 
-[node name="BlockBlue" parent="Blocks" instance=ExtResource("4_gee14")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, -1)
+[node name="BlockRed" parent="Blocks/BuildBlocks" instance=ExtResource("4_u5sy4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 1, -2)
 
-[node name="BlockGreen" parent="Blocks" instance=ExtResource("5_0tnpc")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 1, 1)
+[node name="BlockBlue" parent="Blocks/BuildBlocks" instance=ExtResource("4_gee14")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 1, -2)
 
-[node name="BlockOrange" parent="Blocks" instance=ExtResource("6_vtaks")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 1)
+[node name="BlockGreen" parent="Blocks/BuildBlocks" instance=ExtResource("5_0tnpc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 1, 2)
 
-[node name="platform" type="Node3D" parent="."]
+[node name="BlockOrange" parent="Blocks/BuildBlocks" instance=ExtResource("6_vtaks")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 1, 2)
 
-[node name="platform_block" parent="platform" instance=ExtResource("4_p57ef")]
+[node name="TaskBlocks" parent="Blocks" instance=ExtResource("8_kvpfn")]
+visible = false
 
-[node name="platform_block2" parent="platform" instance=ExtResource("4_p57ef")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0)
-
-[node name="platform_block3" parent="platform" instance=ExtResource("4_p57ef")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 0)
-
-[node name="platform_block6" parent="platform" instance=ExtResource("4_p57ef")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
-
-[node name="platform_block7" parent="platform" instance=ExtResource("4_p57ef")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
-
-[node name="platform_block10" parent="platform" instance=ExtResource("4_p57ef")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 1)
-
-[node name="platform_block11" parent="platform" instance=ExtResource("4_p57ef")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 1)
-
-[node name="platform_block14" parent="platform" instance=ExtResource("4_p57ef")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 2)
-
-[node name="platform_block15" parent="platform" instance=ExtResource("4_p57ef")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 2)
-
-[node name="platform_block26" parent="platform" instance=ExtResource("4_p57ef")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
-
-[node name="platform_block27" parent="platform" instance=ExtResource("4_p57ef")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2)
-
-[node name="platform_block30" parent="platform" instance=ExtResource("4_p57ef")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 0)
-
-[node name="platform_block31" parent="platform" instance=ExtResource("4_p57ef")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 0)
-
-[node name="platform_block34" parent="platform" instance=ExtResource("4_p57ef")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -1)
-
-[node name="platform_block35" parent="platform" instance=ExtResource("4_p57ef")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -2)
-
-[node name="platform_block38" parent="platform" instance=ExtResource("4_p57ef")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -1)
-
-[node name="platform_block39" parent="platform" instance=ExtResource("4_p57ef")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -2)
-
-[node name="platform_block50" parent="platform" instance=ExtResource("4_p57ef")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, -1)
-
-[node name="platform_block51" parent="platform" instance=ExtResource("4_p57ef")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, -2)
-
-[node name="platform_block54" parent="platform" instance=ExtResource("4_p57ef")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, -1)
-
-[node name="platform_block55" parent="platform" instance=ExtResource("4_p57ef")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, -2)
-
-[node name="platform_block66" parent="platform" instance=ExtResource("4_p57ef")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 1)
-
-[node name="platform_block67" parent="platform" instance=ExtResource("4_p57ef")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 2)
-
-[node name="platform_block70" parent="platform" instance=ExtResource("4_p57ef")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 1)
-
-[node name="platform_block71" parent="platform" instance=ExtResource("4_p57ef")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 2)
-
-[node name="Area3D" type="Area3D" parent="platform"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="platform/Area3D"]
-shape = SubResource("BoxShape3D_iywne")
+[node name="platform" parent="." instance=ExtResource("9_kvpfn")]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -175,6 +108,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_dinhu")
 script = ExtResource("7_u5sy4")
 
 [node name="TextureProgressBar" type="TextureProgressBar" parent="TimerCanvasLayer/PanelContainer"]
@@ -185,8 +119,8 @@ fill_mode = 3
 nine_patch_stretch = true
 texture_under = ExtResource("8_gee14")
 texture_progress = ExtResource("8_gee14")
-tint_under = Color(0.1, 0.1, 0.1, 1)
-tint_progress = Color(0.15, 0.15, 0.15, 1)
+tint_under = Color(1, 1, 1, 0)
+tint_progress = Color(0.2, 0.2, 0.2, 1)
 
 [node name="Timer" type="Timer" parent="TimerCanvasLayer/PanelContainer"]
 process_callback = 0
