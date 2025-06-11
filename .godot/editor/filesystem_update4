@@ -14,3 +14,5 @@ res://scripts/Camera/camera_controller.gd
 res://scripts/game.gd
 res://scripts/Block/block_controller.gd
 res://scenes/platform.tscn
+res://test.res
+res://scripts/global.gd

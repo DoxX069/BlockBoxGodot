@@ -8,10 +8,11 @@ var dropable := true
 var falling:= false
 
 @onready var camera: Camera3D = $"../../../CameraRig/Camera3D"
-const ray_length = 50
+const ray_length := 50
 var ray_down: Dictionary
 var intersection: Dictionary
 var last_intersection: Dictionary
+var offset: Vector3
 
 
 func _ready() ->void:
@@ -56,16 +57,18 @@ func leave_state_idle() ->void:
 
 
 func enter_state_drag() ->void:
-	pass
+	raycast()
+	var delta = get_process_delta_time()
+	offset = intersection.position - self.global_position
+	
 
 
 func state_drag() ->void:
 	raycast()
 	var delta = get_process_delta_time()
-	if intersection:# and space_is_free(self, self.position):
-		#change_material(Global.last_intersection.collider)
+	if intersection:
 		# Change position while dragging
-		self.position = lerp(self.position, intersection.position + Vector3(intersection.normal.x*0.5,0.5,intersection.normal.z*0.5), 25 * delta)
+		self.global_position = lerp(self.global_position,intersection.position-offset,25*delta )
 	
 	if Input.is_action_just_released("drag"):
 		state_machine.change_state(state_drop)
@@ -79,10 +82,10 @@ func enter_state_drop() ->void:
 	raycast()
 	raycast_down()
 	var current_tween := get_tree().create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_EXPO)
-	if intersection:
+	if last_intersection:
 		# Drop to the last raycast collider
-		if intersection.normal == Vector3(0,1,0):
-			current_tween.tween_property(self,"global_position",last_intersection.collider.position + last_intersection.normal,0.5)
+		if last_intersection.normal == Vector3(0,1,0):
+			current_tween.tween_property(self,"global_position",ray_down.collider.position + ray_down.normal,0.5)
 			await current_tween.finished
 			current_tween.kill()
 			# Change state
@@ -147,26 +150,6 @@ func raycast():
 		#print(Global.intersection.collider)
 
 
-func space_is_free(block: Node3D, pos: Vector3) -> bool:
-	var space = get_world_3d().direct_space_state
-	
-	var query = PhysicsShapeQueryParameters3D.new()
-	query.shape = block.get_node("CollisionShape3D").shape
-	query.transform = Transform3D(block.global_transform.basis, pos)
-	query.margin = 0.001
-	query.exclude = [self]   # don’t collide with itself
-	# Optional: set collision layers/mask if you only care about PhysicsBodies
-	# query.collision_mask = <your_mask>
-
-	# did we collide?
-	var result = space.intersect_shape(query, 1)
-	
-	if result == null:
-		return true
-	else:
-		return false
-
-
 func _on_mouse_entered() -> void:
 	draggable = true
 	dragged_block = self # For ignoring dragged block in raycast intersection
@@ -202,3 +185,6 @@ func reset_material(node: Node3D):
 		node.get_node("MeshInstance3D").material_override = null
 	else:
 		pass
+
+
+# make function to check if a position is part of the build blocks array or dictonary

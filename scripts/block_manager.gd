@@ -13,6 +13,9 @@ var swiping := false
 @onready var camera := $"../CameraRig/Camera3D"
 var ray_length := 100	
 
+func _ready() -> void:
+	build_blocks.visible = true
+	task_blocks.visible = false
 
 func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("drag") and not mouse_on_object():
@@ -50,9 +53,8 @@ func mouse_on_object() ->bool:
 
 # - switch between showing Build- or TaskBlocks
 
-# - store BuildBlock / TaskBlock in array
+# - store BuildBlock / TaskBlock in arrays
 # - pick random Block
-# - first block always in the middle
 # - instantiate blocks at random neighbour positions stored in array
 
 # - store BuildBlock / TaskBlock positions in array

@@ -46,7 +46,9 @@ script = ExtResource("1_3qeyo")
 transform = Transform3D(0.707107, -0.5, 0.5, 0, 0.707107, 0.707107, -0.707107, -0.5, 0.5, 5, 8, 5)
 keep_aspect = 0
 projection = 1
+fov = 30.0
 size = 6.0
+far = 100.0
 
 [node name="Blocks" type="Node3D" parent="."]
 

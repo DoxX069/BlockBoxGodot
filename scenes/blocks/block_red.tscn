@@ -18,7 +18,7 @@ material = SubResource("StandardMaterial3D_1bw7o")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_cgrg5"]
 
-[node name="Block" type="RigidBody3D" groups=["dropable"]]
+[node name="Block" type="RigidBody3D"]
 axis_lock_linear_x = true
 axis_lock_linear_y = true
 axis_lock_linear_z = true
