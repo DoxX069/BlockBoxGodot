@@ -1,9 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://bpimp50qc1j40"]
+[gd_scene load_steps=7 format=3 uid="uid://bpimp50qc1j40"]
 
 [ext_resource type="Script" uid="uid://05n7qgn4kay0" path="res://scripts/Camera/camera_controller.gd" id="1_3qeyo"]
 [ext_resource type="Script" uid="uid://bh1bmlrci5yg0" path="res://scripts/task.gd" id="1_qe5cv"]
 [ext_resource type="Script" uid="uid://dnc3j6chxcnkr" path="res://scripts/swipe_detector.gd" id="3_mpid7"]
-[ext_resource type="PackedScene" uid="uid://dbcmfwk4g8o0i" path="res://scenes/blocks/task_blocks.tscn" id="4_mpid7"]
 [ext_resource type="PackedScene" uid="uid://qbd2bnunqisi" path="res://scenes/platform.tscn" id="4_qe5cv"]
 
 [sub_resource type="Environment" id="Environment_lxhym"]
@@ -58,7 +57,11 @@ far = 100.0
 
 [node name="Blocks" type="Node3D" parent="."]
 
-[node name="TaskBlocks" parent="Blocks" instance=ExtResource("4_mpid7")]
+[node name="SwipeDetector" type="Node3D" parent="Blocks" node_paths=PackedStringArray("camera")]
+script = ExtResource("3_mpid7")
+camera = NodePath("../../CameraRig/Camera3D")
+
+[node name="TaskBlocks" type="Node3D" parent="Blocks"]
 
 [node name="platform" parent="." instance=ExtResource("4_qe5cv")]
 
@@ -105,4 +108,6 @@ metadata/_edit_use_anchors_ = true
 
 [connection signal="swipe_left" from="CameraRig/SwipeDetector" to="CameraRig" method="_on_swipe_detector_swipe_left"]
 [connection signal="swipe_right" from="CameraRig/SwipeDetector" to="CameraRig" method="_on_swipe_detector_swipe_right"]
+[connection signal="swipe_down" from="Blocks/SwipeDetector" to="Blocks" method="_on_swipe_detector_swipe_down"]
+[connection signal="swipe_up" from="Blocks/SwipeDetector" to="Blocks" method="_on_swipe_detector_swipe_up"]
 [connection signal="pressed" from="CanvasLayer/MiddleButton" to="." method="_on_middle_button_pressed"]

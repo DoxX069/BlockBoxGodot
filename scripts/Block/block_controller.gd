@@ -1,4 +1,10 @@
 extends RigidBody3D
+class_name BlockController
+
+
+@onready var block_manager := self.get_parent()
+
+var dragging_disabled := false
 
 var state_machine: CallableStateMachine = CallableStateMachine.new()
 var draggable := false
@@ -7,7 +13,7 @@ var ground_distance: float
 var dropable := true
 var falling:= false
 
-@onready var camera: Camera3D = $"../../../CameraRig/Camera3D"
+@onready var camera: Camera3D = get_viewport().get_camera_3d()
 const ray_length := 50
 var ray_down: Dictionary
 var intersection: Dictionary
@@ -48,7 +54,7 @@ func state_idle() ->void:
 	if ground_distance > 1 and not Global.falling:
 		state_machine.change_state(state_fall)
 	
-	if Input.is_action_just_pressed("drag") and draggable:
+	if Input.is_action_just_pressed("drag") and draggable and not dragging_disabled:
 		state_machine.change_state(state_drag)
 		
 
@@ -185,7 +191,3 @@ func reset_material(node: Node3D):
 		node.get_node("MeshInstance3D").material_override = null
 	else:
 		pass
-
-
-# make function to check if a position is part of the build blocks array or dictonary
-# func is_valid_pos() ->bool:

@@ -3,9 +3,5 @@ res://assets/BlockBoxTheme.tres
 res://scripts/block_manager.gd
 res://scenes/task.tscn
 res://scenes/mainMenu.tscn
-res://scenes/blocks/task_blocks.tscn
-res://scenes/platform.tscn
-res://scenes/blocks/block_red.tscn
-res://scenes/blocks/block_blue.tscn
-res://scripts/swipe_detector.gd
-res://scripts/Camera/camera_controller.gd
+res://scenes/Block/block.tscn
+res://scripts/Block/block_controller.gd

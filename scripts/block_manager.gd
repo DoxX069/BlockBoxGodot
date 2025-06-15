@@ -1,108 +1,159 @@
 extends Node3D
+class_name BlockManager
 
 
 @export var swipe_detector: SwipeDetector
 
-var build_blocks: Dictionary = {}
-var task_blocks: Dictionary = {}
 
-@onready var build_block := $BuildBlocks
+@export var build_blocks: Node3D
+@export var task_blocks: Node3D
 
-@onready var red_build_block_scene: PackedScene = preload("res://scenes/blocks/block_red.tscn")
-@onready var blue_build_block_scene: PackedScene = preload("res://scenes/blocks/block_blue.tscn")
-@onready var green_build_block_scene: PackedScene = preload("res://scenes/blocks/block_green.tscn")
-@onready var orange_build_block_scene: PackedScene = preload("res://scenes/blocks/block_orange.tscn")
+@onready var block_scene: PackedScene = preload("res://scenes/Block/block.tscn")
 
-@onready var build_block_scenes: Array = [
-	red_build_block_scene,
-	blue_build_block_scene,
-	green_build_block_scene,
-	orange_build_block_scene
-]
+var build_block_positions: Dictionary = {}
+var task_block_positions: Dictionary = {}
+var valid_pos: Array = []
+var valid_inst_pos: Array = [Vector3i(0,1,0)]
 
-@onready var task_block := $TaskBlocks
+@onready var block_colors: Dictionary = {
+	"red_block": Color(1,0,0),
+	"green_block": Color(0,1,0),
+	"blue_block": Color(0,0,1),
+	"yellow_block": Color(1,1,0)
+}
 
-@onready var red_task_block_scene: PackedScene = preload("res://scenes/task blocks/block_red.tscn")
-@onready var blue_task_block_scene: PackedScene = preload("res://scenes/task blocks/block_blue.tscn")
-@onready var green_task_block_scene: PackedScene = preload("res://scenes/task blocks/block_green.tscn")
-@onready var orange_task_block_scene: PackedScene = preload("res://scenes/task blocks/block_orange.tscn")
-
-var start_pos: Vector2
-var mouse_pos: Vector2
-var delta_pos: Vector2
-var swipe_distance := 125
-var swiping := false
-	
-@onready var camera := $"../CameraRig/Camera3D"
-var ray_length := 100	
 
 func _ready() -> void:
-	add_block(build_block_scenes,build_blocks,1)
-	var red_task_block_instance = red_task_block_scene.instantiate()
-	task_block.add_child(red_task_block_instance)
-	red_task_block_instance.global_position = Vector3(0,1,0)
-	var red_build_block_instance = red_build_block_scene.instantiate()
-	build_block.add_child(red_build_block_instance)
-	red_build_block_instance.global_position = Vector3(0,1,0)
-
-#	build_blocks = {
-#		"red_block" =  red_build_block.global_position,
-#		"blue_block" = blue_build_block.global_position,
-#		"green_block" = green_build_block.global_position,
-#		"orange_block" = orange_build_block.global_position
-#	}
-#	task_blocks = {
-#		"blue_block": blue_task_block.global_position,
-#		"red_block": red_task_block.global_position,
-#		"green_block": green_task_block.global_position,
-#		"orange_block": orange_task_block.global_position
-#	}
-#	for i in task_blocks:
-#		task_blocks.get(i).x = randi_range(0,1)
-#		task_blocks.get(i).y = 1
-#		task_blocks.get(i).z = randi_range(0,1)
-#		print(task_blocks.get(i))
-	
-	build_block.visible = true
-	#task_blocks.visible = false
-	task_block.visible = false
+	find_valid_pos()
+	add_block(2)
+	print(build_block_positions,"\n", task_block_positions)
+	if build_blocks:
+		build_blocks.visible = true
+	if task_blocks:
+		task_blocks.visible = false
 
 func _physics_process(_delta: float) -> void:
-	pass
-#	build_blocks = {
-#		"red_block": red_build_block.global_position,
-#		"blue_block": blue_build_block.global_position,
-#		"green_block": green_build_block.global_position,
-#		"orange_block": orange_build_block.global_position
-#	}
-#	if build_blocks.recursive_equal(task_blocks,1):
-#		get_tree().change_scene_to_file("res://scenes/mainMenu.tscn")
-
-		
+	update_valid_pos()
+	if build_block_positions.recursive_equal(task_block_positions,1):
+		get_tree().change_scene_to_file("res://scenes/mainMenu.tscn")
 		
 
-func add_block(from:Array,to:Dictionary,amount: int) ->void:
+func add_block(amount: int) ->void:
 	for i in amount:
-		print(from.pick_random())
+		var color = block_colors.values().pick_random()
+		
+		# task instance
+		if task_blocks:	
+			
+			var task_instance: BlockController = block_scene.instantiate()
+			task_blocks.add_child(task_instance)
+			
+			# set color
+			var og_material: Material = task_instance.get_child(0).get_material_override()
+			var new_material: Material = og_material.duplicate()
+			new_material.albedo_color = color
+			task_instance.get_child(0).set_material_override(new_material)
+			
+			# set random position	
+			var new_pos = valid_inst_pos.pick_random()
+			if valid_pos.has(new_pos):
+				task_instance.position = new_pos
+			
+			valid_pos.erase(task_instance.position)
+			var last_pos = task_instance.position
+			update_valid_inst_pos(last_pos)
+			print(valid_inst_pos)
+			
+			# add to task_block_positions array
+			if task_block_positions.has(block_colors.find_key(color)):
+				task_block_positions.get(block_colors.find_key(color)).append(task_instance.position)
+			else:
+				task_block_positions[block_colors.find_key(color)] = [task_instance.position]
+			task_instance.collision_layer = 4
+			
+			# restrict drag and drop
+			task_instance.dragging_disabled = true
+		
+		# build instance
+		if build_blocks:
+			
+			var build_instance: BlockController  = block_scene.instantiate()
+			build_blocks.add_child(build_instance)
+			
+			# set color
+			var og_material: Material = build_instance.get_child(0).get_material_override()
+			var new_material: Material = og_material.duplicate()
+			new_material.albedo_color = color
+			build_instance.get_child(0).set_material_override(new_material)
+			
+			# set random position	
+			var new_pos = valid_inst_pos.pick_random()
+			if valid_pos.has(new_pos):
+				build_instance.position = new_pos
+			valid_pos.erase(build_instance.position)
+			var last_pos = build_instance.position
+			update_valid_inst_pos(last_pos)
+			print(valid_inst_pos)
+			
+			# add to build_block_positions array
+			if build_block_positions.has(block_colors.find_key(color)):
+				build_block_positions.get(block_colors.find_key(color)).append(build_instance.position)
+			else:
+				build_block_positions[block_colors.find_key(color)] = [build_instance.position]
+			
+			# change collision layer
+			build_instance.collision_layer = 1
+
+
+func find_valid_pos() ->void:
+	for x in range(-1,2):
+		for y in range(1,4):
+			for z in range(-1,2):
+				valid_pos.append(Vector3i(x,y,z))
+
+
+func update_valid_pos() ->void:
+	for pos in valid_pos:
+		if pos in build_block_positions or pos in task_block_positions:
+			valid_pos.erase(pos)
+
+
+func update_valid_inst_pos(last_pos:Vector3i) ->void:	
+	valid_inst_pos.clear()
+	valid_inst_pos = [
+		last_pos+Vector3i(-1,0,0), last_pos+Vector3i(1,0,0),
+		last_pos+Vector3i(0,1,0),
+		last_pos+Vector3i(0,0,-1), last_pos+Vector3i(0,0,1)
+	]
+
+
+func _on_swipe_detector_swipe_up() -> void:
+	if build_blocks:
+		build_blocks.visible = false
+	if task_blocks:
+		task_blocks.visible = true
+
+
+func _on_swipe_detector_swipe_down() -> void:
+	if build_blocks:
+		build_blocks.visible = true
+	if task_blocks:
+		task_blocks.visible = false
 
 
 # Block Manager:
 
-# - switch between showing Build- or TaskBlocks
+# - switch between showing Build- or TaskBlocks - done
 
-# - store BuildBlock / TaskBlock in arrays
-# - pick random Block
-# - instantiate blocks at random neighbour positions stored in array
+# - add block scene instance to build- and task block
+# - choose random color from array for build- and task block instance
+# - random position for build- and task block instance (stored in dict)
+# - change collision layer for build- and task block
+# - restrict drag and drop for task_block
 
-# - store BuildBlock / TaskBlock positions in array
-# - check if they are matching
+# - with stored pos in dict, store all neighbour pos as valid instancing pos
+# - with stored pos in dict, store all other pos as valid droping pos
 
+# - check if build- and task block positions are equal
 
-func _on_swipe_detector_swipe_up() -> void:
-	build_block.visible = false
-	task_block.visible = true
-
-
-func _on_swipe_detector_swipe_down() -> void:
-	build_block.visible = true
-	task_block.visible = false
+# - add more blocks if positions are equal

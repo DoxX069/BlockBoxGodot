@@ -1,13 +1,9 @@
-[gd_scene load_steps=19 format=3 uid="uid://dwx2pgyrss8sp"]
+[gd_scene load_steps=15 format=3 uid="uid://dwx2pgyrss8sp"]
 
 [ext_resource type="Script" uid="uid://bsnptigvvmtqu" path="res://scripts/game.gd" id="1_p57ef"]
 [ext_resource type="Script" uid="uid://05n7qgn4kay0" path="res://scripts/Camera/camera_controller.gd" id="2_1g5jo"]
 [ext_resource type="Script" uid="uid://c6l1lnnrmgj13" path="res://scripts/block_manager.gd" id="3_dinhu"]
 [ext_resource type="Script" uid="uid://dnc3j6chxcnkr" path="res://scripts/swipe_detector.gd" id="3_kvuet"]
-[ext_resource type="PackedScene" uid="uid://hwy0fscersv6" path="res://scenes/blocks/block_blue.tscn" id="4_gee14"]
-[ext_resource type="PackedScene" uid="uid://dnwxufwb6r8ha" path="res://scenes/blocks/block_red.tscn" id="4_u5sy4"]
-[ext_resource type="PackedScene" uid="uid://bqhwhho13jgy" path="res://scenes/blocks/block_green.tscn" id="5_0tnpc"]
-[ext_resource type="PackedScene" uid="uid://cdb5khjfuassp" path="res://scenes/blocks/block_orange.tscn" id="6_vtaks"]
 [ext_resource type="Script" uid="uid://xhlo7mh3pnyy" path="res://scripts/game_ui.gd" id="7_u5sy4"]
 [ext_resource type="Texture2D" uid="uid://83t5nd7354ef" path="res://assets/blank.png" id="8_gee14"]
 [ext_resource type="PackedScene" uid="uid://qbd2bnunqisi" path="res://scenes/platform.tscn" id="9_kvpfn"]
@@ -58,17 +54,6 @@ tracks/0/keys = {
 [sub_resource type="Animation" id="Animation_dinhu"]
 resource_name = "test_2"
 length = 0.5
-tracks/0/type = "bezier"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Blocks/BuildBlocks/BlockRed:position:y")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"handle_modes": PackedInt32Array(0, 0),
-"points": PackedFloat32Array(1.5, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0, 0.5)
-}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_kvuet"]
 _data = {
@@ -117,9 +102,11 @@ projection = 1
 fov = 30.0
 size = 6.0
 
-[node name="Blocks" type="Node3D" parent="." node_paths=PackedStringArray("swipe_detector")]
+[node name="Blocks" type="Node3D" parent="." node_paths=PackedStringArray("swipe_detector", "build_blocks", "task_blocks")]
 script = ExtResource("3_dinhu")
 swipe_detector = NodePath("SwipeDetector")
+build_blocks = NodePath("BuildBlocks")
+task_blocks = NodePath("TaskBlocks")
 
 [node name="SwipeDetector" type="Node3D" parent="Blocks" node_paths=PackedStringArray("camera")]
 script = ExtResource("3_kvuet")
@@ -128,20 +115,7 @@ camera = NodePath("../../CameraRig/Camera3D")
 [node name="BuildBlocks" type="Node3D" parent="Blocks"]
 visible = false
 
-[node name="BlockRed" parent="Blocks/BuildBlocks" instance=ExtResource("4_u5sy4")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-
-[node name="BlockBlue" parent="Blocks/BuildBlocks" instance=ExtResource("4_gee14")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0)
-
-[node name="BlockGreen" parent="Blocks/BuildBlocks" instance=ExtResource("5_0tnpc")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
-
-[node name="BlockOrange" parent="Blocks/BuildBlocks" instance=ExtResource("6_vtaks")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
-
 [node name="TaskBlocks" type="Node3D" parent="Blocks"]
-visible = false
 
 [node name="platform" parent="." instance=ExtResource("9_kvpfn")]
 
@@ -195,6 +169,7 @@ tint_progress = Color(0.2, 0.2, 0.2, 1)
 process_callback = 0
 wait_time = 20.0
 one_shot = true
+autostart = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -205,12 +180,4 @@ libraries = {
 [connection signal="swipe_right" from="CameraRig/SwipeDetector" to="CameraRig" method="_on_swipe_detector_swipe_right"]
 [connection signal="swipe_down" from="Blocks/SwipeDetector" to="Blocks" method="_on_swipe_detector_swipe_down"]
 [connection signal="swipe_up" from="Blocks/SwipeDetector" to="Blocks" method="_on_swipe_detector_swipe_up"]
-[connection signal="body_entered" from="Blocks/BuildBlocks/BlockRed" to="Blocks/BuildBlocks/BlockRed" method="_on_body_entered"]
-[connection signal="body_exited" from="Blocks/BuildBlocks/BlockRed" to="Blocks/BuildBlocks/BlockRed" method="_on_body_exited"]
-[connection signal="body_entered" from="Blocks/BuildBlocks/BlockBlue" to="Blocks/BuildBlocks/BlockBlue" method="_on_body_entered"]
-[connection signal="body_exited" from="Blocks/BuildBlocks/BlockBlue" to="Blocks/BuildBlocks/BlockBlue" method="_on_body_exited"]
-[connection signal="body_entered" from="Blocks/BuildBlocks/BlockGreen" to="Blocks/BuildBlocks/BlockGreen" method="_on_body_entered"]
-[connection signal="body_exited" from="Blocks/BuildBlocks/BlockGreen" to="Blocks/BuildBlocks/BlockGreen" method="_on_body_exited"]
-[connection signal="body_entered" from="Blocks/BuildBlocks/BlockOrange" to="Blocks/BuildBlocks/BlockOrange" method="_on_body_entered"]
-[connection signal="body_exited" from="Blocks/BuildBlocks/BlockOrange" to="Blocks/BuildBlocks/BlockOrange" method="_on_body_exited"]
 [connection signal="timeout" from="TimerCanvasLayer/PanelContainer/Timer" to="." method="_on_timer_timeout"]
