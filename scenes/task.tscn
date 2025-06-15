@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://bpimp50qc1j40"]
+[gd_scene load_steps=8 format=3 uid="uid://bpimp50qc1j40"]
 
 [ext_resource type="Script" uid="uid://05n7qgn4kay0" path="res://scripts/Camera/camera_controller.gd" id="1_3qeyo"]
 [ext_resource type="Script" uid="uid://bh1bmlrci5yg0" path="res://scripts/task.gd" id="1_qe5cv"]
+[ext_resource type="Script" uid="uid://dnc3j6chxcnkr" path="res://scripts/swipe_detector.gd" id="3_mpid7"]
 [ext_resource type="PackedScene" uid="uid://dbcmfwk4g8o0i" path="res://scenes/blocks/task_blocks.tscn" id="4_mpid7"]
 [ext_resource type="PackedScene" uid="uid://qbd2bnunqisi" path="res://scenes/platform.tscn" id="4_qe5cv"]
 
@@ -39,8 +40,13 @@ light_energy = 0.9
 transform = Transform3D(-1, 6.18173e-08, -6.18173e-08, 2.27829e-08, 0.866949, 0.498397, 8.44019e-08, 0.498397, -0.866949, 0, 9.4271, -20)
 light_energy = 0.9
 
-[node name="CameraRig" type="Node3D" parent="."]
+[node name="CameraRig" type="Node3D" parent="." node_paths=PackedStringArray("swipe_detector")]
 script = ExtResource("1_3qeyo")
+swipe_detector = NodePath("SwipeDetector")
+
+[node name="SwipeDetector" type="Node3D" parent="CameraRig" node_paths=PackedStringArray("camera")]
+script = ExtResource("3_mpid7")
+camera = NodePath("../Camera3D")
 
 [node name="Camera3D" type="Camera3D" parent="CameraRig"]
 transform = Transform3D(0.707107, -0.5, 0.5, 0, 0.707107, 0.707107, -0.707107, -0.5, 0.5, 5, 8, 5)
@@ -97,4 +103,6 @@ icon_alignment = 1
 expand_icon = true
 metadata/_edit_use_anchors_ = true
 
+[connection signal="swipe_left" from="CameraRig/SwipeDetector" to="CameraRig" method="_on_swipe_detector_swipe_left"]
+[connection signal="swipe_right" from="CameraRig/SwipeDetector" to="CameraRig" method="_on_swipe_detector_swipe_right"]
 [connection signal="pressed" from="CanvasLayer/MiddleButton" to="." method="_on_middle_button_pressed"]

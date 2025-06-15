@@ -188,3 +188,4 @@ func reset_material(node: Node3D):
 
 
 # make function to check if a position is part of the build blocks array or dictonary
+# func is_valid_pos() ->bool:

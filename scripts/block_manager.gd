@@ -1,8 +1,31 @@
 extends Node3D
 
-@onready var build_blocks := $BuildBlocks
-@onready var task_blocks := $TaskBlocks
 
+@export var swipe_detector: SwipeDetector
+
+var build_blocks: Dictionary = {}
+var task_blocks: Dictionary = {}
+
+@onready var build_block := $BuildBlocks
+
+@onready var red_build_block_scene: PackedScene = preload("res://scenes/blocks/block_red.tscn")
+@onready var blue_build_block_scene: PackedScene = preload("res://scenes/blocks/block_blue.tscn")
+@onready var green_build_block_scene: PackedScene = preload("res://scenes/blocks/block_green.tscn")
+@onready var orange_build_block_scene: PackedScene = preload("res://scenes/blocks/block_orange.tscn")
+
+@onready var build_block_scenes: Array = [
+	red_build_block_scene,
+	blue_build_block_scene,
+	green_build_block_scene,
+	orange_build_block_scene
+]
+
+@onready var task_block := $TaskBlocks
+
+@onready var red_task_block_scene: PackedScene = preload("res://scenes/task blocks/block_red.tscn")
+@onready var blue_task_block_scene: PackedScene = preload("res://scenes/task blocks/block_blue.tscn")
+@onready var green_task_block_scene: PackedScene = preload("res://scenes/task blocks/block_green.tscn")
+@onready var orange_task_block_scene: PackedScene = preload("res://scenes/task blocks/block_orange.tscn")
 
 var start_pos: Vector2
 var mouse_pos: Vector2
@@ -14,40 +37,54 @@ var swiping := false
 var ray_length := 100	
 
 func _ready() -> void:
-	build_blocks.visible = true
-	task_blocks.visible = false
+	add_block(build_block_scenes,build_blocks,1)
+	var red_task_block_instance = red_task_block_scene.instantiate()
+	task_block.add_child(red_task_block_instance)
+	red_task_block_instance.global_position = Vector3(0,1,0)
+	var red_build_block_instance = red_build_block_scene.instantiate()
+	build_block.add_child(red_build_block_instance)
+	red_build_block_instance.global_position = Vector3(0,1,0)
 
-func _physics_process(delta: float) -> void:
-	if Input.is_action_just_pressed("drag") and not mouse_on_object():
-		swiping = true
-		start_pos = get_viewport().get_mouse_position()
-	elif Input.is_action_just_released("drag") and swiping:
-		swiping = false
-		delta_pos = get_viewport().get_mouse_position() - start_pos
-		if delta_pos.length() > swipe_distance:
-			if abs(delta_pos.y) > abs(delta_pos.x):
-				if delta_pos.y < 0:
-					build_blocks.visible = false
-					task_blocks.visible = true
-				elif delta_pos.y > 0:
-					build_blocks.visible = true
-					task_blocks.visible = false
-						
+#	build_blocks = {
+#		"red_block" =  red_build_block.global_position,
+#		"blue_block" = blue_build_block.global_position,
+#		"green_block" = green_build_block.global_position,
+#		"orange_block" = orange_build_block.global_position
+#	}
+#	task_blocks = {
+#		"blue_block": blue_task_block.global_position,
+#		"red_block": red_task_block.global_position,
+#		"green_block": green_task_block.global_position,
+#		"orange_block": orange_task_block.global_position
+#	}
+#	for i in task_blocks:
+#		task_blocks.get(i).x = randi_range(0,1)
+#		task_blocks.get(i).y = 1
+#		task_blocks.get(i).z = randi_range(0,1)
+#		print(task_blocks.get(i))
+	
+	build_block.visible = true
+	#task_blocks.visible = false
+	task_block.visible = false
+
+func _physics_process(_delta: float) -> void:
+	pass
+#	build_blocks = {
+#		"red_block": red_build_block.global_position,
+#		"blue_block": blue_build_block.global_position,
+#		"green_block": green_build_block.global_position,
+#		"orange_block": orange_build_block.global_position
+#	}
+#	if build_blocks.recursive_equal(task_blocks,1):
+#		get_tree().change_scene_to_file("res://scenes/mainMenu.tscn")
+
 		
-func mouse_on_object() ->bool:
-	# Raycast from camera to mouse
-	var space_state = get_world_3d().direct_space_state
-	var mousepos = get_viewport().get_mouse_position()
-	var origin = camera.project_ray_origin(mousepos)
-	var end = origin + camera.project_ray_normal(mousepos) * ray_length
-	var query = PhysicsRayQueryParameters3D.create(origin, end, 1,[])
-	var result = space_state.intersect_ray(query)
-	# Store last intersection
-	if result == {}:
-		return false
-	else:
-		return true
 		
+
+func add_block(from:Array,to:Dictionary,amount: int) ->void:
+	for i in amount:
+		print(from.pick_random())
+
 
 # Block Manager:
 
@@ -59,3 +96,13 @@ func mouse_on_object() ->bool:
 
 # - store BuildBlock / TaskBlock positions in array
 # - check if they are matching
+
+
+func _on_swipe_detector_swipe_up() -> void:
+	build_block.visible = false
+	task_block.visible = true
+
+
+func _on_swipe_detector_swipe_down() -> void:
+	build_block.visible = true
+	task_block.visible = false

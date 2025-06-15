@@ -1,8 +1,8 @@
+Node3D
 CollisionShape3D
 Area3D
 AnimationPlayer
 AnimationTree
-Node3D
 Panel
 PanelContainer
 Button
@@ -12,4 +12,3 @@ CanvasLayer
 Label
 TextureRect
 SubViewportContainer
-TextureProgressBar

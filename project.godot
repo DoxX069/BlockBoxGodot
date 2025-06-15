@@ -31,6 +31,11 @@ window/handheld/orientation=1
 
 project/assembly_name="BlockBox"
 
+[editor]
+
+version_control/plugin_name="GitPlugin"
+version_control/autoload_on_startup=true
+
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/Todo_Manager/plugin.cfg")

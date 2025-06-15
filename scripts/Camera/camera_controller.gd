@@ -1,6 +1,8 @@
 extends Node3D
 
 
+@export var swipe_detector: SwipeDetector
+
 var rotation_angle: float = 90
 var current_rotation_angle: float = 0
 var is_rotating:= false
@@ -8,41 +10,13 @@ var is_rotating:= false
 @onready var camera := $Camera3D
 var ray_length := 100
 
-var start_pos: Vector2
-var mouse_pos: Vector2
-var delta_pos: Vector2
-var swipe_distance := 125
-var swiping := false
-	
 
-func _physics_process(delta: float) -> void:
-	if Input.is_action_just_pressed("drag") and not mouse_on_object():
-		swiping = true
-		start_pos = get_viewport().get_mouse_position()
-	elif Input.is_action_just_released("drag") and swiping:
-		swiping = false
-		delta_pos = get_viewport().get_mouse_position() - start_pos
-		if delta_pos.length() > swipe_distance:
-			if abs(delta_pos.x) > abs(delta_pos.y):
-				if delta_pos.x < 0:
-					rotation_left()
-				elif delta_pos.x > 0:
-					rotation_right()
-					
+func _on_swipe_detector_swipe_left() -> void:
+	rotation_left()
 
-func mouse_on_object() ->bool:
-	# Raycast from camera to mouse
-	var space_state = get_world_3d().direct_space_state
-	var mousepos = get_viewport().get_mouse_position()
-	var origin = camera.project_ray_origin(mousepos)
-	var end = origin + camera.project_ray_normal(mousepos) * ray_length
-	var query = PhysicsRayQueryParameters3D.create(origin, end, 1, [])
-	var result = space_state.intersect_ray(query)
-	# Store last intersection
-	if result == {}:
-		return false
-	else:
-		return true
+
+func _on_swipe_detector_swipe_right() -> void:
+	rotation_right()
 
 
 func rotation_left() ->void:
@@ -63,7 +37,3 @@ func rotation_right() ->void:
 		await current_tween.finished
 		is_rotating = false
 		current_rotation_angle = self.rotation_degrees.y
-
-
-					
-	# add checking for swiping speed (if to low stop swipe)

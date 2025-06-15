@@ -3,13 +3,13 @@
 [ext_resource type="Script" uid="uid://bsnptigvvmtqu" path="res://scripts/game.gd" id="1_p57ef"]
 [ext_resource type="Script" uid="uid://05n7qgn4kay0" path="res://scripts/Camera/camera_controller.gd" id="2_1g5jo"]
 [ext_resource type="Script" uid="uid://c6l1lnnrmgj13" path="res://scripts/block_manager.gd" id="3_dinhu"]
+[ext_resource type="Script" uid="uid://dnc3j6chxcnkr" path="res://scripts/swipe_detector.gd" id="3_kvuet"]
 [ext_resource type="PackedScene" uid="uid://hwy0fscersv6" path="res://scenes/blocks/block_blue.tscn" id="4_gee14"]
 [ext_resource type="PackedScene" uid="uid://dnwxufwb6r8ha" path="res://scenes/blocks/block_red.tscn" id="4_u5sy4"]
 [ext_resource type="PackedScene" uid="uid://bqhwhho13jgy" path="res://scenes/blocks/block_green.tscn" id="5_0tnpc"]
 [ext_resource type="PackedScene" uid="uid://cdb5khjfuassp" path="res://scenes/blocks/block_orange.tscn" id="6_vtaks"]
 [ext_resource type="Script" uid="uid://xhlo7mh3pnyy" path="res://scripts/game_ui.gd" id="7_u5sy4"]
 [ext_resource type="Texture2D" uid="uid://83t5nd7354ef" path="res://assets/blank.png" id="8_gee14"]
-[ext_resource type="PackedScene" uid="uid://dbcmfwk4g8o0i" path="res://scenes/blocks/task_blocks.tscn" id="8_kvpfn"]
 [ext_resource type="PackedScene" uid="uid://qbd2bnunqisi" path="res://scenes/platform.tscn" id="9_kvpfn"]
 [ext_resource type="Animation" uid="uid://bsvr8slccsrnw" path="res://test.res" id="12_dinhu"]
 
@@ -23,19 +23,19 @@ fog_depth_curve = 2.0
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dinhu"]
 bg_color = Color(0.1, 0.1, 0.1, 1)
 
-[sub_resource type="Animation" id="Animation_dinhu"]
-resource_name = "test_2"
-length = 0.5
-tracks/0/type = "bezier"
+[sub_resource type="Animation" id="Animation_trtic"]
+length = 0.001
+tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Blocks/BuildBlocks/BlockRed:position:y")
+tracks/0/path = NodePath("Blocks/BuildBlocks:visible")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"handle_modes": PackedInt32Array(0, 0),
-"points": PackedFloat32Array(1.5, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0, 0.5)
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
 }
 
 [sub_resource type="Animation" id="Animation_kvuet"]
@@ -54,44 +54,20 @@ tracks/0/keys = {
 "update": 1,
 "values": [true, false]
 }
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Blocks/TaskBlocks:visible")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [false, true]
-}
 
-[sub_resource type="Animation" id="Animation_trtic"]
-length = 0.001
-tracks/0/type = "value"
+[sub_resource type="Animation" id="Animation_dinhu"]
+resource_name = "test_2"
+length = 0.5
+tracks/0/type = "bezier"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Blocks/TaskBlocks:visible")
+tracks/0/path = NodePath("Blocks/BuildBlocks/BlockRed:position:y")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Blocks/BuildBlocks:visible")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(1.5, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.5)
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_kvuet"]
@@ -125,8 +101,14 @@ light_energy = 0.9
 transform = Transform3D(-1, 6.18173e-08, -6.18173e-08, 2.27829e-08, 0.866949, 0.498397, 8.44019e-08, 0.498397, -0.866949, 0, 9.4271, -20)
 light_energy = 0.9
 
-[node name="CameraRig" type="Node3D" parent="."]
+[node name="CameraRig" type="Node3D" parent="." node_paths=PackedStringArray("swipe_detector")]
 script = ExtResource("2_1g5jo")
+swipe_detector = NodePath("SwipeDetector")
+
+[node name="SwipeDetector" type="Node3D" parent="CameraRig" node_paths=PackedStringArray("camera")]
+transform = Transform3D(1, 0, 5.96046e-08, 2.98023e-08, 1, 8.9407e-08, 0, 0, 1, 0, 9.53674e-07, 0)
+script = ExtResource("3_kvuet")
+camera = NodePath("../Camera3D")
 
 [node name="Camera3D" type="Camera3D" parent="CameraRig"]
 transform = Transform3D(0.707107, -0.5, 0.5, 0, 0.707107, 0.707107, -0.707107, -0.5, 0.5, 5, 8, 5)
@@ -135,8 +117,13 @@ projection = 1
 fov = 30.0
 size = 6.0
 
-[node name="Blocks" type="Node3D" parent="."]
+[node name="Blocks" type="Node3D" parent="." node_paths=PackedStringArray("swipe_detector")]
 script = ExtResource("3_dinhu")
+swipe_detector = NodePath("SwipeDetector")
+
+[node name="SwipeDetector" type="Node3D" parent="Blocks" node_paths=PackedStringArray("camera")]
+script = ExtResource("3_kvuet")
+camera = NodePath("../../CameraRig/Camera3D")
 
 [node name="BuildBlocks" type="Node3D" parent="Blocks"]
 visible = false
@@ -153,7 +140,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
 [node name="BlockOrange" parent="Blocks/BuildBlocks" instance=ExtResource("6_vtaks")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
 
-[node name="TaskBlocks" parent="Blocks" instance=ExtResource("8_kvpfn")]
+[node name="TaskBlocks" type="Node3D" parent="Blocks"]
+visible = false
 
 [node name="platform" parent="." instance=ExtResource("9_kvpfn")]
 
@@ -207,13 +195,16 @@ tint_progress = Color(0.2, 0.2, 0.2, 1)
 process_callback = 0
 wait_time = 20.0
 one_shot = true
-autostart = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 &"": SubResource("AnimationLibrary_kvuet")
 }
 
+[connection signal="swipe_left" from="CameraRig/SwipeDetector" to="CameraRig" method="_on_swipe_detector_swipe_left"]
+[connection signal="swipe_right" from="CameraRig/SwipeDetector" to="CameraRig" method="_on_swipe_detector_swipe_right"]
+[connection signal="swipe_down" from="Blocks/SwipeDetector" to="Blocks" method="_on_swipe_detector_swipe_down"]
+[connection signal="swipe_up" from="Blocks/SwipeDetector" to="Blocks" method="_on_swipe_detector_swipe_up"]
 [connection signal="body_entered" from="Blocks/BuildBlocks/BlockRed" to="Blocks/BuildBlocks/BlockRed" method="_on_body_entered"]
 [connection signal="body_exited" from="Blocks/BuildBlocks/BlockRed" to="Blocks/BuildBlocks/BlockRed" method="_on_body_exited"]
 [connection signal="body_entered" from="Blocks/BuildBlocks/BlockBlue" to="Blocks/BuildBlocks/BlockBlue" method="_on_body_entered"]
