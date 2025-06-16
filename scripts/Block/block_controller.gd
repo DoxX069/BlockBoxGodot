@@ -2,9 +2,10 @@ extends RigidBody3D
 class_name BlockController
 
 
-@onready var block_manager := self.get_parent()
+@onready var block_manager: BlockManager= self.get_parent().get_parent()
 
 var dragging_disabled := false
+var start_drag_pos: Vector3i
 
 var state_machine: CallableStateMachine = CallableStateMachine.new()
 var draggable := false
@@ -63,9 +64,9 @@ func leave_state_idle() ->void:
 
 
 func enter_state_drag() ->void:
+	start_drag_pos = self.position
 	raycast()
 	var delta = get_process_delta_time()
-	offset = intersection.position - self.global_position
 	
 
 
@@ -74,7 +75,7 @@ func state_drag() ->void:
 	var delta = get_process_delta_time()
 	if intersection:
 		# Change position while dragging
-		self.global_position = lerp(self.global_position,intersection.position-offset,25*delta )
+		self.global_position = lerp(self.global_position,intersection.position+Vector3(0,0.5,0),35*delta)
 	
 	if Input.is_action_just_released("drag"):
 		state_machine.change_state(state_drop)
@@ -88,23 +89,14 @@ func enter_state_drop() ->void:
 	raycast()
 	raycast_down()
 	var current_tween := get_tree().create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_EXPO)
-	if last_intersection:
+	if ray_down:
 		# Drop to the last raycast collider
-		if last_intersection.normal == Vector3(0,1,0):
-			current_tween.tween_property(self,"global_position",ray_down.collider.position + ray_down.normal,0.5)
-			await current_tween.finished
-			current_tween.kill()
-			# Change state
-			state_machine.change_state(state_idle)
+		current_tween.tween_property(self,"global_position",ray_down.collider.position + ray_down.normal,0.3)
+		await current_tween.finished
+		current_tween.kill()
+		# Change state
+		state_machine.change_state(state_idle)
 
-		# Fall when dropped on the side
-		elif intersection.normal != Vector3(0,1,0) and ray_down:
-			current_tween.tween_property(self,"global_position",ray_down.collider.position + Vector3(0,1,0),0.5)
-			await current_tween.finished
-			current_tween.kill()
-			# Change state
-			state_machine.change_state(state_idle)
-	
 
 func state_drop() ->void:
 	pass
@@ -119,7 +111,7 @@ func enter_state_fall() ->void:
 	Global.falling = true
 	if ray_down:
 		var current_tween := get_tree().create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_EXPO)
-		current_tween.tween_property(self,"global_position",ray_down.position + Vector3(0,0.5,0),0.10)
+		current_tween.tween_property(self,"global_position",ray_down.collider.position + Vector3(0,1,0),0.1)
 		await current_tween.finished
 		Global.falling = false
 		state_machine.change_state(state_idle)

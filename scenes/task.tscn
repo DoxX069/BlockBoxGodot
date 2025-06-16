@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://bpimp50qc1j40"]
+[gd_scene load_steps=8 format=3 uid="uid://bpimp50qc1j40"]
 
 [ext_resource type="Script" uid="uid://05n7qgn4kay0" path="res://scripts/Camera/camera_controller.gd" id="1_3qeyo"]
 [ext_resource type="Script" uid="uid://bh1bmlrci5yg0" path="res://scripts/task.gd" id="1_qe5cv"]
 [ext_resource type="Script" uid="uid://dnc3j6chxcnkr" path="res://scripts/swipe_detector.gd" id="3_mpid7"]
+[ext_resource type="Script" uid="uid://c6l1lnnrmgj13" path="res://scripts/block_manager.gd" id="4_mpid7"]
 [ext_resource type="PackedScene" uid="uid://qbd2bnunqisi" path="res://scenes/platform.tscn" id="4_qe5cv"]
 
 [sub_resource type="Environment" id="Environment_lxhym"]
@@ -55,7 +56,10 @@ fov = 30.0
 size = 6.0
 far = 100.0
 
-[node name="Blocks" type="Node3D" parent="."]
+[node name="Blocks" type="Node3D" parent="." node_paths=PackedStringArray("swipe_detector", "task_blocks")]
+script = ExtResource("4_mpid7")
+swipe_detector = NodePath("../CameraRig/SwipeDetector")
+task_blocks = NodePath("TaskBlocks")
 
 [node name="SwipeDetector" type="Node3D" parent="Blocks" node_paths=PackedStringArray("camera")]
 script = ExtResource("3_mpid7")

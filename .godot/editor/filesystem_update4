@@ -1,7 +1,8 @@
 res://scenes/game.tscn
 res://assets/BlockBoxTheme.tres
-res://scripts/block_manager.gd
 res://scenes/task.tscn
 res://scenes/mainMenu.tscn
 res://scenes/Block/block.tscn
+res://scripts/block_manager.gd
 res://scripts/Block/block_controller.gd
+res://scenes/platform.tscn
