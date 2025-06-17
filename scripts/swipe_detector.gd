@@ -15,10 +15,10 @@ signal swipe_down
 signal swipe_left
 signal swipe_right
 	
-@export var camera: Camera3D
+@onready var camera: Camera3D = get_viewport().get_camera_3d()
 var ray_length := 100
 
-	
+
 func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("drag") and not mouse_on_object():
 		swiping = true

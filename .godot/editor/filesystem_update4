@@ -6,3 +6,10 @@ res://scenes/Block/block.tscn
 res://scripts/block_manager.gd
 res://scripts/Block/block_controller.gd
 res://scenes/platform.tscn
+res://scripts/global.gd
+res://scripts/Block/block_manager.gd
+res://scenes/Block/blocks.tscn
+res://scripts/swipe_detector.gd
+res://scripts/game.gd
+res://scenes/Block/ogblock.tscn
+res://scripts/Camera/camera_controller.gd

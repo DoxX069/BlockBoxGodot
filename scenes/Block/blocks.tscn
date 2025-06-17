@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://b2slfqbakiujv"]
+
+[ext_resource type="Script" uid="uid://c6l1lnnrmgj13" path="res://scripts/Block/block_manager.gd" id="1_iw1xg"]
+[ext_resource type="Script" uid="uid://dnc3j6chxcnkr" path="res://scripts/swipe_detector.gd" id="2_7hhmd"]
+
+[node name="Blocks" type="Node3D" node_paths=PackedStringArray("swipe_detector", "build_blocks", "task_blocks")]
+script = ExtResource("1_iw1xg")
+swipe_detector = NodePath("SwipeDetector")
+build_blocks = NodePath("BuildBlocks")
+task_blocks = NodePath("TaskBlocks")
+
+[node name="SwipeDetector" type="Node3D" parent="."]
+script = ExtResource("2_7hhmd")
+
+[node name="BuildBlocks" type="Node3D" parent="."]
+visible = false
+
+[node name="TaskBlocks" type="Node3D" parent="."]
+
+[connection signal="swipe_down" from="SwipeDetector" to="." method="_on_swipe_detector_swipe_down"]
+[connection signal="swipe_up" from="SwipeDetector" to="." method="_on_swipe_detector_swipe_up"]

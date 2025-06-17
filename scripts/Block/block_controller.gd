@@ -1,11 +1,14 @@
-extends RigidBody3D
+extends StaticBody3D
 class_name BlockController
 
 
 @onready var block_manager: BlockManager= self.get_parent().get_parent()
 
+var is_task_block: bool = false
+var is_build_block: bool = false
 var dragging_disabled := false
-var start_drag_pos: Vector3i
+var start_drag_pos: Vector3
+var dict_key: String
 
 var state_machine: CallableStateMachine = CallableStateMachine.new()
 var draggable := false
@@ -52,7 +55,7 @@ func state_idle() ->void:
 	if ray_down:
 		ground_distance = ray_down.position.distance_to(self.global_transform.origin)
 		
-	if ground_distance > 1 and not Global.falling:
+	if ground_distance > 1 and Global.falling_allowed and ray_down.collider != dragged_block:
 		state_machine.change_state(state_fall)
 	
 	if Input.is_action_just_pressed("drag") and draggable and not dragging_disabled:
@@ -60,15 +63,26 @@ func state_idle() ->void:
 		
 
 func leave_state_idle() ->void:
-	pass
+	# remove position from position array
+	if is_task_block:
+		for key in block_manager.task_block_positions.keys():
+			var array_value = block_manager.task_block_positions[key]
+			if array_value.has(self.position):
+				dict_key = key
+				array_value.erase(self.position)
+	elif is_build_block:
+		for key in block_manager.build_block_positions.keys():
+			var array_value = block_manager.build_block_positions[key]
+			if array_value.has(self.position):
+				dict_key = key
+				array_value.erase(self.position)
+	block_manager.sort_dicts()
 
 
 func enter_state_drag() ->void:
-	start_drag_pos = self.position
 	raycast()
-	var delta = get_process_delta_time()
+	start_drag_pos = self.position
 	
-
 
 func state_drag() ->void:
 	raycast()
@@ -88,32 +102,68 @@ func leave_state_drag() ->void:
 func enter_state_drop() ->void:
 	raycast()
 	raycast_down()
+	block_manager.update_valid_pos()
+	var new_pos: Vector3 = ray_down.collider.position + ray_down.normal
+	var is_valid_pos:bool = block_manager.valid_build_pos.has(new_pos)
+	
+	var closest_distance: float = 100
+	var fallback_pos: Vector3
+	for pos in block_manager.valid_build_pos:
+		if self.position.distance_to(pos) < closest_distance:
+			fallback_pos = pos
+			closest_distance = self.position.distance_to(pos)
+	
 	var current_tween := get_tree().create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_EXPO)
-	if ray_down:
+	if is_valid_pos:
 		# Drop to the last raycast collider
-		current_tween.tween_property(self,"global_position",ray_down.collider.position + ray_down.normal,0.3)
+		current_tween.tween_property(self,"global_position",new_pos,0.3)
+		await current_tween.finished
+		current_tween.kill()
+		# Change state
+		state_machine.change_state(state_idle)
+	else:
+		# Drop to the last raycast collider
+		current_tween.tween_property(self,"global_position",fallback_pos,0.3)
 		await current_tween.finished
 		current_tween.kill()
 		# Change state
 		state_machine.change_state(state_idle)
 
-
 func state_drop() ->void:
 	pass
+#	block_manager.build_block_positions.find_key(self.position).
+#	key.val
 
 
 func leave_state_drop() ->void:
-	pass
-	
+	# add position to position array
+	if is_task_block:
+		var array_value = block_manager.task_block_positions[dict_key]
+		array_value.append(self.position)
+	elif is_build_block:
+		var array_value = block_manager.build_block_positions[dict_key]
+		array_value.append(self.position)
+	block_manager.sort_dicts()
+		
 	
 func enter_state_fall() ->void:
+	var new_pos: Vector3 = ray_down.collider.position + ray_down.normal
+	# add position to position array
+	if is_task_block:
+		var array_value = block_manager.task_block_positions[dict_key]
+		array_value.append(new_pos)
+	elif is_build_block:
+		var array_value = block_manager.build_block_positions[dict_key]
+		array_value.append(new_pos)
+	block_manager.sort_dicts()
+	
 	raycast_down()
-	Global.falling = true
+	Global.falling_allowed = false
 	if ray_down:
 		var current_tween := get_tree().create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_EXPO)
-		current_tween.tween_property(self,"global_position",ray_down.collider.position + Vector3(0,1,0),0.1)
+		current_tween.tween_property(self,"global_position",new_pos,0.1)
 		await current_tween.finished
-		Global.falling = false
+		Global.falling_allowed = true
 		state_machine.change_state(state_idle)
 	else:
 		state_machine.change_state(state_idle)
@@ -121,11 +171,10 @@ func enter_state_fall() ->void:
 
 func state_fall() ->void:
 	pass
-	
+		
 	
 func leave_state_fall() ->void:
 	pass
-	
 	
 	
 # Functions:
@@ -136,7 +185,11 @@ func raycast():
 	var mousepos = get_viewport().get_mouse_position()
 	var origin = camera.project_ray_origin(mousepos)
 	var end = origin + camera.project_ray_normal(mousepos) * ray_length
-	var layers = 1 | 2
+	var layers
+	if is_task_block:
+		layers = 4 | 2
+	elif is_build_block:
+		layers = 1 | 2
 	var query = PhysicsRayQueryParameters3D.create(origin, end, layers,[])
 	if dragged_block:
 		query.exclude = [dragged_block]
@@ -145,7 +198,6 @@ func raycast():
 	# Store last intersection except for the platform area
 	if intersection and intersection.collider != $"../../../platform/Area3D":
 		last_intersection = intersection
-		#print(Global.intersection.collider)
 
 
 func _on_mouse_entered() -> void:
@@ -162,8 +214,14 @@ func raycast_down() ->void:
 	var space_state = self.get_world_3d().direct_space_state
 	var origin = self.position
 	var end = origin + Vector3(0,-1,0) * ray_length
-	var layers = 1 | 2
+	var layers
+	if is_task_block:
+		layers = 4 | 2
+	elif is_build_block:
+		layers = 1 | 2
 	var query = PhysicsRayQueryParameters3D.create(origin, end, layers, [])
+	if dragged_block:
+		query.exclude = [dragged_block]
 	var result = space_state.intersect_ray(query)
 	if result:
 		ray_down = result
