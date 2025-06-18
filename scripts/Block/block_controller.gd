@@ -55,7 +55,7 @@ func state_idle() ->void:
 	if ray_down:
 		ground_distance = ray_down.position.distance_to(self.global_transform.origin)
 		
-	if ground_distance > 1 and Global.falling_allowed and ray_down.collider != dragged_block:
+	if ground_distance > 1 and Global.falling_allowed:
 		state_machine.change_state(state_fall)
 	
 	if Input.is_action_just_pressed("drag") and draggable and not dragging_disabled:
@@ -63,25 +63,13 @@ func state_idle() ->void:
 		
 
 func leave_state_idle() ->void:
-	# remove position from position array
-	if is_task_block:
-		for key in block_manager.task_block_positions.keys():
-			var array_value = block_manager.task_block_positions[key]
-			if array_value.has(self.position):
-				dict_key = key
-				array_value.erase(self.position)
-	elif is_build_block:
-		for key in block_manager.build_block_positions.keys():
-			var array_value = block_manager.build_block_positions[key]
-			if array_value.has(self.position):
-				dict_key = key
-				array_value.erase(self.position)
-	block_manager.sort_dicts()
+	start_drag_pos = self.position
 
 
 func enter_state_drag() ->void:
 	raycast()
-	start_drag_pos = self.position
+	# ignore dragged block in raycast intersection
+	Global.dragged_block = self
 	
 
 func state_drag() ->void:
@@ -136,26 +124,30 @@ func state_drop() ->void:
 
 
 func leave_state_drop() ->void:
-	# add position to position array
+	# ignore dragged block in raycast intersection
+	Global.dragged_block = null
+	# update block data position
 	if is_task_block:
-		var array_value = block_manager.task_block_positions[dict_key]
-		array_value.append(self.position)
-	elif is_build_block:
-		var array_value = block_manager.build_block_positions[dict_key]
-		array_value.append(self.position)
-	block_manager.sort_dicts()
+		for dict:Dictionary in block_manager.task_block_data.values():
+			if dict["Position"] == start_drag_pos:
+				dict["Position"] = self.position
+	else:
+		for dict:Dictionary in block_manager.build_block_data.values():
+			if dict["Position"] == start_drag_pos:
+				dict["Position"] = self.position
 		
 	
 func enter_state_fall() ->void:
 	var new_pos: Vector3 = ray_down.collider.position + ray_down.normal
-	# add position to position array
+	# update block data position
 	if is_task_block:
-		var array_value = block_manager.task_block_positions[dict_key]
-		array_value.append(new_pos)
-	elif is_build_block:
-		var array_value = block_manager.build_block_positions[dict_key]
-		array_value.append(new_pos)
-	block_manager.sort_dicts()
+		for dict:Dictionary in block_manager.task_block_data.values():
+			if dict["Position"] == start_drag_pos:
+				dict["Position"] = new_pos
+	else:
+		for dict:Dictionary in block_manager.build_block_data.values():
+			if dict["Position"] == start_drag_pos:
+				dict["Position"] = new_pos
 	
 	raycast_down()
 	Global.falling_allowed = false
@@ -188,11 +180,11 @@ func raycast():
 	var layers
 	if is_task_block:
 		layers = 4 | 2
-	elif is_build_block:
+	else:
 		layers = 1 | 2
 	var query = PhysicsRayQueryParameters3D.create(origin, end, layers,[])
-	if dragged_block:
-		query.exclude = [dragged_block]
+	if Global.dragged_block:
+		query.exclude = [Global.dragged_block]
 	query.collide_with_areas = true
 	intersection = space_state.intersect_ray(query)
 	# Store last intersection except for the platform area
@@ -202,12 +194,10 @@ func raycast():
 
 func _on_mouse_entered() -> void:
 	draggable = true
-	dragged_block = self # For ignoring dragged block in raycast intersection
-
+	
 
 func _on_mouse_exited() -> void:
 	draggable = false
-	dragged_block = null # For ignoring dragged block in raycast intersection
 
 
 func raycast_down() ->void:
@@ -217,11 +207,11 @@ func raycast_down() ->void:
 	var layers
 	if is_task_block:
 		layers = 4 | 2
-	elif is_build_block:
+	else:
 		layers = 1 | 2
 	var query = PhysicsRayQueryParameters3D.create(origin, end, layers, [])
-	if dragged_block:
-		query.exclude = [dragged_block]
+	if Global.dragged_block:
+		query.exclude = [Global.dragged_block]
 	var result = space_state.intersect_ray(query)
 	if result:
 		ray_down = result
@@ -241,3 +231,4 @@ func reset_material(node: Node3D):
 		node.get_node("MeshInstance3D").material_override = null
 	else:
 		pass
+		

@@ -3,11 +3,10 @@
 [ext_resource type="Script" uid="uid://bsnptigvvmtqu" path="res://scripts/game.gd" id="1_p57ef"]
 [ext_resource type="Script" uid="uid://05n7qgn4kay0" path="res://scripts/Camera/camera_controller.gd" id="2_1g5jo"]
 [ext_resource type="Script" uid="uid://dnc3j6chxcnkr" path="res://scripts/swipe_detector.gd" id="3_kvuet"]
-[ext_resource type="PackedScene" uid="uid://b2slfqbakiujv" path="res://scenes/Block/blocks.tscn" id="4_gee14"]
+[ext_resource type="PackedScene" uid="uid://b2slfqbakiujv" path="res://scenes/Block/block_manager.tscn" id="4_gee14"]
 [ext_resource type="Script" uid="uid://xhlo7mh3pnyy" path="res://scripts/game_ui.gd" id="7_u5sy4"]
 [ext_resource type="Texture2D" uid="uid://83t5nd7354ef" path="res://assets/blank.png" id="8_gee14"]
 [ext_resource type="PackedScene" uid="uid://qbd2bnunqisi" path="res://scenes/platform.tscn" id="9_kvpfn"]
-[ext_resource type="Animation" uid="uid://bsvr8slccsrnw" path="res://test.res" id="12_dinhu"]
 
 [sub_resource type="Environment" id="Environment_u5sy4"]
 background_mode = 3
@@ -21,35 +20,16 @@ bg_color = Color(0.1, 0.1, 0.1, 1)
 
 [sub_resource type="Animation" id="Animation_trtic"]
 length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Blocks/BuildBlocks:visible")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
 
 [sub_resource type="Animation" id="Animation_kvuet"]
 resource_name = "new_animation"
 length = 0.5
 loop_mode = 2
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Blocks/BuildBlocks:visible")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [true, false]
-}
+
+[sub_resource type="Animation" id="Animation_u5sy4"]
+resource_name = "test"
+length = 0.5
+loop_mode = 1
 
 [sub_resource type="Animation" id="Animation_dinhu"]
 resource_name = "test_2"
@@ -59,7 +39,7 @@ length = 0.5
 _data = {
 &"RESET": SubResource("Animation_trtic"),
 &"new_animation": SubResource("Animation_kvuet"),
-&"test": ExtResource("12_dinhu"),
+&"test": SubResource("Animation_u5sy4"),
 &"test_2": SubResource("Animation_dinhu")
 }
 
@@ -101,7 +81,7 @@ projection = 1
 fov = 30.0
 size = 6.0
 
-[node name="Blocks" parent="." instance=ExtResource("4_gee14")]
+[node name="BlockManager" parent="." instance=ExtResource("4_gee14")]
 
 [node name="platform" parent="." instance=ExtResource("9_kvpfn")]
 
