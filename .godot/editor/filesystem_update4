@@ -9,3 +9,5 @@ res://scenes/Block/block_manager.tscn
 res://scenes/Block/block.tscn
 res://scripts/Block/block_controller.gd
 res://Resources/Blocks/BuildBlock1.tres
+res://scripts/game_ui.gd
+res://scripts/Camera/camera_controller.gd

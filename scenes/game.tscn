@@ -52,38 +52,31 @@ environment = SubResource("Environment_u5sy4")
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-4.26336e-08, -0.533615, 0.845728, 9.64699e-09, 0.845728, 0.533615, -1, 3.09086e-08, -3.09086e-08, 20, 9.39365, 0)
 light_energy = 0.9
+shadow_enabled = true
 shadow_blur = 0.2
-
-[node name="DirectionalLight3D2" type="DirectionalLight3D" parent="."]
-transform = Transform3D(-4.23457e-08, 0.509642, -0.860386, -1.0841e-08, 0.860386, 0.509642, 1, 3.09086e-08, -3.09086e-08, -20, 8.70473, 0)
-light_energy = 0.9
-
-[node name="DirectionalLight3D3" type="DirectionalLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.963979, 0.265977, 0, -0.265977, 0.963979, 0, 5.53966, 20)
-light_energy = 0.9
 
 [node name="DirectionalLight3D4" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-1, 6.18173e-08, -6.18173e-08, 2.27829e-08, 0.866949, 0.498397, 8.44019e-08, 0.498397, -0.866949, 0, 9.4271, -20)
 light_energy = 0.9
+shadow_enabled = true
 
-[node name="CameraRig" type="Node3D" parent="." node_paths=PackedStringArray("swipe_detector")]
-script = ExtResource("2_1g5jo")
-swipe_detector = NodePath("SwipeDetector")
-
-[node name="SwipeDetector" type="Node3D" parent="CameraRig"]
-transform = Transform3D(1, 0, 5.96046e-08, 2.98023e-08, 1, 8.9407e-08, 0, 0, 1, 0, 9.53674e-07, 0)
-script = ExtResource("3_kvuet")
-
-[node name="Camera3D" type="Camera3D" parent="CameraRig"]
+[node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(0.707107, -0.5, 0.5, 0, 0.707107, 0.707107, -0.707107, -0.5, 0.5, 5, 8, 5)
 keep_aspect = 0
 projection = 1
 fov = 30.0
 size = 6.0
 
-[node name="BlockManager" parent="." instance=ExtResource("4_gee14")]
+[node name="ObjectRig" type="Node3D" parent="."]
+script = ExtResource("2_1g5jo")
 
-[node name="platform" parent="." instance=ExtResource("9_kvpfn")]
+[node name="SwipeDetector" type="Node3D" parent="ObjectRig"]
+transform = Transform3D(1, 0, 5.96046e-08, 2.98023e-08, 1, 8.9407e-08, 0, 0, 1, 0, 9.53674e-07, 0)
+script = ExtResource("3_kvuet")
+
+[node name="BlockManager" parent="ObjectRig" instance=ExtResource("4_gee14")]
+
+[node name="platform" parent="ObjectRig" instance=ExtResource("9_kvpfn")]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -135,13 +128,12 @@ tint_progress = Color(0.25, 0.25, 0.25, 1)
 process_callback = 0
 wait_time = 20.0
 one_shot = true
-autostart = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 &"": SubResource("AnimationLibrary_kvuet")
 }
 
-[connection signal="swipe_left" from="CameraRig/SwipeDetector" to="CameraRig" method="_on_swipe_detector_swipe_left"]
-[connection signal="swipe_right" from="CameraRig/SwipeDetector" to="CameraRig" method="_on_swipe_detector_swipe_right"]
+[connection signal="swipe_left" from="ObjectRig/SwipeDetector" to="ObjectRig" method="_on_swipe_detector_swipe_left"]
+[connection signal="swipe_right" from="ObjectRig/SwipeDetector" to="ObjectRig" method="_on_swipe_detector_swipe_right"]
 [connection signal="timeout" from="TimerCanvasLayer/PanelContainer/Timer" to="." method="_on_timer_timeout"]

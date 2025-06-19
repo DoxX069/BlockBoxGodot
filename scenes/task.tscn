@@ -40,14 +40,7 @@ light_energy = 0.9
 transform = Transform3D(-1, 6.18173e-08, -6.18173e-08, 2.27829e-08, 0.866949, 0.498397, 8.44019e-08, 0.498397, -0.866949, 0, 9.4271, -20)
 light_energy = 0.9
 
-[node name="CameraRig" type="Node3D" parent="." node_paths=PackedStringArray("swipe_detector")]
-script = ExtResource("1_3qeyo")
-swipe_detector = NodePath("SwipeDetector")
-
-[node name="SwipeDetector" type="Node3D" parent="CameraRig"]
-script = ExtResource("3_mpid7")
-
-[node name="Camera3D" type="Camera3D" parent="CameraRig"]
+[node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(0.707107, -0.5, 0.5, 0, 0.707107, 0.707107, -0.707107, -0.5, 0.5, 5, 8, 5)
 keep_aspect = 0
 projection = 1
@@ -55,9 +48,16 @@ fov = 30.0
 size = 6.0
 far = 100.0
 
-[node name="BlockManager" parent="." instance=ExtResource("4_mpid7")]
+[node name="ObjectRig" type="Node3D" parent="."]
+script = ExtResource("1_3qeyo")
 
-[node name="platform" parent="." instance=ExtResource("4_qe5cv")]
+[node name="SwipeDetector" type="Node3D" parent="ObjectRig"]
+transform = Transform3D(1, 0, 5.96046e-08, 2.98023e-08, 1, 8.9407e-08, 0, 0, 1, 0, 9.53674e-07, 0)
+script = ExtResource("3_mpid7")
+
+[node name="BlockManager" parent="ObjectRig" instance=ExtResource("4_mpid7")]
+
+[node name="platform" parent="ObjectRig" instance=ExtResource("4_qe5cv")]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -100,6 +100,6 @@ icon_alignment = 1
 expand_icon = true
 metadata/_edit_use_anchors_ = true
 
-[connection signal="swipe_left" from="CameraRig/SwipeDetector" to="CameraRig" method="_on_swipe_detector_swipe_left"]
-[connection signal="swipe_right" from="CameraRig/SwipeDetector" to="CameraRig" method="_on_swipe_detector_swipe_right"]
+[connection signal="swipe_left" from="ObjectRig/SwipeDetector" to="ObjectRig" method="_on_swipe_detector_swipe_left"]
+[connection signal="swipe_right" from="ObjectRig/SwipeDetector" to="ObjectRig" method="_on_swipe_detector_swipe_right"]
 [connection signal="pressed" from="CanvasLayer/MiddleButton" to="." method="_on_middle_button_pressed"]

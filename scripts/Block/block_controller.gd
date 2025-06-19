@@ -4,10 +4,11 @@ class_name BlockController
 
 @onready var block_manager: BlockManager= self.get_parent().get_parent()
 
+var position_data: Vector3
+
 var is_task_block: bool = false
 var is_build_block: bool = false
 var dragging_disabled := false
-var start_drag_pos: Vector3
 var dict_key: String
 
 var state_machine: CallableStateMachine = CallableStateMachine.new()
@@ -44,16 +45,14 @@ func _physics_process(_delta) ->void:
 # States:
 
 func enter_state_idle() ->void:
-	if last_intersection:
-		pass
-		#reset_material(Global.last_intersection.collider)
+	position_data = self.position
 
 
 func state_idle() ->void:
 	raycast()
 	raycast_down()
 	if ray_down:
-		ground_distance = ray_down.position.distance_to(self.global_transform.origin)
+		ground_distance = ray_down.position.distance_to(self.global_position)
 		
 	if ground_distance > 1 and Global.falling_allowed:
 		state_machine.change_state(state_fall)
@@ -63,7 +62,7 @@ func state_idle() ->void:
 		
 
 func leave_state_idle() ->void:
-	start_drag_pos = self.position
+	pass
 
 
 func enter_state_drag() ->void:
@@ -93,25 +92,24 @@ func enter_state_drop() ->void:
 	block_manager.update_valid_pos()
 	var new_pos: Vector3 = ray_down.collider.position + ray_down.normal
 	var is_valid_pos:bool = block_manager.valid_build_pos.has(new_pos)
-	
 	var closest_distance: float = 100
 	var fallback_pos: Vector3
 	for pos in block_manager.valid_build_pos:
-		if self.position.distance_to(pos) < closest_distance:
+		if self.global_position.distance_to(pos) < closest_distance:
 			fallback_pos = pos
-			closest_distance = self.position.distance_to(pos)
+			closest_distance = self.global_position.distance_to(pos)
 	
 	var current_tween := get_tree().create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_EXPO)
 	if is_valid_pos:
 		# Drop to the last raycast collider
-		current_tween.tween_property(self,"global_position",new_pos,0.3)
+		current_tween.tween_property(self,"position",new_pos,0.3)
 		await current_tween.finished
 		current_tween.kill()
 		# Change state
 		state_machine.change_state(state_idle)
 	else:
 		# Drop to the last raycast collider
-		current_tween.tween_property(self,"global_position",fallback_pos,0.3)
+		current_tween.tween_property(self,"position",fallback_pos,0.3)
 		await current_tween.finished
 		current_tween.kill()
 		# Change state
@@ -119,8 +117,6 @@ func enter_state_drop() ->void:
 
 func state_drop() ->void:
 	pass
-#	block_manager.build_block_positions.find_key(self.position).
-#	key.val
 
 
 func leave_state_drop() ->void:
@@ -128,32 +124,37 @@ func leave_state_drop() ->void:
 	Global.dragged_block = null
 	# update block data position
 	if is_task_block:
-		for dict:Dictionary in block_manager.task_block_data.values():
-			if dict["Position"] == start_drag_pos:
+		for dict:Dictionary in block_manager.task_block_data:
+			if dict["Position"] == position_data:
 				dict["Position"] = self.position
+				position_data = dict["Position"]
 	else:
-		for dict:Dictionary in block_manager.build_block_data.values():
-			if dict["Position"] == start_drag_pos:
+		for dict:Dictionary in block_manager.build_block_data:
+			if dict["Position"] == position_data:
 				dict["Position"] = self.position
-		
+				position_data = dict["Position"]
+	block_manager.update_valid_pos()
 	
 func enter_state_fall() ->void:
 	var new_pos: Vector3 = ray_down.collider.position + ray_down.normal
 	# update block data position
 	if is_task_block:
-		for dict:Dictionary in block_manager.task_block_data.values():
-			if dict["Position"] == start_drag_pos:
+		for dict:Dictionary in block_manager.task_block_data:
+			if dict["Position"] == position_data:
 				dict["Position"] = new_pos
+				position_data = dict["Position"]
 	else:
-		for dict:Dictionary in block_manager.build_block_data.values():
-			if dict["Position"] == start_drag_pos:
+		for dict:Dictionary in block_manager.build_block_data:
+			if dict["Position"] == position_data:
 				dict["Position"] = new_pos
+				position_data = dict["Position"]
+	block_manager.update_valid_pos()
 	
 	raycast_down()
 	Global.falling_allowed = false
 	if ray_down:
 		var current_tween := get_tree().create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_EXPO)
-		current_tween.tween_property(self,"global_position",new_pos,0.1)
+		current_tween.tween_property(self,"position",new_pos,0.1)
 		await current_tween.finished
 		Global.falling_allowed = true
 		state_machine.change_state(state_idle)
@@ -202,7 +203,7 @@ func _on_mouse_exited() -> void:
 
 func raycast_down() ->void:
 	var space_state = self.get_world_3d().direct_space_state
-	var origin = self.position
+	var origin = self.global_position
 	var end = origin + Vector3(0,-1,0) * ray_length
 	var layers
 	if is_task_block:
@@ -231,4 +232,5 @@ func reset_material(node: Node3D):
 		node.get_node("MeshInstance3D").material_override = null
 	else:
 		pass
+		
 		
