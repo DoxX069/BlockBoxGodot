@@ -2,29 +2,10 @@ extends Node3D
 class_name BlockManager
 
 
-# Block Manager:
-
-# - switch between showing Build- or TaskBlocks - done
-
-# - add block scene instance to build- and task block - done 
-# - choose random color from array for build- and task block instance - done
-# - random position for build- and task block instance (stored in dict) - done
-# - change collision layer for build- and task block - done
-# - restrict drag and drop for task_block - done
-
-# - with stored pos in dict, store all neighbour pos as valid instancing pos - done
-# - with stored pos in dict, store all other pos as valid droping pos - done
-
-# - check if build- and task block positions are equal - done
-# - update build block positions when changed - done
-
-# - add more blocks if positions are equal
-
-
 signal data_saved
 signal data_loaded
 
-@export var number_of_blocks: int = 3
+@export var number_of_blocks: int = 4
 
 @export var swipe_detector: SwipeDetector
 
@@ -33,250 +14,156 @@ signal data_loaded
 
 @onready var block_scene: PackedScene = preload("res://scenes/Block/block.tscn")
 
-var task_block_data: Array = []
-var build_block_data: Array = []
-var taken_task_pos: Array = []
-var taken_build_pos: Array = []
-var valid_task_pos: Array = [
-	Vector3(0,1,0),
-	Vector3(-1,1,0),Vector3(1,1,0),
-	Vector3(0,1,-1),Vector3(0,1,1),
-	Vector3(-1,1,-1),Vector3(1,1,1),
-	Vector3(1,1,-1),Vector3(-1,1,1)
-]
-var valid_build_pos: Array = [
-	Vector3(0,1,0),
-	Vector3(-1,1,0),Vector3(1,1,0),
-	Vector3(0,1,-1),Vector3(0,1,1),
-	Vector3(-1,1,-1),Vector3(1,1,1),
-	Vector3(1,1,-1),Vector3(-1,1,1)
-]
-@onready var colors: Dictionary = {
-	"White": Color(1,1,1),
-	#"Red": Color(1,0,0),
-	#"Green": Color(0,1,0),
-	#"Blue": Color(0,0,1),
-	#"Yellow": Color(1,1,0)
-}
+var task_block_pos: Array = []
+var build_block_pos: Array = []
+var task_valid_pos: Array = []
+var build_valid_pos: Array = []
 
 
 func _ready() -> void:
-	task_block_data.sort()
-	build_block_data.sort()
-	print(get_tree().current_scene.name)
-	update_valid_pos()
 	if get_tree().current_scene.name == "Task":
-		create_block_data(number_of_blocks)
-		instantiate_block()
+		create_block_pos(number_of_blocks)
+		instantiate_block(number_of_blocks)
 		save_data()
 		task_blocks.visible = true
 		build_blocks.visible = false
 	else:
 		load_data()
-		instantiate_block()
+		instantiate_block(number_of_blocks)
 		task_blocks.visible = false
 		build_blocks.visible = true
 		
 
 func _process(_delta: float) -> void:
 	# Check if task- and build block positions are equal
-	update_valid_pos()
-	# print sorted task block data
-	task_block_data.sort_custom(custom_sorter)
-	#for i in task_block_data:
-	#	print(i["Color"], "    ", i["Position"])
-	# print sorted build block data
-	build_block_data.sort_custom(custom_sorter)
-	#for i in build_block_data:
-	#	print(i["Color"], "    ", i["Position"])
-	if build_block_data == task_block_data:
+	task_block_pos.sort_custom(custom_sorter)
+	build_block_pos.sort_custom(custom_sorter)
+	if build_block_pos == task_block_pos:
 		get_tree().change_scene_to_file("res://scenes/task.tscn")
 	
 
 func custom_sorter(a,b) ->bool:
-	if a["Color"] == b["Color"]:
-		if a["Position"] > b["Position"]:
-			return true
-	elif a["Color"] < b["Color"]:
+	if a < b:
 		return true
 	return false
 
 
-func instantiate_block() ->void:
-	for dict in task_block_data:
-		var counter: int = 0
-		counter += 1
-		#var dict: Dictionary = task_block_data[key]
-		# instance block
-		var instance: BlockController = block_scene.instantiate()
-		# add instance to scene tree
-		task_blocks.add_child(instance)
-		# set collision layer
-		instance.collision_layer = 4
-		# set collision mask
-		instance.collision_mask = 4 | 2
-		# restrict drag and drop and identify as task
-		instance.dragging_disabled = true
-		instance.is_task_block = true
-		instance.is_build_block = false
-		# change name
-		instance.name = "TaskBlock"+str(counter)
-		# set position
-		instance.global_position = dict["Position"]
-		# set color
-		var og_material: Material = instance.get_child(0).get_material_override()
-		var new_material: Material = og_material.duplicate()
-		new_material.albedo_color = dict["Color"]
-		instance.get_child(0).set_material_override(new_material)
+func instantiate_block(amount: int) ->void:
+	for i in amount:
+		# Task Block
+		update_task_valid_pos()
+		var task_instance: Block = block_scene.instantiate()
+		task_blocks.add_child(task_instance)
+		task_instance.collision_layer = 4
+		task_instance.collision_mask = 4 | 2
+		task_instance.dragging_disabled = true
+		task_instance.is_task_block = true
+		task_instance.is_build_block = false
+		task_instance.name = "TaskBlock"+str(i)
+		task_instance.global_position = task_block_pos[i]
+		update_task_block_pos(task_instance.global_position)
 		
-	for dict in build_block_data:
-		var counter: int = 0
-		counter += 1
-		#var dict: Dictionary = build_block_data[key]
-		# instance block
-		var instance: BlockController = block_scene.instantiate()
-		# add instance to scene tree
-		build_blocks.add_child(instance)
-		# set collision layer
-		instance.collision_layer = 1
-		# set collision mask
-		instance.collision_mask = 1 | 2
-		# restrict drag and drop and identify as task
-		instance.dragging_disabled = false
-		instance.is_task_block = false
-		instance.is_build_block = true
-		# configure resource
-		instance.name = "BuildBlock"+str(counter)
-		# set position
-		instance.global_position = dict["Position"]
-		# set color
-		var og_material: Material = instance.get_child(0).get_material_override()
-		var new_material: Material = og_material.duplicate()
-		new_material.albedo_color = dict["Color"]
-		instance.get_child(0).set_material_override(new_material)
+		# Build Block
+		update_build_valid_pos()
+		var build_instance: Block = block_scene.instantiate()
+		build_blocks.add_child(build_instance)
+		build_instance.collision_layer = 1
+		build_instance.collision_mask = 1 | 2
+		build_instance.dragging_disabled = false
+		build_instance.is_task_block = false
+		build_instance.is_build_block = true
+		build_instance.name = "BuildBlock"+str(i)
+		build_instance.global_position = build_block_pos[i]
+		update_build_block_pos(build_instance.global_position)
 		
 
-
-func create_block_data(amount:int) ->void:
-	var new_amount = amount * 2
-	var color_pool: Dictionary = {}
-	var color: Color
-	var new_pos: Vector3
-	var start_pos:Array
-	for i in range(new_amount):
-		# create dict for saving data
-		var single_block_data: Dictionary = {}
-		# restore color pool
-		if color_pool.is_empty():
-			color_pool = colors.duplicate()
-		
-		if i <= 1: # only for first two loop calls
-			start_pos = [
-				Vector3(0,1,0),
-				Vector3(-1,1,0),Vector3(1,1,0),
-				Vector3(0,1,-1),Vector3(0,1,1),
-				Vector3(-1,1,-1),Vector3(1,1,1),
-				Vector3(1,1,-1),Vector3(-1,1,1)
-			]
-		else:
-			start_pos = []
-		
-		if i % 2 == 0: # if i is even (task block)
-			# store in array
-			task_block_data.append(single_block_data)
-			# pick and remove random color
-			color = color_pool.values().pick_random()
-			single_block_data["Color"] = colors.find_key(color)
-			color_pool.erase(color_pool.find_key(color))
-			# update the valid positions
-			for pos in start_pos:
-					if pos not in taken_task_pos and pos not in valid_task_pos:
-						valid_task_pos.append(pos)
-			# set random position
-			new_pos = valid_task_pos.pick_random()
-			single_block_data["Position"] = new_pos
-			# clear the valid positions
-			valid_task_pos.clear()
-			
-		else: # if i is uneven (build block)
-			# store in dictionary
-			build_block_data.append(single_block_data)
-			# store color
-			single_block_data["Color"] = colors.find_key(color)
-			# update valid positions
-			for pos in start_pos:
-					if pos not in taken_build_pos and pos not in valid_build_pos:
-						valid_build_pos.append(pos)
-			# set random position
-			new_pos = valid_build_pos.pick_random()
-			single_block_data["Position"] = new_pos
-			# clear the valid positions
-			valid_build_pos.clear()
-		# update valid positions		
-		update_valid_pos()
-			
-
-func update_taken_pos() ->void:
-	# task
-	taken_task_pos.clear()
-	for dict:Dictionary in task_block_data:	
-		taken_task_pos.append(dict["Position"])
-	print(" --- TAKEN TASK BLOCKS --- ")
-	for i in taken_task_pos:
-		print(i)
-	# build
-	taken_build_pos.clear()
-	for dict:Dictionary in build_block_data:	
-		taken_build_pos.append(dict["Position"])
-	print(" --- TAKEN BUILD BLOCKS --- ")
-	for i in taken_build_pos:
-		print(i)
+func create_block_pos(amount:int) ->void:
+	task_valid_pos = [
+		Vector3(0,1,0),
+		Vector3(-1,1,0),Vector3(1,1,0),
+		Vector3(0,1,-1),Vector3(0,1,1),
+		Vector3(-1,1,-1),Vector3(1,1,1),
+		Vector3(1,1,-1),Vector3(-1,1,1)
+		]
+	build_valid_pos = [
+		Vector3(0,1,0),
+		Vector3(-1,1,0),Vector3(1,1,0),
+		Vector3(0,1,-1),Vector3(0,1,1),
+		Vector3(-1,1,-1),Vector3(1,1,1),
+		Vector3(1,1,-1),Vector3(-1,1,1)
+	]
+	for i in range(amount):
+		var new_task_pos: Vector3 = task_valid_pos.pick_random()
+		var new_build_pos: Vector3 = build_valid_pos.pick_random()
+		task_block_pos.append(new_task_pos)
+		build_block_pos.append(new_build_pos)
+		update_task_block_pos(new_task_pos)
+		update_build_block_pos(new_build_pos)
 	
 
-func update_valid_pos() ->void:
-	update_taken_pos()
-	# task
-	for taken_pos in taken_task_pos:
-		var task_neighbors: Array = [
-		taken_pos-Vector3(1,0,0), taken_pos+Vector3(1,0,0),
-		taken_pos+Vector3(0,1,0),
-		taken_pos-Vector3(0,0,1), taken_pos+Vector3(0,0,1)
-		]
-		for pos in task_neighbors:
-			if pos.x >= -1 and pos.x <= 1 and pos.z >= -1 and pos.z <= 1:
-				var below_pos:= Vector3(pos.x,pos.y-1,pos.z)
-				if pos.y == 1 or below_pos in taken_task_pos:
-					if pos not in taken_task_pos:
-						valid_task_pos.append(pos)
+func update_task_block_pos(new_pos: Vector3, old_pos: Vector3 = Vector3()) ->void:
+	if not task_block_pos.has(new_pos):
+		if old_pos != Vector3():
+			task_block_pos.erase(old_pos)
+		task_block_pos.append(new_pos)
+	update_task_valid_pos()
+	print(" --- Task Blocks --- ")
+	for pos in task_block_pos:
+		print(pos)
+		
 	
-	# build
-	for taken_pos in taken_build_pos:
-		var build_neighbors: Array = [
-		taken_pos-Vector3(1,0,0), taken_pos+Vector3(1,0,0),
-		taken_pos+Vector3(0,1,0),
-		taken_pos-Vector3(0,0,1), taken_pos+Vector3(0,0,1)
+func update_build_block_pos(new_pos: Vector3, old_pos: Vector3 = Vector3()) ->void:
+	if not build_block_pos.has(new_pos):
+		if old_pos != Vector3():
+			build_block_pos.erase(old_pos)
+		build_block_pos.append(new_pos)
+	update_build_valid_pos()
+	print(" --- Build Blocks --- ")
+	for pos in build_block_pos:
+		print(pos)
+		
+
+func update_task_valid_pos() ->void:
+	task_valid_pos.clear()
+	for pos in task_block_pos:
+		task_valid_pos.erase(pos)
+		var neighbors: Array = [
+		pos-Vector3(1,0,0), pos+Vector3(1,0,0),
+		pos+Vector3(0,1,0),
+		pos-Vector3(0,0,1), pos+Vector3(0,0,1)
 		]
-		for pos in build_neighbors:
-			if pos.x >= -1 and pos.x <= 1 and pos.z >= -1 and pos.z <= 1:
-				var below_pos:= Vector3(pos.x,pos.y-1,pos.z)
-				if pos.y == 1 or below_pos in taken_build_pos:
-					if pos not in taken_build_pos:
-						valid_build_pos.append(pos)
+		for n_pos in neighbors:
+			if n_pos.x >= -1 and n_pos.x <= 1 and n_pos.z >= -1 and n_pos.z <= 1:
+				var below_pos:= Vector3(n_pos.x,n_pos.y-1,n_pos.z)
+				if n_pos.y == 1 or below_pos in task_block_pos:
+					if n_pos not in task_block_pos:
+						task_valid_pos.append(n_pos)
+			
 
-
-func update_block_data(block_data: Dictionary, old_pos:Vector3 ,new_pos: Vector3):
-		for dict:Dictionary in block_data:
-			if dict["Position"] == old_pos:
-				dict["Position"] = new_pos
-
+func update_build_valid_pos() ->void:
+	build_valid_pos.clear()
+	for pos in build_block_pos:
+		build_valid_pos.erase(pos)
+		var neighbors: Array = [
+		pos-Vector3(1,0,0), pos+Vector3(1,0,0),
+		pos+Vector3(0,1,0),
+		pos-Vector3(0,0,1), pos+Vector3(0,0,1)
+		]
+		for n_pos in neighbors:
+			if n_pos.x >= -1 and n_pos.x <= 1 and n_pos.z >= -1 and n_pos.z <= 1:
+				var below_n_pos:= Vector3(n_pos.x,n_pos.y-1,n_pos.z)
+				if n_pos.y == 1 or below_n_pos in build_block_pos:
+					if n_pos not in build_block_pos:
+						build_valid_pos.append(n_pos)
+			
 
 func save_data() ->void:
 	var dir: DirAccess = DirAccess.open("user://")
 	dir.make_dir("saves")
 		
 	var save_file = FileAccess.open("user://saves/block_data.dat", FileAccess.WRITE)
-	save_file.store_var(task_block_data)
-	save_file.store_var(build_block_data)
+	save_file.store_var(task_block_pos)
+	save_file.store_var(build_block_pos)
 	
 	save_file.close()
 	emit_signal("data_saved")
@@ -284,8 +171,8 @@ func save_data() ->void:
 
 func load_data() ->void:
 	var save_file = FileAccess.open("user://saves/block_data.dat", FileAccess.READ)
-	task_block_data = save_file.get_var()
-	build_block_data = save_file.get_var()
+	task_block_pos = save_file.get_var()
+	build_block_pos = save_file.get_var()
 	save_file.close()
 	emit_signal("data_loaded")
 	
