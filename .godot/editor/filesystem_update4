@@ -6,3 +6,4 @@ res://scenes/mainMenu.tscn
 res://scenes/platform.tscn
 res://scenes/Block/block_manager.tscn
 res://scenes/Block/block.tscn
+res://scripts/Block/block_controller.gd

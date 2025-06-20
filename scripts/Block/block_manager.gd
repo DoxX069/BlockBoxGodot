@@ -32,6 +32,20 @@ func _ready() -> void:
 		instantiate_block(number_of_blocks)
 		task_blocks.visible = false
 		build_blocks.visible = true
+	task_valid_pos = [
+		Vector3(0,1,0),
+		Vector3(-1,1,0),Vector3(1,1,0),
+		Vector3(0,1,-1),Vector3(0,1,1),
+		Vector3(-1,1,-1),Vector3(1,1,1),
+		Vector3(1,1,-1),Vector3(-1,1,1)
+	]
+	build_valid_pos = [
+		Vector3(0,1,0),
+		Vector3(-1,1,0),Vector3(1,1,0),
+		Vector3(0,1,-1),Vector3(0,1,1),
+		Vector3(-1,1,-1),Vector3(1,1,1),
+		Vector3(1,1,-1),Vector3(-1,1,1)
+	]
 		
 
 func _process(_delta: float) -> void:
@@ -97,14 +111,15 @@ func create_block_pos(amount:int) ->void:
 		var new_build_pos: Vector3 = build_valid_pos.pick_random()
 		task_block_pos.append(new_task_pos)
 		build_block_pos.append(new_build_pos)
-		update_task_block_pos(new_task_pos)
-		update_build_block_pos(new_build_pos)
+		task_valid_pos.clear()
+		build_valid_pos.clear()
+		update_task_valid_pos()
+		update_build_valid_pos()
 	
 
 func update_task_block_pos(new_pos: Vector3, old_pos: Vector3 = Vector3()) ->void:
 	if not task_block_pos.has(new_pos):
-		if old_pos != Vector3():
-			task_block_pos.erase(old_pos)
+		task_block_pos.erase(old_pos)
 		task_block_pos.append(new_pos)
 	update_task_valid_pos()
 	print(" --- Task Blocks --- ")
@@ -114,8 +129,7 @@ func update_task_block_pos(new_pos: Vector3, old_pos: Vector3 = Vector3()) ->voi
 	
 func update_build_block_pos(new_pos: Vector3, old_pos: Vector3 = Vector3()) ->void:
 	if not build_block_pos.has(new_pos):
-		if old_pos != Vector3():
-			build_block_pos.erase(old_pos)
+		build_block_pos.erase(old_pos)
 		build_block_pos.append(new_pos)
 	update_build_valid_pos()
 	print(" --- Build Blocks --- ")
@@ -124,7 +138,6 @@ func update_build_block_pos(new_pos: Vector3, old_pos: Vector3 = Vector3()) ->vo
 		
 
 func update_task_valid_pos() ->void:
-	task_valid_pos.clear()
 	for pos in task_block_pos:
 		task_valid_pos.erase(pos)
 		var neighbors: Array = [
@@ -141,7 +154,6 @@ func update_task_valid_pos() ->void:
 			
 
 func update_build_valid_pos() ->void:
-	build_valid_pos.clear()
 	for pos in build_block_pos:
 		build_valid_pos.erase(pos)
 		var neighbors: Array = [

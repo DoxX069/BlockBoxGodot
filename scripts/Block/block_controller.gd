@@ -8,7 +8,8 @@ var is_task_block: bool = false
 var is_build_block: bool = false
 var dragging_disabled := false
 var dict_key: String
-var start_drag_pos: Vector3
+var idle_pos: Vector3
+
 
 var state_machine: CallableStateMachine = CallableStateMachine.new()
 var draggable := false
@@ -20,6 +21,7 @@ var falling:= false
 @onready var camera: Camera3D = get_viewport().get_camera_3d()
 const ray_length := 50
 var ray_down: Dictionary
+var ray_up: Dictionary
 var intersection: Dictionary
 var last_intersection: Dictionary
 var offset: Vector3
@@ -61,9 +63,20 @@ func state_idle() ->void:
 		
 
 func leave_state_idle() ->void:
-	pass
+	if is_task_block:
+		block_manager.task_block_pos.erase(self.position)
+		block_manager.update_task_valid_pos()
+		print(" --- Task Blocks --- ")
+		for pos in block_manager.task_block_pos:
+			print(pos)
+	else:
+		block_manager.build_block_pos.erase(self.position)
+		block_manager.update_build_valid_pos()
+		print(" --- Build Blocks --- ")
+		for pos in block_manager.build_block_pos:
+			print(pos)
 	# update start drag position
-	start_drag_pos = self.position
+	idle_pos = self.position
 
 
 func enter_state_drag() ->void:
@@ -124,20 +137,15 @@ func leave_state_drop() ->void:
 	Global.dragged_block = null
 	# update block position
 	if is_task_block:
-		block_manager.update_task_block_pos(self.position, start_drag_pos)
+		block_manager.update_task_block_pos(self.position)
 	else:
-		block_manager.update_build_block_pos(self.position, start_drag_pos)
+		block_manager.update_build_block_pos(self.position)
 	
 
 func enter_state_fall() ->void:
 	raycast_down()
 	# set new position
 	var new_pos: Vector3 = ray_down.collider.position + ray_down.normal
-	# update block position
-	if is_task_block:
-		block_manager.update_task_block_pos(self.position, start_drag_pos)
-	else:
-		block_manager.update_build_block_pos(self.position, start_drag_pos)
 		
 	# fall
 	Global.falling_allowed = false
@@ -153,10 +161,21 @@ func state_fall() ->void:
 		
 	
 func leave_state_fall() ->void:
-	pass
+	# update block position
+	if is_task_block:
+		block_manager.update_task_block_pos(self.position)
+	else:
+		block_manager.update_build_block_pos(self.position)
 	
 	
 # Functions:
+func _on_mouse_entered() -> void:
+	draggable = true
+	
+
+func _on_mouse_exited() -> void:
+	draggable = false
+
 
 func raycast():
 	# Raycast from camera to mouse
@@ -179,14 +198,6 @@ func raycast():
 		last_intersection = intersection
 
 
-func _on_mouse_entered() -> void:
-	draggable = true
-	
-
-func _on_mouse_exited() -> void:
-	draggable = false
-
-
 func raycast_down() ->void:
 	var space_state = self.get_world_3d().direct_space_state
 	var origin = self.global_position
@@ -197,26 +208,26 @@ func raycast_down() ->void:
 	else:
 		layers = 1 | 2
 	var query = PhysicsRayQueryParameters3D.create(origin, end, layers, [])
-	if Global.dragged_block:
-		query.exclude = [Global.dragged_block]
 	var result = space_state.intersect_ray(query)
 	if result:
 		ray_down = result
+		
+		
+func raycast_up() ->void:
+	var space_state = self.get_world_3d().direct_space_state
+	var origin = self.global_position
+	var end = origin + Vector3(0,1,0) * ray_length
+	var layers
+	if is_task_block:
+		layers = 4
+	else:
+		layers = 1
+	var query = PhysicsRayQueryParameters3D.create(origin, end, layers, [])
+	var result = space_state.intersect_ray(query)
+	if result:
+		print(self.name+": block above")
+		dragging_disabled = true
+	else:
+		dragging_disabled = false
+		print(self.name+": free above")
 	
-
-func change_material(node: Node3D) ->void:
-	var material = StandardMaterial3D.new()
-	material.albedo_color = Color(10,10,10)
-	if node.get_node("MeshInstance3D"):
-		node.get_node("MeshInstance3D").material_override = material
-	else:
-		pass
-
-
-func reset_material(node: Node3D):
-	if node.get_node("MeshInstance3D"):
-		node.get_node("MeshInstance3D").material_override = null
-	else:
-		pass
-		
-		
