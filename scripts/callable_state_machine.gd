@@ -28,6 +28,7 @@ func change_state(state_callable: Callable) ->void:
 	var state_name = state_callable.get_method()
 	if state_dictionary.has(state_name):
 		_set_state.call_deferred(state_name)
+		print("Changed State to: ",state_name)
 	else:
 		push_warning("No state with name " + state_name)
 

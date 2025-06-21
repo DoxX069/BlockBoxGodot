@@ -3,9 +3,8 @@
 [ext_resource type="Script" uid="uid://c6l1lnnrmgj13" path="res://scripts/Block/block_manager.gd" id="1_iw1xg"]
 [ext_resource type="Script" uid="uid://dnc3j6chxcnkr" path="res://scripts/swipe_detector.gd" id="2_7hhmd"]
 
-[node name="BlockManager" type="Node3D" node_paths=PackedStringArray("swipe_detector", "task_blocks", "build_blocks")]
+[node name="BlockManager" type="Node3D" node_paths=PackedStringArray("task_blocks", "build_blocks")]
 script = ExtResource("1_iw1xg")
-swipe_detector = NodePath("SwipeDetector")
 task_blocks = NodePath("TaskBlocks")
 build_blocks = NodePath("BuildBlocks")
 

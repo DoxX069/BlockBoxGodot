@@ -8,4 +8,7 @@ func _ready() -> void:
 	timer_max = timer.get_wait_time()
 
 func _physics_process(_delta: float) -> void:
-	progress_bar.value = (timer_max - timer.get_time_left()) / timer_max * 100
+	if timer.is_stopped():
+		progress_bar.value = 0
+	else:
+		progress_bar.value = (timer_max - timer.get_time_left()) / timer_max * 100

@@ -2,7 +2,7 @@ extends StaticBody3D
 class_name Block
 
 
-@onready var block_manager: BlockManager= self.get_parent().get_parent()
+@onready var block_manager: BlockManager= self.get_parent()
 @onready var block_mesh: MeshInstance3D = $MeshInstance3D
 
 var is_task_block: bool = false
@@ -35,10 +35,6 @@ func _ready() ->void:
 	state_machine.set_initial_state(state_idle)
 
 
-#func _process(_delta):
-#	state_machine.update()
-	
-# or
 func _physics_process(_delta) ->void:
 	state_machine.update()
 
@@ -55,26 +51,19 @@ func state_idle() ->void:
 	if ray_down:
 		ground_distance = ray_down.position.distance_to(self.global_position)
 		
-	if ground_distance >= 1.5 and Global.falling_allowed:
+	if ground_distance >= 1.5 and Global.falling_allowed and is_build_block and not is_task_block:
 		state_machine.change_state(state_fall)
 	
-	if Input.is_action_just_pressed("drag") and draggable and not dragging_disabled:
+	if Input.is_action_just_pressed("drag") and draggable and not block_manager.dragging_disabled and is_build_block and not is_task_block:
 		state_machine.change_state(state_drag)
 		
 
 func leave_state_idle() ->void:
-	if is_task_block:
-		block_manager.task_block_pos.erase(self.position)
-		block_manager.update_task_valid_pos()
-		print(" --- Task Blocks --- ")
-		for pos in block_manager.task_block_pos:
-			print(pos)
-	else:
-		block_manager.build_block_pos.erase(self.position)
-		block_manager.update_build_valid_pos()
-		print(" --- Build Blocks --- ")
-		for pos in block_manager.build_block_pos:
-			print(pos)
+	block_manager.build_block_pos.erase(self.position)
+	block_manager.update_build_valid_pos()
+	print(" --- Build Blocks --- ")
+	for pos in block_manager.build_block_pos:
+		print(pos)
 	# update start drag position
 	idle_pos = self.position
 
@@ -85,7 +74,7 @@ func enter_state_drag() ->void:
 	Global.dragged_block = self
 	
 	var current_tween := get_tree().create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_BACK)
-	current_tween.tween_property(block_mesh,"scale",Vector3(1.05,1.05,1.05),0.3)
+	current_tween.tween_property(block_mesh,"scale",Vector3(1.05,1.05,1.05),0.2)
 	await current_tween.finished
 	current_tween.kill()
 	
@@ -103,7 +92,7 @@ func state_drag() ->void:
 
 func leave_state_drag() ->void:
 	var current_tween := get_tree().create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_BACK)
-	current_tween.tween_property(block_mesh,"scale",Vector3(1,1,1),0.3)
+	current_tween.tween_property(block_mesh,"scale",Vector3(1,1,1),0.2)
 	await current_tween.finished
 	current_tween.kill()
 
@@ -144,10 +133,7 @@ func leave_state_drop() ->void:
 	# ignore dragged block in raycast intersection
 	Global.dragged_block = null
 	# update block position
-	if is_task_block:
-		block_manager.update_task_block_pos(self.position)
-	else:
-		block_manager.update_build_block_pos(self.position)
+	block_manager.update_build_block_pos(self.position)
 	
 
 func enter_state_fall() ->void:
@@ -170,10 +156,7 @@ func state_fall() ->void:
 	
 func leave_state_fall() ->void:
 	# update block position
-	if is_task_block:
-		block_manager.update_task_block_pos(self.position)
-	else:
-		block_manager.update_build_block_pos(self.position)
+	block_manager.update_build_block_pos(self.position)
 	
 	
 # Functions:
@@ -202,7 +185,7 @@ func raycast():
 	query.collide_with_areas = true
 	intersection = space_state.intersect_ray(query)
 	# Store last intersection except for the platform area
-	if intersection and intersection.collider != $"../../../platform/Area3D":
+	if intersection and intersection.collider != $"../../platform/Area3D":
 		last_intersection = intersection
 
 

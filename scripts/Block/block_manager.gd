@@ -2,22 +2,28 @@ extends Node3D
 class_name BlockManager
 
 
+var state_machine: CallableStateMachine = CallableStateMachine.new()
+
+@export var counter: Counter
+@export var build_timer: Timer
+var timer_timeout := false
+var swipe_up := false
+var swipe_down := false
+var dragging_disabled: bool = false
+
 signal data_saved
 signal data_loaded
 
 var block_pos_ready := false
 
-@export var number_of_blocks: int = 3
-
-@export var swipe_detector: SwipeDetector
+@export var number_of_blocks: int = 5
 
 @export var task_blocks: Node3D
 @export var build_blocks: Node3D
 
 @onready var block_scene: PackedScene = preload("res://scenes/Block/block.tscn")
 
-var task_block_inst: Array = []
-var build_block_inst: Array = []
+var block_inst: Array = []
 var task_block_pos: Array = []
 var build_block_pos: Array = []
 var task_valid_pos: Array = []
@@ -25,28 +31,38 @@ var build_valid_pos: Array = []
 
 
 func _ready() -> void:
-	if get_tree().current_scene.name == "Task":
-		create_block_pos(number_of_blocks)
-		instantiate_task_block(number_of_blocks)
-		task_spawn_animation()
-		save_data()
-		task_blocks.visible = true
-		build_blocks.visible = false
-	else:
-		load_data()
-		instantiate_build_block(number_of_blocks)
-		build_spawn_animation()
-		instantiate_task_block(number_of_blocks)
-		task_spawn_animation()
-		task_blocks.visible = false
-		build_blocks.visible = true
-	task_valid_pos = [
-		Vector3(0,1,0),
-		Vector3(-1,1,0),Vector3(1,1,0),
-		Vector3(0,1,-1),Vector3(0,1,1),
-		Vector3(-1,1,-1),Vector3(1,1,1),
-		Vector3(1,1,-1),Vector3(-1,1,1)
-	]
+	state_machine.add_states(Callable(self, "state_new_block"), Callable(self, "enter_state_new_block"), Callable(self, "leave_state_new_block"))
+	state_machine.add_states(Callable(self, "state_build"), Callable(self, "enter_state_build"), Callable(self, "leave_state_build"))
+	state_machine.add_states(Callable(self, "state_show_task"), Callable(self, "enter_state_show_task"), Callable(self, "leave_state_show_task"))
+	state_machine.add_states(Callable(self, "state_win"), Callable(self, "enter_state_win"), Callable(self, "leave_state_win"))
+	state_machine.add_states(Callable(self, "state_loose"), Callable(self, "enter_state_loose"), Callable(self, "leave_state_loose"))
+	state_machine.set_initial_state(state_new_block)
+		
+
+func _process(_delta: float) -> void:
+	state_machine.update()
+
+
+# States
+
+func enter_state_new_block() ->void:
+	create_block_pos(number_of_blocks)
+	instantiate_block(number_of_blocks)
+	make_task_block()
+	spawn_animation()
+
+
+func state_new_block() ->void:
+	if Input.is_action_just_pressed("drag"):
+		state_machine.change_state(state_build)
+	
+	
+func leave_state_new_block() ->void:
+	build_timer.start()
+	
+	
+func enter_state_build() ->void:
+	make_build_block()
 	build_valid_pos = [
 		Vector3(0,1,0),
 		Vector3(-1,1,0),Vector3(1,1,0),
@@ -54,17 +70,75 @@ func _ready() -> void:
 		Vector3(-1,1,-1),Vector3(1,1,1),
 		Vector3(1,1,-1),Vector3(-1,1,1)
 	]
-		
+	
 
-func _process(_delta: float) -> void:
+func state_build() ->void:
 	# Check if task- and build block positions are equal
+	if swipe_up == true:
+		state_machine.change_state(state_show_task)
+		swipe_up = false
+
 	task_block_pos.sort_custom(custom_sorter)
 	build_block_pos.sort_custom(custom_sorter)
 	if build_block_pos == task_block_pos:
-		build_despawn_animation()
-		await build_despawn_animation()
-		get_tree().change_scene_to_file("res://scenes/task.tscn")
-		
+		state_machine.change_state(state_win)
+	if timer_timeout == true:
+		state_machine.change_state(state_loose)
+		timer_timeout = false
+	
+
+func leave_state_build() ->void:
+	pass
+	
+
+func enter_state_show_task() ->void:
+	make_task_block()
+	dragging_disabled = true
+	
+
+func state_show_task() ->void:
+	if swipe_down == true:
+		state_machine.change_state(state_build)
+		swipe_down = false
+	
+	
+func leave_state_show_task() ->void:
+	pass
+
+
+func enter_state_win() ->void:
+	build_timer.set_paused(true)
+	despawn_animation()
+	counter.add_to_counter(block_inst.size())
+	
+	
+func state_win() ->void:
+	if Input.is_action_just_pressed("drag"):
+		state_machine.change_state(state_new_block)
+	
+	
+func leave_state_win() ->void:
+	build_timer.set_paused(false)
+	build_timer.stop()
+	remove_block()
+	
+	
+func enter_state_loose() ->void:
+	build_timer.stop()
+	despawn_animation()
+	counter.reset_counter()
+	
+	
+func state_loose() ->void:
+	if Input.is_action_just_pressed("drag"):
+		state_machine.change_state(state_new_block)	
+	
+
+func leave_state_loose() ->void:
+	remove_block()
+	
+
+# Functions
 
 func custom_sorter(a,b) ->bool:
 	if a < b:
@@ -72,74 +146,74 @@ func custom_sorter(a,b) ->bool:
 	return false
 
 
-func instantiate_task_block(amount: int) ->void:
+func make_task_block() ->void:
+	dragging_disabled = true
+	var counter := 0
+	for inst:Block in block_inst:
+		inst.collision_layer = 4
+		inst.collision_mask = 4 | 2
+		inst.is_task_block = true
+		inst.is_build_block = false
+		var current_tween := get_tree().create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_SPRING)
+		current_tween.tween_property(inst,"position",task_block_pos[counter],0.2)
+		counter += 1
+	dragging_disabled = false
+		
+
+func make_build_block() ->void:
+	dragging_disabled = true
+	var counter := 0
+	for inst:Block in block_inst:
+		inst.collision_layer = 1
+		inst.collision_mask = 1 | 2
+		inst.is_task_block = false
+		inst.is_build_block = true
+		var current_tween := get_tree().create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_SPRING)
+		current_tween.tween_property(inst,"position",build_block_pos[counter],0.2)
+		counter += 1
+	dragging_disabled = false
+	
+
+func instantiate_block(amount: int) ->void:
 	if block_pos_ready:
 		for i in amount:
 			# Task Block
 			update_task_valid_pos()
-			var task_instance: Block = block_scene.instantiate()
-			task_blocks.add_child(task_instance)
-			task_instance.dragging_disabled = true
-			task_instance.collision_layer = 4
-			task_instance.collision_mask = 4 | 2
-			task_instance.dragging_disabled = true
-			task_instance.is_task_block = true
-			task_instance.is_build_block = false
-			task_instance.name = "TaskBlock"+str(i)
-			task_instance.block_mesh.scale = Vector3(0,0,0)
-			task_instance.global_position = task_block_pos[i]
-			task_block_inst.append(task_instance)
-			update_task_block_pos(task_instance.global_position)
-
-
-func instantiate_build_block(amount: int) ->void:
-	if block_pos_ready:
-		for i in amount:
-			# Build Block
-			update_build_valid_pos()
-			var build_instance: Block = block_scene.instantiate()
-			build_blocks.add_child(build_instance)
-			build_instance.collision_layer = 1
-			build_instance.collision_mask = 1 | 2
-			build_instance.dragging_disabled = false
-			build_instance.is_task_block = false
-			build_instance.is_build_block = true
-			build_instance.name = "BuildBlock"+str(i)
-			build_instance.block_mesh.scale = Vector3(0,0,0)
-			build_instance.global_position = build_block_pos[i]
-			build_block_inst.append(build_instance)
-			update_build_block_pos(build_instance.global_position)
+			var instance: Block = block_scene.instantiate()
+			self.add_child(instance)
+			instance.name = "Block"+str(i)
+			instance.block_mesh.scale = Vector3(0,0,0)
+			block_inst.append(instance)
 			
+
+func remove_block() ->void:
+	for inst: Block in block_inst:
+		inst.queue_free()
+	block_inst.clear()
+
 	
-func task_spawn_animation() ->void:
-	for inst:Block in task_block_inst:
-		inst.dragging_disabled = true
-		var current_task_tween := get_tree().create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_BACK)
-		current_task_tween.tween_property(inst.block_mesh,"scale",Vector3(1,1,1),0.15)
-		await current_task_tween.finished
-		current_task_tween.kill()
-		inst.dragging_disabled = false
+func spawn_animation() ->void:
+	for inst:Block in block_inst:
+		dragging_disabled = true
+		var current_tween := get_tree().create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_SPRING)
+		current_tween.tween_property(inst.block_mesh,"scale",Vector3(1,1,1),0.1)
+		await current_tween.finished
+		current_tween.kill()
+		dragging_disabled = false
 		
 		
-func build_spawn_animation() ->void:
-	for inst:Block in build_block_inst:
-		inst.dragging_disabled = true
-		var current_build_tween := get_tree().create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_BACK)
-		current_build_tween.tween_property(inst.block_mesh,"scale",Vector3(1,1,1),0.15)
-		await current_build_tween.finished
-		current_build_tween.kill()
-		inst.dragging_disabled = false
-			
-		
-func build_despawn_animation() ->void:
-	for inst:Block in build_block_inst:
-		inst.dragging_disabled = true
-		var current_build_tween := get_tree().create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_BACK)
-		current_build_tween.tween_property(inst.block_mesh,"scale",Vector3(0,0,0),0.15)
-		inst.dragging_disabled = false
+func despawn_animation() ->void:
+	for inst:Block in block_inst:
+		dragging_disabled = true
+		var current_tween := get_tree().create_tween().set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_SPRING)
+		current_tween.tween_property(inst.block_mesh,"scale",Vector3(0,0,0),0.075)
+		await current_tween.finished
+		current_tween.kill()
+		dragging_disabled = false
 			
 
 func create_block_pos(amount:int) ->void:
+	task_block_pos.clear()
 	task_valid_pos = [
 		Vector3(0,1,0),
 		Vector3(-1,1,0),Vector3(1,1,0),
@@ -147,6 +221,7 @@ func create_block_pos(amount:int) ->void:
 		Vector3(-1,1,-1),Vector3(1,1,1),
 		Vector3(1,1,-1),Vector3(-1,1,1)
 		]
+	build_block_pos.clear()
 	build_valid_pos = [
 		Vector3(0,1,0),
 		Vector3(-1,1,0),Vector3(1,1,0),
@@ -210,19 +285,17 @@ func update_task_valid_pos() ->void:
 			
 
 func update_build_valid_pos() ->void:
+	build_valid_pos = [
+		Vector3(0,1,0),
+		Vector3(-1,1,0),Vector3(1,1,0),
+		Vector3(0,1,-1),Vector3(0,1,1),
+		Vector3(-1,1,-1),Vector3(1,1,1),
+		Vector3(1,1,-1),Vector3(-1,1,1)
+	]
 	for pos in build_block_pos:
 		build_valid_pos.erase(pos)
-		var neighbors: Array = [
-		pos-Vector3(1,0,0), pos+Vector3(1,0,0),
-		pos+Vector3(0,1,0),
-		pos-Vector3(0,0,1), pos+Vector3(0,0,1)
-		]
-		for n_pos in neighbors:
-			if n_pos.x >= -1 and n_pos.x <= 1 and n_pos.z >= -1 and n_pos.z <= 1:
-				var below_n_pos:= Vector3(n_pos.x,n_pos.y-1,n_pos.z)
-				if n_pos.y == 1 or below_n_pos in build_block_pos:
-					if n_pos not in build_block_pos:
-						build_valid_pos.append(n_pos)
+		var neighbor: Vector3 = pos+Vector3(0,1,0)
+		build_valid_pos.append(neighbor)
 			
 
 func save_data() ->void:
@@ -243,16 +316,19 @@ func load_data() ->void:
 	build_block_pos = save_file.get_var()
 	save_file.close()
 	emit_signal("data_loaded")
-	block_pos_ready = true
 	
 
+func _on_timer_timeout() -> void:
+	timer_timeout = true
+
+
 func _on_swipe_detector_swipe_up() -> void:
-	if get_tree().current_scene.name == "Game":
-		task_blocks.visible = true
-		build_blocks.visible = false
+	print(block_inst.all(func(block:Block): return block.state_machine.current_state == "state_drag"))
+	if block_inst.all(func(block:Block): return block.state_machine.current_state == "state_drag"):
+		swipe_up = true
 
 
 func _on_swipe_detector_swipe_down() -> void:
-	if get_tree().current_scene.name == "Game":
-		task_blocks.visible = false
-		build_blocks.visible = true
+	if block_inst.all(func(block:Block): return block.state_machine.current_state == "state_drag"):
+		swipe_down = true
+	

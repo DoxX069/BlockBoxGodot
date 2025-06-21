@@ -9,3 +9,8 @@ res://scripts/Block/block_manager.gd
 res://scripts/Block/block_controller.gd
 res://scenes/platform_block.tscn
 res://scripts/game.gd
+res://scripts/global.gd
+res://scripts/callable_state_machine.gd
+res://scripts/Camera/rotation_controller.gd
+res://scripts/game_ui.gd
+res://scripts/counter.gd
