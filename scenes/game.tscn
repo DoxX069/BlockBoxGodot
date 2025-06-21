@@ -1,7 +1,7 @@
 [gd_scene load_steps=15 format=3 uid="uid://dwx2pgyrss8sp"]
 
 [ext_resource type="Script" uid="uid://bsnptigvvmtqu" path="res://scripts/game.gd" id="1_p57ef"]
-[ext_resource type="Script" uid="uid://05n7qgn4kay0" path="res://scripts/Camera/camera_controller.gd" id="2_1g5jo"]
+[ext_resource type="Script" uid="uid://05n7qgn4kay0" path="res://scripts/Camera/rotation_controller.gd" id="2_1g5jo"]
 [ext_resource type="Script" uid="uid://dnc3j6chxcnkr" path="res://scripts/swipe_detector.gd" id="3_kvuet"]
 [ext_resource type="PackedScene" uid="uid://b2slfqbakiujv" path="res://scenes/Block/block_manager.tscn" id="4_gee14"]
 [ext_resource type="Script" uid="uid://xhlo7mh3pnyy" path="res://scripts/game_ui.gd" id="7_u5sy4"]
@@ -65,10 +65,11 @@ transform = Transform3D(0.707107, -0.5, 0.5, 0, 0.707107, 0.707107, -0.707107, -
 keep_aspect = 0
 projection = 1
 fov = 30.0
-size = 6.0
+size = 5.0
 
-[node name="ObjectRig" type="Node3D" parent="."]
+[node name="ObjectRig" type="Node3D" parent="." node_paths=PackedStringArray("swipe_detector")]
 script = ExtResource("2_1g5jo")
+swipe_detector = NodePath("SwipeDetector")
 
 [node name="SwipeDetector" type="Node3D" parent="ObjectRig"]
 transform = Transform3D(1, 0, 5.96046e-08, 2.98023e-08, 1, 8.9407e-08, 0, 0, 1, 0, 9.53674e-07, 0)
@@ -126,7 +127,7 @@ tint_progress = Color(0.25, 0.25, 0.25, 1)
 
 [node name="Timer" type="Timer" parent="TimerCanvasLayer/PanelContainer"]
 process_callback = 0
-wait_time = 20.0
+wait_time = 10.0
 one_shot = true
 autostart = true
 

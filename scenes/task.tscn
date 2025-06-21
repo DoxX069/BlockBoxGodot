@@ -1,13 +1,14 @@
 [gd_scene load_steps=8 format=3 uid="uid://bpimp50qc1j40"]
 
-[ext_resource type="Script" uid="uid://05n7qgn4kay0" path="res://scripts/Camera/camera_controller.gd" id="1_3qeyo"]
+[ext_resource type="Script" uid="uid://05n7qgn4kay0" path="res://scripts/Camera/rotation_controller.gd" id="1_3qeyo"]
 [ext_resource type="Script" uid="uid://bh1bmlrci5yg0" path="res://scripts/task.gd" id="1_qe5cv"]
 [ext_resource type="Script" uid="uid://dnc3j6chxcnkr" path="res://scripts/swipe_detector.gd" id="3_mpid7"]
 [ext_resource type="PackedScene" uid="uid://b2slfqbakiujv" path="res://scenes/Block/block_manager.tscn" id="4_mpid7"]
 [ext_resource type="PackedScene" uid="uid://qbd2bnunqisi" path="res://scenes/platform.tscn" id="4_qe5cv"]
 
 [sub_resource type="Environment" id="Environment_mpid7"]
-background_mode = 3
+background_mode = 1
+background_color = Color(0.15, 0.15, 0.15, 1)
 fog_mode = 1
 fog_light_color = Color(0.1955, 0.208725, 0.23, 1)
 fog_density = 1.0
@@ -38,11 +39,12 @@ transform = Transform3D(0.707107, -0.5, 0.5, 0, 0.707107, 0.707107, -0.707107, -
 keep_aspect = 0
 projection = 1
 fov = 30.0
-size = 6.0
+size = 5.0
 far = 100.0
 
-[node name="ObjectRig" type="Node3D" parent="."]
+[node name="ObjectRig" type="Node3D" parent="." node_paths=PackedStringArray("swipe_detector")]
 script = ExtResource("1_3qeyo")
+swipe_detector = NodePath("SwipeDetector")
 
 [node name="SwipeDetector" type="Node3D" parent="ObjectRig"]
 transform = Transform3D(1, 0, 5.96046e-08, 2.98023e-08, 1, 8.9407e-08, 0, 0, 1, 0, 9.53674e-07, 0)

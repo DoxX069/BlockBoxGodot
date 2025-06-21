@@ -3,13 +3,13 @@ class_name Block
 
 
 @onready var block_manager: BlockManager= self.get_parent().get_parent()
+@onready var block_mesh: MeshInstance3D = $MeshInstance3D
 
 var is_task_block: bool = false
 var is_build_block: bool = false
 var dragging_disabled := false
 var dict_key: String
 var idle_pos: Vector3
-
 
 var state_machine: CallableStateMachine = CallableStateMachine.new()
 var draggable := false
@@ -55,7 +55,7 @@ func state_idle() ->void:
 	if ray_down:
 		ground_distance = ray_down.position.distance_to(self.global_position)
 		
-	if ground_distance > 1 and Global.falling_allowed:
+	if ground_distance >= 1.5 and Global.falling_allowed:
 		state_machine.change_state(state_fall)
 	
 	if Input.is_action_just_pressed("drag") and draggable and not dragging_disabled:
@@ -84,20 +84,28 @@ func enter_state_drag() ->void:
 	# ignore dragged block in raycast intersection
 	Global.dragged_block = self
 	
+	var current_tween := get_tree().create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_BACK)
+	current_tween.tween_property(block_mesh,"scale",Vector3(1.05,1.05,1.05),0.3)
+	await current_tween.finished
+	current_tween.kill()
+	
 
 func state_drag() ->void:
 	raycast()
 	var delta = get_process_delta_time()
 	if intersection:
 		# Change position while dragging
-		self.global_position = lerp(self.global_position,intersection.position+Vector3(0,0.5,0),35*delta)
+		self.global_position = lerp(self.global_position,intersection.position+Vector3(0,0.5,0),20*delta)
 	
 	if Input.is_action_just_released("drag"):
 		state_machine.change_state(state_drop)
 
 
 func leave_state_drag() ->void:
-	pass
+	var current_tween := get_tree().create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_BACK)
+	current_tween.tween_property(block_mesh,"scale",Vector3(1,1,1),0.3)
+	await current_tween.finished
+	current_tween.kill()
 
 
 func enter_state_drop() ->void:
@@ -112,7 +120,7 @@ func enter_state_drop() ->void:
 			fallback_pos = pos
 			closest_distance = self.global_position.distance_to(pos)
 	
-	var current_tween := get_tree().create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_EXPO)
+	var current_tween := get_tree().create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_BACK)
 	if is_valid_pos:
 		# Drop to the last raycast collider
 		current_tween.tween_property(self,"position",new_pos,0.3)
@@ -149,7 +157,7 @@ func enter_state_fall() ->void:
 		
 	# fall
 	Global.falling_allowed = false
-	var current_tween := get_tree().create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_EXPO)
+	var current_tween := get_tree().create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
 	current_tween.tween_property(self,"position",new_pos,0.1)
 	await current_tween.finished
 	Global.falling_allowed = true

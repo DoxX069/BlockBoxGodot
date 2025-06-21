@@ -2,25 +2,25 @@
 
 [ext_resource type="Texture2D" uid="uid://buyflaxqb4frg" path="res://assets/BlockBoxTexture.svg" id="1_e2bc6"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_4l05e"]
-
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ms3jd"]
 shading_mode = 2
 diffuse_mode = 3
 specular_mode = 1
-albedo_color = Color(0.1, 0.1, 0.1, 1)
+albedo_color = Color(0.25, 0.25, 0.25, 1)
 albedo_texture = ExtResource("1_e2bc6")
 uv1_scale = Vector3(3, 2, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_x1i2l"]
 material = SubResource("StandardMaterial3D_ms3jd")
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_4l05e"]
+
 [node name="platform_block" type="StaticBody3D"]
 collision_layer = 2
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-shape = SubResource("BoxShape3D_4l05e")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("BoxMesh_x1i2l")
 skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_4l05e")
