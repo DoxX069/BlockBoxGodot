@@ -5,6 +5,7 @@ class_name BlockManager
 var state_machine: CallableStateMachine = CallableStateMachine.new()
 
 @export var counter: Counter
+var multiplier: int = 1
 @export var build_timer: Timer
 var timer_timeout := false
 var swipe_up := false
@@ -109,7 +110,7 @@ func leave_state_show_task() ->void:
 func enter_state_win() ->void:
 	build_timer.set_paused(true)
 	despawn_animation()
-	counter.add_to_counter(block_inst.size())
+	counter.add_to_counter(block_inst.size(), multiplier)
 	
 	
 func state_win() ->void:

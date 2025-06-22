@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://dwx2pgyrss8sp"]
+[gd_scene load_steps=12 format=3 uid="uid://dwx2pgyrss8sp"]
 
 [ext_resource type="Script" uid="uid://05n7qgn4kay0" path="res://scripts/Camera/rotation_controller.gd" id="2_1g5jo"]
 [ext_resource type="Script" uid="uid://dnc3j6chxcnkr" path="res://scripts/swipe_detector.gd" id="3_kvuet"]
@@ -15,47 +15,21 @@ fog_light_color = Color(0.1955, 0.208725, 0.23, 1)
 fog_density = 1.0
 fog_depth_curve = 2.0
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u5sy4"]
+bg_color = Color(0.1, 0.1, 0.1, 1)
+border_width_left = 10
+border_width_top = 10
+border_width_right = 10
+border_width_bottom = 10
+border_color = Color(0.95, 0.95, 0.95, 1)
+corner_radius_top_left = 50
+corner_radius_top_right = 50
+corner_radius_bottom_right = 50
+corner_radius_bottom_left = 50
+
 [sub_resource type="LabelSettings" id="LabelSettings_u5sy4"]
-
-[sub_resource type="Animation" id="Animation_trtic"]
-length = 0.001
-tracks/0/type = "bezier"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("CanvasLayer/PanelContainer/Counter:label_settings:font_size")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(16, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0)
-}
-
-[sub_resource type="Animation" id="Animation_kvuet"]
-resource_name = "new_animation"
-length = 0.5
-loop_mode = 2
-
-[sub_resource type="Animation" id="Animation_u5sy4"]
-resource_name = "test"
-length = 0.5
-loop_mode = 1
-
-[sub_resource type="Animation" id="Animation_dinhu"]
-resource_name = "test_2"
-length = 0.5
-
-[sub_resource type="Animation" id="Animation_gee14"]
-resource_name = "Counter"
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_kvuet"]
-_data = {
-&"Counter": SubResource("Animation_gee14"),
-&"RESET": SubResource("Animation_trtic"),
-&"new_animation": SubResource("Animation_kvuet"),
-&"test": SubResource("Animation_u5sy4"),
-&"test_2": SubResource("Animation_dinhu")
-}
+font_size = 100
+font_color = Color(0.95, 0.95, 0.95, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dinhu"]
 bg_color = Color(0.1, 0.1, 0.1, 1)
@@ -101,31 +75,25 @@ build_timer = NodePath("../../TimerCanvasLayer/PanelContainer/Timer")
 
 [node name="PanelContainer" type="PanelContainer" parent="CanvasLayer"]
 anchors_preset = -1
-anchor_left = 0.5
+anchor_left = 0.1
 anchor_top = 0.05
-anchor_right = 0.5
+anchor_right = 0.9
 anchor_bottom = 0.05
-offset_left = -158.0
-offset_right = 158.0
-offset_bottom = 127.0
+offset_right = -6.10352e-05
+offset_bottom = 169.0
 grow_horizontal = 2
-size_flags_horizontal = 0
-size_flags_vertical = 4
 mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_u5sy4")
 
-[node name="Counter" type="Label" parent="CanvasLayer/PanelContainer" node_paths=PackedStringArray("animation_player")]
+[node name="Counter" type="Label" parent="CanvasLayer/PanelContainer"]
+custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
-text = "0"
+size_flags_horizontal = 4
+text = "198"
 label_settings = SubResource("LabelSettings_u5sy4")
 horizontal_alignment = 1
+autowrap_mode = 2
 script = ExtResource("5_u5sy4")
-animation_player = NodePath("AnimationPlayer")
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer/PanelContainer/Counter"]
-root_node = NodePath("../../../..")
-libraries = {
-&"": SubResource("AnimationLibrary_kvuet")
-}
 
 [node name="TimerCanvasLayer" type="CanvasLayer" parent="."]
 layer = -1
@@ -150,7 +118,7 @@ nine_patch_stretch = true
 texture_under = ExtResource("8_gee14")
 texture_progress = ExtResource("8_gee14")
 tint_under = Color(1, 1, 1, 0)
-tint_progress = Color(0.25, 0.25, 0.25, 1)
+tint_progress = Color(0.95, 0.95, 0.95, 0.490196)
 
 [node name="Timer" type="Timer" parent="TimerCanvasLayer/PanelContainer"]
 process_callback = 0
