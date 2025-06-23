@@ -18,7 +18,7 @@ func _on_swipe_detector_swipe_right() -> void:
 
 func rotation_right() ->void:
 	if is_rotating == false:
-		var current_tween = get_tree().create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_EXPO)
+		var current_tween = get_tree().create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_BACK)
 		is_rotating = true
 		current_tween.tween_property(self,"rotation_degrees:y",current_rotation_angle + rotation_angle, 0.3)
 		await current_tween.finished
@@ -28,7 +28,7 @@ func rotation_right() ->void:
 
 func rotation_left() ->void:
 	if is_rotating == false:
-		var current_tween = get_tree().create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_EXPO)
+		var current_tween = get_tree().create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_BACK)
 		is_rotating = true
 		current_tween.tween_property(self,"rotation_degrees:y",current_rotation_angle - rotation_angle, 0.3)
 		await current_tween.finished
