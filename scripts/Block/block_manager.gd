@@ -54,8 +54,9 @@ func enter_state_new_block() ->void:
 
 
 func state_new_block() ->void:
-	if Input.is_action_just_pressed("drag"):
+	if swipe_down:
 		state_machine.change_state(state_build)
+		swipe_down = false
 	
 	
 func leave_state_new_block() ->void:
@@ -76,9 +77,14 @@ func enter_state_build() ->void:
 func state_build() ->void:
 	# Check if task- and build block positions are equal
 	if swipe_up == true:
-		state_machine.change_state(state_show_task)
+		make_task_block()
+		dragging_disabled = true
 		swipe_up = false
-
+	elif swipe_down == true:
+		make_build_block()
+		dragging_disabled = false
+		swipe_down = false
+		
 	task_block_pos.sort_custom(custom_sorter)
 	build_block_pos.sort_custom(custom_sorter)
 	if build_block_pos == task_block_pos:
@@ -93,14 +99,11 @@ func leave_state_build() ->void:
 	
 
 func enter_state_show_task() ->void:
-	make_task_block()
-	dragging_disabled = true
+	pass
 	
 
 func state_show_task() ->void:
-	if swipe_down == true:
-		state_machine.change_state(state_build)
-		swipe_down = false
+	pass
 	
 	
 func leave_state_show_task() ->void:
@@ -155,7 +158,7 @@ func make_task_block() ->void:
 		inst.collision_mask = 4 | 2
 		inst.is_task_block = true
 		inst.is_build_block = false
-		var current_tween := get_tree().create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_SPRING)
+		var current_tween := get_tree().create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_EXPO)
 		current_tween.tween_property(inst,"position",task_block_pos[counter],0.2)
 		counter += 1
 	dragging_disabled = false
@@ -169,7 +172,7 @@ func make_build_block() ->void:
 		inst.collision_mask = 1 | 2
 		inst.is_task_block = false
 		inst.is_build_block = true
-		var current_tween := get_tree().create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_SPRING)
+		var current_tween := get_tree().create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_EXPO)
 		current_tween.tween_property(inst,"position",build_block_pos[counter],0.2)
 		counter += 1
 	dragging_disabled = false
@@ -324,12 +327,9 @@ func _on_timer_timeout() -> void:
 
 
 func _on_swipe_detector_swipe_up() -> void:
-	print(block_inst.all(func(block:Block): return block.state_machine.current_state == "state_drag"))
-	if block_inst.all(func(block:Block): return block.state_machine.current_state == "state_drag"):
-		swipe_up = true
+	swipe_up = true
 
 
 func _on_swipe_detector_swipe_down() -> void:
-	if block_inst.all(func(block:Block): return block.state_machine.current_state == "state_drag"):
-		swipe_down = true
+	swipe_down = true
 	
