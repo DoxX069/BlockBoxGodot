@@ -126,7 +126,5 @@ wait_time = 10.0
 one_shot = true
 
 [connection signal="swipe_down" from="ObjectRig/SwipeDetector" to="ObjectRig/BlockManager" method="_on_swipe_detector_swipe_down"]
-[connection signal="swipe_left" from="ObjectRig/SwipeDetector" to="ObjectRig" method="_on_swipe_detector_swipe_left"]
-[connection signal="swipe_right" from="ObjectRig/SwipeDetector" to="ObjectRig" method="_on_swipe_detector_swipe_right"]
 [connection signal="swipe_up" from="ObjectRig/SwipeDetector" to="ObjectRig/BlockManager" method="_on_swipe_detector_swipe_up"]
 [connection signal="timeout" from="TimerCanvasLayer/PanelContainer/Timer" to="ObjectRig/BlockManager" method="_on_timer_timeout"]

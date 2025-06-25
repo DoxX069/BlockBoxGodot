@@ -20,6 +20,10 @@ var ray_length := 100
 
 
 func _physics_process(delta: float) -> void:
+	swipe_detection(delta)
+	
+
+func swipe_detection(delta: float) ->void:
 	if Input.is_action_just_pressed("drag") and not mouse_on_object():
 		swiping = true
 		mouse_pos = get_viewport().get_mouse_position()
@@ -44,9 +48,9 @@ func _physics_process(delta: float) -> void:
 					if delta_pos.x < 0:
 						emit_signal("swipe_left")
 					elif delta_pos.x > 0:
-						emit_signal("swipe_right")
-	
+						emit_signal("swipe_right")					
 					
+
 func mouse_on_object() ->bool:
 	# Raycast from camera to mouse
 	var space_state = get_world_3d().direct_space_state
