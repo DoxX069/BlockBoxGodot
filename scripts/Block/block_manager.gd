@@ -58,7 +58,6 @@ func enter_state_new_block() ->void:
 		Vector3(-1,1,-1),Vector3(1,1,1),
 		Vector3(1,1,-1),Vector3(-1,1,1)
 		]
-	
 	build_valid_pos = [
 		Vector3(0,1,0),
 		Vector3(-1,1,0),Vector3(1,1,0),
@@ -86,20 +85,16 @@ func state_new_block() ->void:
 		instantiate_block()
 		spawn_animation()
 		swipe_up = false
-		print(" --- Task Blocks --- ")
-		for pos in task_block_pos:
-			print(pos)
-		print(" --- Build Blocks --- ")
-		for pos in build_block_pos:
-			print(pos)
-		
 	if swipe_down:
 		state_machine.change_state(state_build)
 		swipe_down = false
 	
 	
 func leave_state_new_block() ->void:
-	build_timer.start()
+	if not build_timer.is_paused():
+		build_timer.start()
+	else:
+		build_timer.set_paused(false)
 	
 	
 func enter_state_build() ->void:
@@ -161,8 +156,6 @@ func state_win() ->void:
 	
 	
 func leave_state_win() ->void:
-	build_timer.set_paused(false)
-	build_timer.stop()
 	remove_block()
 	
 	
