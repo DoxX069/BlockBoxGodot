@@ -6,7 +6,7 @@ var state_machine: CallableStateMachine = CallableStateMachine.new()
 
 @export var counter: Counter
 var multiplier: int = 1
-@export var build_timer: Timer
+@export var build_timer: CustomTimer
 var timer_timeout := false
 var swipe_up := false
 var swipe_down := false
@@ -91,10 +91,10 @@ func state_new_block() ->void:
 	
 	
 func leave_state_new_block() ->void:
-	if not build_timer.is_paused():
+	if build_timer.is_stopped:
 		build_timer.start()
 	else:
-		build_timer.set_paused(false)
+		build_timer.resume()
 	
 	
 func enter_state_build() ->void:
@@ -145,7 +145,8 @@ func leave_state_show_task() ->void:
 
 
 func enter_state_win() ->void:
-	build_timer.set_paused(true)
+	build_timer.pause()
+	build_timer.set_elapsed_time(build_timer.elapsed_time - 1)
 	despawn_animation()
 	counter.add_to_counter(block_inst.size(), multiplier)
 	
@@ -337,8 +338,12 @@ func load_data() ->void:
 	
 
 func _on_timer_timeout() -> void:
-	timer_timeout = true
+	pass
 
+
+func _on_custom_timer_timeout() -> void:
+	timer_timeout = true
+	
 
 func _on_swipe_detector_swipe_up() -> void:
 	swipe_up = true

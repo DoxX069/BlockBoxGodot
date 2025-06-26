@@ -1,10 +1,11 @@
-[gd_scene load_steps=12 format=3 uid="uid://dwx2pgyrss8sp"]
+[gd_scene load_steps=13 format=3 uid="uid://dwx2pgyrss8sp"]
 
 [ext_resource type="Script" uid="uid://05n7qgn4kay0" path="res://scripts/Camera/rotation_controller.gd" id="2_1g5jo"]
 [ext_resource type="Script" uid="uid://dnc3j6chxcnkr" path="res://scripts/swipe_detector.gd" id="3_kvuet"]
 [ext_resource type="PackedScene" uid="uid://b2slfqbakiujv" path="res://scenes/Block/block_manager.tscn" id="4_gee14"]
 [ext_resource type="Script" uid="uid://bag1qec30l2p" path="res://scripts/counter.gd" id="5_u5sy4"]
 [ext_resource type="Script" uid="uid://xhlo7mh3pnyy" path="res://scripts/game_ui.gd" id="7_u5sy4"]
+[ext_resource type="Script" uid="uid://7qamxr7t5kyk" path="res://scripts/custom_timer.gd" id="8_0tnpc"]
 [ext_resource type="Texture2D" uid="uid://83t5nd7354ef" path="res://assets/blank.png" id="8_gee14"]
 [ext_resource type="PackedScene" uid="uid://qbd2bnunqisi" path="res://scenes/platform.tscn" id="9_kvpfn"]
 
@@ -67,7 +68,7 @@ script = ExtResource("3_kvuet")
 
 [node name="BlockManager" parent="ObjectRig" node_paths=PackedStringArray("counter", "build_timer") instance=ExtResource("4_gee14")]
 counter = NodePath("../../CanvasLayer/PanelContainer/Counter")
-build_timer = NodePath("../../TimerCanvasLayer/PanelContainer/Timer")
+build_timer = NodePath("../../TimerCanvasLayer/PanelContainer/CustomTimer")
 
 [node name="platform" parent="ObjectRig" instance=ExtResource("9_kvpfn")]
 
@@ -98,7 +99,7 @@ script = ExtResource("5_u5sy4")
 [node name="TimerCanvasLayer" type="CanvasLayer" parent="."]
 layer = -1
 
-[node name="PanelContainer" type="PanelContainer" parent="TimerCanvasLayer"]
+[node name="PanelContainer" type="PanelContainer" parent="TimerCanvasLayer" node_paths=PackedStringArray("timer")]
 z_index = -1
 anchors_preset = 15
 anchor_right = 1.0
@@ -108,6 +109,7 @@ grow_vertical = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_dinhu")
 script = ExtResource("7_u5sy4")
+timer = NodePath("CustomTimer")
 
 [node name="TextureProgressBar" type="TextureProgressBar" parent="TimerCanvasLayer/PanelContainer"]
 layout_mode = 2
@@ -115,16 +117,18 @@ mouse_filter = 2
 step = 0.01
 fill_mode = 3
 nine_patch_stretch = true
-texture_under = ExtResource("8_gee14")
 texture_progress = ExtResource("8_gee14")
 tint_under = Color(1, 1, 1, 0)
 tint_progress = Color(0.95, 0.95, 0.95, 0.490196)
 
 [node name="Timer" type="Timer" parent="TimerCanvasLayer/PanelContainer"]
-process_callback = 0
-wait_time = 60.0
-one_shot = true
+wait_time = 30.0
+
+[node name="CustomTimer" type="Node" parent="TimerCanvasLayer/PanelContainer"]
+script = ExtResource("8_0tnpc")
+duration = 10.0
 
 [connection signal="swipe_down" from="ObjectRig/SwipeDetector" to="ObjectRig/BlockManager" method="_on_swipe_detector_swipe_down"]
 [connection signal="swipe_up" from="ObjectRig/SwipeDetector" to="ObjectRig/BlockManager" method="_on_swipe_detector_swipe_up"]
 [connection signal="timeout" from="TimerCanvasLayer/PanelContainer/Timer" to="ObjectRig/BlockManager" method="_on_timer_timeout"]
+[connection signal="timeout" from="TimerCanvasLayer/PanelContainer/CustomTimer" to="ObjectRig/BlockManager" method="_on_custom_timer_timeout"]

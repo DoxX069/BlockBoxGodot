@@ -1,14 +1,15 @@
 extends PanelContainer
 
-@onready var timer:= $Timer
+@export var timer: CustomTimer
 @onready var progress_bar:= $TextureProgressBar
-var timer_max
 
 func _ready() -> void:
-	timer_max = timer.get_wait_time()
+	pass
 
 func _physics_process(_delta: float) -> void:
-	if timer.is_stopped():
-		progress_bar.value = 0
+	if timer.is_stopped:
+		var current_tween := get_tree().create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_LINEAR)
+		current_tween.tween_property(progress_bar,"value",0,0.15)
 	else:
-		progress_bar.value = (timer_max - timer.get_time_left()) / timer_max * 100
+		var current_tween := get_tree().create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_LINEAR)
+		current_tween.tween_property(progress_bar,"value",(timer.duration - timer.time_left) / timer.duration * 100,0.15)

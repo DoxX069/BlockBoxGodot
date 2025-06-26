@@ -7,3 +7,5 @@ res://scenes/Block/block_manager.tscn
 res://scenes/Block/block.tscn
 res://scenes/platform_block.tscn
 res://scripts/Camera/rotation_controller.gd
+res://scripts/custom_timer.gd
+res://scripts/game_ui.gd
