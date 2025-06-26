@@ -1,10 +1,9 @@
 res://scenes/game.tscn
 res://assets/BlockBoxTheme.tres
+res://scripts/Block/block_manager.gd
 res://scenes/mainMenu.tscn
 res://scenes/platform.tscn
 res://scenes/Block/block_manager.tscn
 res://scenes/Block/block.tscn
 res://scenes/platform_block.tscn
-res://scripts/Block/block_manager.gd
 res://scripts/Camera/rotation_controller.gd
-res://scripts/swipe_detector.gd

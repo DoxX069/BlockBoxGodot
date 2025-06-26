@@ -49,7 +49,7 @@ func snap_rotation() ->void:
 	if is_rotating == false:
 		var current_tween = get_tree().create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_BACK)
 		is_rotating = true
-		current_tween.tween_property(self,"rotation_degrees:y",snappedf(self.rotation_degrees.y, 45), 0.3)
+		current_tween.tween_property(self,"rotation_degrees:y",snappedf(self.rotation_degrees.y, 90), 0.3)
 		await current_tween.finished
 		is_rotating = false
 		current_rotation_angle = self.rotation_degrees.y
