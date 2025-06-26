@@ -7,6 +7,7 @@ var state_machine: CallableStateMachine = CallableStateMachine.new()
 @export var counter: Counter
 var multiplier: int = 1
 @export var build_timer: CustomTimer
+var reduced_time: float = 1.5
 var timer_timeout := false
 var swipe_up := false
 var swipe_down := false
@@ -14,8 +15,6 @@ var dragging_disabled: bool = false
 
 signal data_saved
 signal data_loaded
-
-
 
 var number_of_blocks: int = 1
 
@@ -69,17 +68,12 @@ func enter_state_new_block() ->void:
 		create_block_pos()
 		instantiate_block()
 		spawn_animation()
-	
-	print(" --- Task Blocks --- ")
-	for pos in task_block_pos:
-		print(pos)
-	print(" --- Build Blocks --- ")
-	for pos in build_block_pos:
-		print(pos)
 
 
 func state_new_block() ->void:
 	if swipe_up:
+		build_timer.set_elapsed_time(build_timer.elapsed_time - 3)
+		reduced_time = 1.5
 		number_of_blocks += 1
 		create_block_pos()
 		instantiate_block()
@@ -146,14 +140,16 @@ func leave_state_show_task() ->void:
 
 func enter_state_win() ->void:
 	build_timer.pause()
-	build_timer.set_elapsed_time(build_timer.elapsed_time - 3)
+	build_timer.set_elapsed_time(build_timer.elapsed_time - reduced_time * number_of_blocks)
+	reduced_time -= 0.1
 	despawn_animation()
 	counter.add_to_counter(block_inst.size(), multiplier)
+	await get_tree().create_timer(0.5).timeout
+	state_machine.change_state(state_new_block)
 	
 	
 func state_win() ->void:
-	if Input.is_action_just_pressed("drag"):
-		state_machine.change_state(state_new_block)
+	pass
 	
 	
 func leave_state_win() ->void:
@@ -217,13 +213,14 @@ func instantiate_block() ->void:
 	# Task Block
 	update_task_valid_pos()
 	var instance: Block = block_scene.instantiate()
-	self.add_child(instance)
-	instance.block_mesh.scale = Vector3(0,0,0)
+	instance.visible = false
 	instance.collision_layer = 4
 	instance.collision_mask = 4 | 2
 	instance.is_task_block = true
 	instance.is_build_block = false
-	instance.position = current_inst_pos	
+	instance.position = current_inst_pos
+	self.add_child(instance)
+	instance.visible = true
 	block_inst.append(instance)
 	current_inst = instance
 	dragging_disabled = false
@@ -237,18 +234,16 @@ func remove_block() ->void:
 	
 func spawn_animation() ->void:
 	dragging_disabled = true
-	var current_tween := get_tree().create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_SPRING)
-	current_tween.tween_property(current_inst.block_mesh,"scale",Vector3(1,1,1),0.1)
-	await current_tween.finished
-	current_tween.kill()
+	var current_tween := get_tree().create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
+	current_tween.tween_property(current_inst.block_mesh,"scale",Vector3(1,1,1),0.15)
 	dragging_disabled = false
 		
 		
 func despawn_animation() ->void:
 	for inst:Block in block_inst:
 		dragging_disabled = true
-		var current_tween := get_tree().create_tween().set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_SPRING)
-		current_tween.tween_property(inst.block_mesh,"scale",Vector3(0,0,0),0.075)
+		var current_tween := get_tree().create_tween().set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_BACK)
+		current_tween.tween_property(inst.block_mesh,"scale",Vector3(0,0,0),0.15)
 		await current_tween.finished
 		current_tween.kill()
 		dragging_disabled = false

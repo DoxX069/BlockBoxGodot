@@ -21,6 +21,7 @@ collision_mask = 2
 script = ExtResource("1_b2q3m")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
 material_override = SubResource("StandardMaterial3D_b2q3m")
 mesh = SubResource("BoxMesh_m2exc")
 

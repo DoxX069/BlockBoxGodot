@@ -99,7 +99,7 @@ script = ExtResource("5_u5sy4")
 [node name="TimerCanvasLayer" type="CanvasLayer" parent="."]
 layer = -1
 
-[node name="PanelContainer" type="PanelContainer" parent="TimerCanvasLayer" node_paths=PackedStringArray("timer")]
+[node name="PanelContainer" type="PanelContainer" parent="TimerCanvasLayer"]
 z_index = -1
 anchors_preset = 15
 anchor_right = 1.0
@@ -108,10 +108,8 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_dinhu")
-script = ExtResource("7_u5sy4")
-timer = NodePath("CustomTimer")
 
-[node name="TextureProgressBar" type="TextureProgressBar" parent="TimerCanvasLayer/PanelContainer"]
+[node name="TextureProgressBar" type="TextureProgressBar" parent="TimerCanvasLayer/PanelContainer" node_paths=PackedStringArray("timer")]
 layout_mode = 2
 mouse_filter = 2
 step = 0.01
@@ -120,15 +118,13 @@ nine_patch_stretch = true
 texture_progress = ExtResource("8_gee14")
 tint_under = Color(1, 1, 1, 0)
 tint_progress = Color(0.95, 0.95, 0.95, 0.490196)
-
-[node name="Timer" type="Timer" parent="TimerCanvasLayer/PanelContainer"]
-wait_time = 30.0
+script = ExtResource("7_u5sy4")
+timer = NodePath("../CustomTimer")
 
 [node name="CustomTimer" type="Node" parent="TimerCanvasLayer/PanelContainer"]
 script = ExtResource("8_0tnpc")
-duration = 10.0
+duration = 30.0
 
 [connection signal="swipe_down" from="ObjectRig/SwipeDetector" to="ObjectRig/BlockManager" method="_on_swipe_detector_swipe_down"]
 [connection signal="swipe_up" from="ObjectRig/SwipeDetector" to="ObjectRig/BlockManager" method="_on_swipe_detector_swipe_up"]
-[connection signal="timeout" from="TimerCanvasLayer/PanelContainer/Timer" to="ObjectRig/BlockManager" method="_on_timer_timeout"]
 [connection signal="timeout" from="TimerCanvasLayer/PanelContainer/CustomTimer" to="ObjectRig/BlockManager" method="_on_custom_timer_timeout"]
