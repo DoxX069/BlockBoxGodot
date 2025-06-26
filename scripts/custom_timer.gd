@@ -51,7 +51,8 @@ func finished() ->void:
 func set_elapsed_time(new_time:float) ->void:
 	if new_time < 0:
 		elapsed_time = 0
-	elapsed_time = new_time
+	else:
+		elapsed_time = new_time
 	if elapsed_time >= duration:
 		is_running = false
 		finished()

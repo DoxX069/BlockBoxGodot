@@ -146,7 +146,7 @@ func leave_state_show_task() ->void:
 
 func enter_state_win() ->void:
 	build_timer.pause()
-	build_timer.set_elapsed_time(build_timer.elapsed_time - 1)
+	build_timer.set_elapsed_time(build_timer.elapsed_time - 3)
 	despawn_animation()
 	counter.add_to_counter(block_inst.size(), multiplier)
 	
