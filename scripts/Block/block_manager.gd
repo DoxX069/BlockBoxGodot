@@ -7,7 +7,8 @@ var state_machine: CallableStateMachine = CallableStateMachine.new()
 @export var counter: Counter
 var multiplier: int = 1
 @export var build_timer: CustomTimer
-var reduced_time: float = 1.5
+var reduce_time_correct: float = 1
+var reduce_time_new_block: float = 1
 var timer_timeout := false
 var swipe_up := false
 var swipe_down := false
@@ -68,13 +69,14 @@ func enter_state_new_block() ->void:
 		create_block_pos()
 		instantiate_block()
 		spawn_animation()
-
+	
 
 func state_new_block() ->void:
 	if swipe_up:
-		build_timer.set_elapsed_time(build_timer.elapsed_time - 3)
-		reduced_time = 1.5
 		number_of_blocks += 1
+		build_timer.set_elapsed_time(build_timer.elapsed_time - clampf(reduce_time_new_block,0.5,15))
+		reduce_time_new_block += 1
+		reduce_time_correct = 1
 		create_block_pos()
 		instantiate_block()
 		spawn_animation()
@@ -140,8 +142,9 @@ func leave_state_show_task() ->void:
 
 func enter_state_win() ->void:
 	build_timer.pause()
-	build_timer.set_elapsed_time(build_timer.elapsed_time - reduced_time * number_of_blocks)
-	reduced_time -= 0.1
+	build_timer.set_elapsed_time(build_timer.elapsed_time - reduce_time_correct * number_of_blocks)
+	if reduce_time_correct > 0.25:
+		reduce_time_correct -= 0.15
 	despawn_animation()
 	counter.add_to_counter(block_inst.size(), multiplier)
 	await get_tree().create_timer(0.5).timeout
@@ -244,8 +247,6 @@ func despawn_animation() ->void:
 		dragging_disabled = true
 		var current_tween := get_tree().create_tween().set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_BACK)
 		current_tween.tween_property(inst.block_mesh,"scale",Vector3(0,0,0),0.15)
-		await current_tween.finished
-		current_tween.kill()
 		dragging_disabled = false
 			
 

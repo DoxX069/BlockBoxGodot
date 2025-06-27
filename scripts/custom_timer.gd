@@ -3,7 +3,7 @@ class_name CustomTimer
 
 
 @export var duration: float = 1
-var elapsed_time: float = 0
+@export var elapsed_time: float = 0
 var time_left: float
 var is_running: bool = false
 var is_stopped: bool = true
@@ -49,10 +49,6 @@ func finished() ->void:
 	
 
 func set_elapsed_time(new_time:float) ->void:
-	if new_time < 0:
-		elapsed_time = 0
-	else:
-		elapsed_time = new_time
-	if elapsed_time >= duration:
-		is_running = false
-		finished()
+	elapsed_time = clampf(new_time, 0, duration)
+	print(" --- Current Time --- ")
+	print(elapsed_time)
