@@ -1,6 +1,8 @@
+res://Shaders
+res://scenes/Block
+/Applications/Blender.app/Contents/MacOS
 res://scripts
 res://scenes
-res://scenes/Block
 res://
 res://scripts/Camera
 res://scripts/Block

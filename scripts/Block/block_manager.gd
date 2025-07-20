@@ -252,14 +252,14 @@ func despawn_animation() ->void:
 
 func create_block_pos() ->void:
 	var new_task_pos: Vector3 = task_valid_pos.pick_random()
-	var new_build_pos: Vector3 = build_valid_pos.pick_random()
 	task_block_pos.append(new_task_pos)
-	build_block_pos.append(new_build_pos)
 	current_inst_pos = new_task_pos
-	
 	task_valid_pos.clear()
-	build_valid_pos.clear()
 	update_task_valid_pos()
+	
+	var new_build_pos: Vector3 = build_valid_pos.pick_random()
+	build_block_pos.append(new_build_pos)
+	build_valid_pos.clear()
 	update_build_valid_pos()
 	
 

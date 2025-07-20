@@ -1,3 +1,7 @@
+MeshInstance3D
+CSGSphere3D
+CSGMesh3D
+CSGCombiner3D
 Node
 PanelContainer
 Node3D
@@ -9,7 +13,3 @@ AnimationTree
 Panel
 Button
 SubViewport
-SpotLight3D
-CanvasLayer
-Label
-TextureRect
