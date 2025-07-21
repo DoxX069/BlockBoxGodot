@@ -1,10 +1,10 @@
 res://assets/tiles.tres::7dab664e9b985666d37121daeb7d4da4::1748706549::res://.godot/exported/133200997/export-b1dad5d312a657a0fff7c5288cc3a5f8-tiles.res
-res://scenes/game.tscn::25b4332e8a640c967d4bb6f651cc27e9::1752864842::res://.godot/exported/133200997/export-c2a7af834e91ff64325daddf58e45dc0-game.scn
-res://scenes/mainMenu.tscn::16fb499e394154099272ed76f614fedd::1752864842::res://.godot/exported/133200997/export-0aef5e1539a33cabfe22c8516f3ad094-mainMenu.scn
-res://scenes/platform.tscn::1a758714b3aa57d1ee8752168d5a2222::1752864842::res://.godot/exported/133200997/export-cc2f727180cd42d9c13434cb55b1ce69-platform.scn
+res://scenes/game.tscn::25b4332e8a640c967d4bb6f651cc27e9::1753041344::res://.godot/exported/133200997/export-c2a7af834e91ff64325daddf58e45dc0-game.scn
+res://scenes/mainMenu.tscn::16fb499e394154099272ed76f614fedd::1753041344::res://.godot/exported/133200997/export-0aef5e1539a33cabfe22c8516f3ad094-mainMenu.scn
+res://scenes/platform.tscn::2960bdc63881a69fd1a838e8c490be1c::1753041344::res://.godot/exported/133200997/export-cc2f727180cd42d9c13434cb55b1ce69-platform.scn
 res://scenes/savedBuilds.tscn::ec740e5b04e07e8c6707c8bf91d8cc46::1745770014::res://.godot/exported/133200997/export-6edfbfd888f6f62cfc459f41483e0e2b-savedBuilds.scn
 res://scenes/state_mashine.tscn::af1c971bddc454f2fb78f38d6a87d7a7::1747754284::res://.godot/exported/133200997/export-50019c676366030d32665b475d865345-state_mashine.scn
 res://assets/BlockBoxTheme.tres::ea5a2eaf2f897cefcb2a04b0b162ed70::1752832674::res://.godot/exported/133200997/export-f11516454e3dad8daea406a25ba10bc3-BlockBoxTheme.res
-res://scenes/platform_block.tscn::680818d8249208d56eb0e859127245f5::1752864842::res://.godot/exported/133200997/export-bb4c793c2a33194e5a228186515d19a3-platform_block.scn
-res://scenes/Block/block.tscn::da3709fbdc8b5b4b72cbfc3a41bb95d1::1752864842::res://.godot/exported/133200997/export-3763b6f1f61388bfaa9bb2c475e70381-block.scn
-res://scenes/Block/block_manager.tscn::e2c32a450077dcec2205477cccad3bad::1752864842::res://.godot/exported/133200997/export-0aa47cae1905a341ffd793a38b799bad-block_manager.scn
+res://scenes/platform_block.tscn::680818d8249208d56eb0e859127245f5::1753041344::res://.godot/exported/133200997/export-bb4c793c2a33194e5a228186515d19a3-platform_block.scn
+res://scenes/Block/block.tscn::6886fa82fb6f74d51f2bd04c4cb0dee0::1753041344::res://.godot/exported/133200997/export-3763b6f1f61388bfaa9bb2c475e70381-block.scn
+res://scenes/Block/block_manager.tscn::e2c32a450077dcec2205477cccad3bad::1753041344::res://.godot/exported/133200997/export-0aa47cae1905a341ffd793a38b799bad-block_manager.scn

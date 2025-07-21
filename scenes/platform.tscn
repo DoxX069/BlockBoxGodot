@@ -1,17 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://qbd2bnunqisi"]
+[gd_scene load_steps=5 format=3 uid="uid://qbd2bnunqisi"]
 
-[ext_resource type="Shader" uid="uid://b6aqgbq7t1i5p" path="res://Shaders/Outline.gdshader" id="1_507ja"]
 [ext_resource type="PackedScene" uid="uid://tpbnjr26nitk" path="res://scenes/platform_block.tscn" id="1_ba0x2"]
 [ext_resource type="ArrayMesh" uid="uid://cjgmuk5x4ap1e" path="res://assets/3D Models/BlockModel.obj" id="1_nlgqw"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_n1ckp"]
-render_priority = 0
-shader = ExtResource("1_507ja")
-shader_parameter/outline_color = Color(0, 0, 0, 1)
-shader_parameter/outline_width = 5.0
-
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_507ja"]
-next_pass = SubResource("ShaderMaterial_n1ckp")
 diffuse_mode = 3
 specular_mode = 1
 albedo_color = Color(0.37, 0.348972, 0.3293, 1)

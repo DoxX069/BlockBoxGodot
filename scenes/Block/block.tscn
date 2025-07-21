@@ -1,17 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://dklfrwrpwgghw"]
+[gd_scene load_steps=6 format=3 uid="uid://dklfrwrpwgghw"]
 
 [ext_resource type="Script" uid="uid://b2ocwahal2p7u" path="res://scripts/Block/block_controller.gd" id="1_b2q3m"]
 [ext_resource type="ArrayMesh" uid="uid://c4k30v2x7ygct" path="res://assets/3D Models/Untitled.obj" id="2_b2q3m"]
-[ext_resource type="Shader" uid="uid://b6aqgbq7t1i5p" path="res://Shaders/Outline.gdshader" id="2_m2exc"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_dy8mf"]
-render_priority = 0
-shader = ExtResource("2_m2exc")
-shader_parameter/outline_color = Color(0, 0, 0, 1)
-shader_parameter/outline_width = 10.0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_b2q3m"]
-next_pass = SubResource("ShaderMaterial_dy8mf")
+depth_draw_mode = 1
 diffuse_mode = 3
 specular_mode = 1
 albedo_color = Color(0.95, 0.581875, 0.2375, 1)
@@ -19,6 +12,16 @@ rim = 0.1
 rim_tint = 0.25
 heightmap_scale = 2.27
 uv1_world_triplanar = true
+grow_amount = 0.05
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_m2exc"]
+blend_mode = 4
+cull_mode = 1
+shading_mode = 0
+albedo_color = Color(0, 0, 0, 1)
+grow = true
+grow_amount = 0.05
+distance_fade_mode = 1
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_dy8mf"]
 
@@ -29,6 +32,8 @@ script = ExtResource("1_b2q3m")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 material_override = SubResource("StandardMaterial3D_b2q3m")
+material_overlay = SubResource("StandardMaterial3D_m2exc")
+ignore_occlusion_culling = true
 mesh = ExtResource("2_b2q3m")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
