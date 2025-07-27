@@ -1,0 +1,10 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://cexvq2qcr3av5"]
+
+[resource]
+transparency = 4
+diffuse_mode = 3
+specular_mode = 1
+rim = 0.1
+rim_tint = 0.25
+heightmap_scale = 2.27
+uv1_world_triplanar = true

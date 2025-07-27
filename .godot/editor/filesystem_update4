@@ -1,8 +1,8 @@
-res://scenes/platform_block.tscn
-res://assets/BlockBoxTheme.tres
 res://scenes/game.tscn
+res://assets/BlockBoxTheme.tres
 res://scenes/mainMenu.tscn
 res://scenes/platform.tscn
 res://scenes/Block/block_manager.tscn
+res://scenes/platform_block.tscn
 res://scenes/Block/block.tscn
-res://Shaders/Outline.gdshader
+res://scripts/Block/block_controller.gd

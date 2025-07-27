@@ -1,43 +1,19 @@
-[gd_scene load_steps=6 format=3 uid="uid://dklfrwrpwgghw"]
+[gd_scene load_steps=4 format=3 uid="uid://dklfrwrpwgghw"]
 
 [ext_resource type="Script" uid="uid://b2ocwahal2p7u" path="res://scripts/Block/block_controller.gd" id="1_b2q3m"]
-[ext_resource type="ArrayMesh" uid="uid://c4k30v2x7ygct" path="res://assets/3D Models/Untitled.obj" id="2_b2q3m"]
+[ext_resource type="PackedScene" uid="uid://bnkhnde510i5c" path="res://assets/3D Models/BlockModel.blend" id="4_glxwr"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_b2q3m"]
-depth_draw_mode = 1
-diffuse_mode = 3
-specular_mode = 1
-albedo_color = Color(0.95, 0.581875, 0.2375, 1)
-rim = 0.1
-rim_tint = 0.25
-heightmap_scale = 2.27
-uv1_world_triplanar = true
-grow_amount = 0.05
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_m2exc"]
-blend_mode = 4
-cull_mode = 1
-shading_mode = 0
-albedo_color = Color(0, 0, 0, 1)
-grow = true
-grow_amount = 0.05
-distance_fade_mode = 1
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_dy8mf"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_b2q3m"]
 
 [node name="Block" type="StaticBody3D"]
 collision_layer = 0
 collision_mask = 2
 script = ExtResource("1_b2q3m")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-material_override = SubResource("StandardMaterial3D_b2q3m")
-material_overlay = SubResource("StandardMaterial3D_m2exc")
-ignore_occlusion_culling = true
-mesh = ExtResource("2_b2q3m")
+[node name="BlockModel" parent="." instance=ExtResource("4_glxwr")]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-shape = SubResource("BoxShape3D_dy8mf")
+shape = SubResource("BoxShape3D_b2q3m")
 
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

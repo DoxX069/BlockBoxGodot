@@ -1,59 +1,37 @@
-[gd_scene load_steps=5 format=3 uid="uid://qbd2bnunqisi"]
+[gd_scene load_steps=3 format=3 uid="uid://qbd2bnunqisi"]
 
 [ext_resource type="PackedScene" uid="uid://tpbnjr26nitk" path="res://scenes/platform_block.tscn" id="1_ba0x2"]
-[ext_resource type="ArrayMesh" uid="uid://cjgmuk5x4ap1e" path="res://assets/3D Models/BlockModel.obj" id="1_nlgqw"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_507ja"]
-diffuse_mode = 3
-specular_mode = 1
-albedo_color = Color(0.37, 0.348972, 0.3293, 1)
-heightmap_scale = 2.27
-uv1_world_triplanar = true
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_0tnpc"]
 size = Vector3(100, 1, 100)
 
 [node name="platform" type="Node3D"]
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(3, 0, 0, 0, 1, 0, 0, 0, 3, 0, 0, 0)
-material_override = SubResource("StandardMaterial3D_507ja")
-mesh = ExtResource("1_nlgqw")
-
 [node name="platform_block1" parent="." instance=ExtResource("1_ba0x2")]
-visible = false
 
 [node name="platform_block2" parent="." instance=ExtResource("1_ba0x2")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0)
-visible = false
 
 [node name="platform_block4" parent="." instance=ExtResource("1_ba0x2")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
-visible = false
 
 [node name="platform_block6" parent="." instance=ExtResource("1_ba0x2")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 1)
-visible = false
 
 [node name="platform_block10" parent="." instance=ExtResource("1_ba0x2")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
-visible = false
 
 [node name="platform_block12" parent="." instance=ExtResource("1_ba0x2")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 0)
-visible = false
 
 [node name="platform_block14" parent="." instance=ExtResource("1_ba0x2")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -1)
-visible = false
 
 [node name="platform_block18" parent="." instance=ExtResource("1_ba0x2")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, -1)
-visible = false
 
 [node name="platform_block22" parent="." instance=ExtResource("1_ba0x2")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 1)
-visible = false
 
 [node name="Area3D" type="Area3D" parent="."]
 

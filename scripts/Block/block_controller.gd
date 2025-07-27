@@ -3,7 +3,7 @@ class_name Block
 
 
 @onready var block_manager: BlockManager= self.get_parent()
-@onready var block_mesh: MeshInstance3D = $MeshInstance3D
+@onready var block_mesh: MeshInstance3D = self.get_child(0).get_child(0)
 
 var is_task_block: bool = false
 var is_build_block: bool = false
@@ -19,7 +19,7 @@ var dropable := true
 var falling:= false
 
 @onready var camera: Camera3D = get_viewport().get_camera_3d()
-const ray_length := 50
+const ray_length := 100
 var ray_down: Dictionary
 var ray_up: Dictionary
 var intersection: Dictionary
@@ -74,9 +74,7 @@ func enter_state_drag() ->void:
 	Global.dragged_block = self
 	
 	var current_tween := get_tree().create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_BACK)
-	current_tween.tween_property(block_mesh,"scale",Vector3(1.05,1.05,1.05),0.2)
-	await current_tween.finished
-	current_tween.kill()
+	current_tween.tween_property(block_mesh,"scale",Vector3(1.1, 1.1, 1.1),0.2)
 	
 
 func state_drag() ->void:
@@ -84,7 +82,7 @@ func state_drag() ->void:
 	var delta = get_process_delta_time()
 	if intersection:
 		# Change position while dragging
-		self.global_position = lerp(self.global_position,intersection.position+Vector3(0,0.5,0),20*delta)
+		self.global_position = lerp(self.global_position,intersection.position+Vector3(0,0.6,0),20*delta)
 	
 	if Input.is_action_just_released("drag"):
 		state_machine.change_state(state_drop)
@@ -92,9 +90,7 @@ func state_drag() ->void:
 
 func leave_state_drag() ->void:
 	var current_tween := get_tree().create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_BACK)
-	current_tween.tween_property(block_mesh,"scale",Vector3(1,1,1),0.2)
-	await current_tween.finished
-	current_tween.kill()
+	current_tween.tween_property(block_mesh,"scale",Vector3(1, 1, 1),0.2)
 
 
 func enter_state_drop() ->void:

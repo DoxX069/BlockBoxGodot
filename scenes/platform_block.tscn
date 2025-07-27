@@ -1,22 +1,13 @@
-[gd_scene load_steps=4 format=3 uid="uid://tpbnjr26nitk"]
+[gd_scene load_steps=3 format=3 uid="uid://tpbnjr26nitk"]
 
-[ext_resource type="ArrayMesh" uid="uid://cjgmuk5x4ap1e" path="res://assets/3D Models/BlockModel.obj" id="1_u3pye"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_u3pye"]
-diffuse_mode = 3
-specular_mode = 1
-albedo_color = Color(0.42, 0.39396, 0.3696, 1)
-heightmap_scale = 2.27
-uv1_world_triplanar = true
+[ext_resource type="PackedScene" uid="uid://b0hb1jj5py2k4" path="res://assets/3D Models/PlatformModel.blend" id="1_u3pye"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_4l05e"]
 
 [node name="platform_block" type="StaticBody3D"]
 collision_layer = 2
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-material_override = SubResource("StandardMaterial3D_u3pye")
-mesh = ExtResource("1_u3pye")
+[node name="PlatformModel" parent="." instance=ExtResource("1_u3pye")]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("BoxShape3D_4l05e")

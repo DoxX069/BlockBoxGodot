@@ -217,6 +217,7 @@ func instantiate_block() -> void:
 	update_task_valid_pos()
 	var instance: Block = block_scene.instantiate()
 	instance.visible = false
+	instance.get_child(0).get_child(0).scale = Vector3(0.001, 0.001, 0.001)
 	instance.collision_layer = 4
 	instance.collision_mask = 4 | 2
 	instance.is_task_block = true
