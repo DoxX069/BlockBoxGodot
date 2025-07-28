@@ -1,13 +1,13 @@
 [gd_scene load_steps=3 format=3 uid="uid://tpbnjr26nitk"]
 
-[ext_resource type="PackedScene" uid="uid://b0hb1jj5py2k4" path="res://assets/3D Models/PlatformModel.blend" id="1_u3pye"]
+[ext_resource type="PackedScene" uid="uid://dejy3eidrvtdb" path="res://assets/3D Models/PlatformModel.glb" id="1_qbcvu"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_4l05e"]
 
 [node name="platform_block" type="StaticBody3D"]
 collision_layer = 2
 
-[node name="PlatformModel" parent="." instance=ExtResource("1_u3pye")]
+[node name="PlatformModel" parent="." instance=ExtResource("1_qbcvu")]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("BoxShape3D_4l05e")
