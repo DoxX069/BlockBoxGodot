@@ -1,5 +1,5 @@
-WorldEnvironment
 MeshInstance3D
+WorldEnvironment
 SpotLight3D
 OmniLight3D
 CollisionShape3D

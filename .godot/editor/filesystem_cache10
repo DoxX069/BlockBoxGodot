@@ -1,22 +1,22 @@
-fc8a56933c4b1c8d796fdb8f7a9f9475
-::res://::1753621922
-export_presets.cfg::TextFile/TextFile::-1::1747906026::0::1::::<><><>0<>0<><>::
+72322a848ab928aa5c89f0cb78209805
+::res://::1758789584
+export_presets.cfg::TextFile::-1::1757061941::0::1::::<><><>0<>0<><>::
 icon.svg::CompressedTexture2D/CompressedTexture2D::4426155498678653369::1745231975::1747926834::1::::<><><>0<>0<>a7372e52d62a3c1a9c5a33c25a7e49f3<>res://.godot/imported/icon.svg-218a8f2b3041327d8a5756f3a245f83b.ctex::
 README.md::TextFile/TextFile::-1::1747926390::0::1::::<><><>0<>0<><>::
 ::res://addons/::1750831213
-::res://assets/::1753621988
+::res://assets/::1758443625
 blank.png::CompressedTexture2D/CompressedTexture2D::2375242302778980977::1749067609::1749067618::1::::<><><>0<>0<>b35c62170093242bf3a06024644b9e10<>res://.godot/imported/blank.png-15e8cde9e53c64a1da7cd6353c9d4ec3.ctex::
 BlockBoxTexture copy.svg::CompressedTexture2D/CompressedTexture2D::2220007229380565237::1748538216::1751036543::1::::<><><>0<>0<>ee6cbacdb4cf98daeecbf1886e21ce20<>res://.godot/imported/BlockBoxTexture copy.svg-2c75dc74cc771b3a2e419aedf604893f.s3tc.ctex<*>res://.godot/imported/BlockBoxTexture copy.svg-2c75dc74cc771b3a2e419aedf604893f.etc2.ctex::
 BlockBoxTexture.svg::CompressedTexture2D/CompressedTexture2D::3840065887507920404::1749652491::1749284181::1::::<><><>0<>0<>ef76e2261e5a3b1868b875a81b303e83<>res://.godot/imported/BlockBoxTexture.svg-a66f743d1b9904df6f8c13372d41415f.s3tc.ctex<*>res://.godot/imported/BlockBoxTexture.svg-a66f743d1b9904df6f8c13372d41415f.etc2.ctex::
-BlockBoxTheme.tres::Theme::8252129846987380823::1753621988::0::1::::<><><>0<>0<><>::uid://bglgbxfp7aub3::::res://assets/fonts/PlusJakartaSans-ExtraBold.ttf
+BlockBoxTheme.tres::Theme::8252129846987380823::1758443625::0::1::::<><><>0<>0<><>::uid://bglgbxfp7aub3::::res://assets/fonts/PlusJakartaSans-ExtraBold.ttf
 ButtonTexture.svg::CompressedTexture2D/CompressedTexture2D::1264091998623450282::1748604878::1751036918::1::::<><><>0<>0<>19ec618757594f54f6a34eead8c8919c<>res://.godot/imported/ButtonTexture.svg-b0041389361e1a3fef4103b7a2da1732.s3tc.ctex<*>res://.godot/imported/ButtonTexture.svg-b0041389361e1a3fef4103b7a2da1732.etc2.ctex::
 tiles.tres::MeshLibrary/MeshLibrary::8198031834569173172::1748706549::0::1::::<><><>0<>0<><>::uid://buyflaxqb4frg::::res://assets/BlockBoxTexture.svg
 Untitled-1.svg::CompressedTexture2D/CompressedTexture2D::3478412942645934389::1747157005::1747926834::1::::<><><>0<>0<>c4e6cddf9b2d9c97d29c93e88e68a4a6<>res://.godot/imported/Untitled-1.svg-0f31e377c5d824dc8e6f5069279a28d3.ctex::
-::res://assets/3D Models/::1753662311
-BlockModel.blend::PackedScene/PackedScene::3319967827946317126::1753662311::1753662313::1::::<><><>0<>0<>37e23074876299ea88bbeecd7f53345a<>res://.godot/imported/BlockModel.blend-0ac9f5c7c33340b9ac1de03cba3dcc26.scn::
-BlockModel.glb::PackedScene::3425514417382307199::1753662310::1753662313::1::::<><><>0<>0<>a9af2076ce13c6cf578973a16703e617<>res://.godot/imported/BlockModel.glb-dd2d87400b902536bfe27a589bbe083b.scn::
-PlatformModel.blend::PackedScene::4155700054554096525::1753662241::1753662270::1::::<><><>0<>0<>1f0a407d831c1fa871bb2919563ba126<>res://.godot/imported/PlatformModel.blend-f0889947f4ae1a4c02eb7ddbdb9a73a7.scn::
-PlatformModel.glb::PackedScene::7460104258085410251::1753662240::1753662270::1::::<><><>0<>0<>e1f9c14b66b2fac1af33d8f5a1a02dff<>res://.godot/imported/PlatformModel.glb-49281b457cf815857b1259abfd8deba2.scn::
+::res://assets/3D Models/::1753698943
+BlockModel.blend::PackedScene/PackedScene::3319967827946317126::1753698929::1753698943::1::::<><><>0<>0<>37e23074876299ea88bbeecd7f53345a<>res://.godot/imported/BlockModel.blend-0ac9f5c7c33340b9ac1de03cba3dcc26.scn::
+BlockModel.glb::PackedScene/PackedScene::3425514417382307199::1753698937::1753698943::1::::<><><>0<>0<>a9af2076ce13c6cf578973a16703e617<>res://.godot/imported/BlockModel.glb-dd2d87400b902536bfe27a589bbe083b.scn::
+PlatformModel.blend::PackedScene/PackedScene::4155700054554096525::1753698384::1753698408::1::::<><><>0<>0<>1f0a407d831c1fa871bb2919563ba126<>res://.godot/imported/PlatformModel.blend-f0889947f4ae1a4c02eb7ddbdb9a73a7.scn::
+PlatformModel.glb::PackedScene/PackedScene::7460104258085410251::1753698405::1753698408::1::::<><><>0<>0<>e1f9c14b66b2fac1af33d8f5a1a02dff<>res://.godot/imported/PlatformModel.glb-49281b457cf815857b1259abfd8deba2.scn::
 ::res://assets/fonts/::1748604177
 ArchivoBlack-Regular.ttf::FontFile/FontFile::1519069378651885696::1745231975::1747926834::1::::<><><>0<>0<>24b657475221645a019d8a778c046bd9<>res://.godot/imported/ArchivoBlack-Regular.ttf-2072c540025d966aae00ccf326200b77.fontdata::
 Dongle-Regular.ttf::FontFile/FontFile::4635355514900785019::1732129204::1748602808::1::::<><><>0<>0<>e5c44584de9ca3516b24c5b4bc151a77<>res://.godot/imported/Dongle-Regular.ttf-c179fd236091264ab7c3e0b31b2021af.fontdata::
@@ -29,16 +29,16 @@ grid.png::CompressedTexture2D/CompressedTexture2D::8083018605628927759::17452319
 istockphoto-838296134-612x612.jpg::CompressedTexture2D/CompressedTexture2D::5582873058434051226::1745231975::1747926834::1::::<><><>0<>0<>c60aa7a3abeddf05707f09659d9a8d09<>res://.godot/imported/istockphoto-838296134-612x612.jpg-745cbebfbff92066e237f26510581fab.s3tc.ctex<*>res://.godot/imported/istockphoto-838296134-612x612.jpg-745cbebfbff92066e237f26510581fab.etc2.ctex::
 outline_material.tres::ShaderMaterial/ShaderMaterial::5653496791669677019::1753103551::0::1::::<><><>0<>0<><>::
 rm301-eye-10-a.jpg::CompressedTexture2D/CompressedTexture2D::3504126685606087381::1745231975::1747926834::1::::<><><>0<>0<>8a94da82bf9c5de475bc98eaf369d2cb<>res://.godot/imported/rm301-eye-10-a.jpg-4c3035d52fd43e65dc40e4d4362b2816.s3tc.ctex<*>res://.godot/imported/rm301-eye-10-a.jpg-4c3035d52fd43e65dc40e4d4362b2816.etc2.ctex::
-::res://scenes/::1753662275
-game.tscn::PackedScene::8752563798185267783::1753662275::0::1::::<><><>0<>0<><>::uid://05n7qgn4kay0::::res://scripts/Camera/rotation_controller.gd<>uid://dnc3j6chxcnkr::::res://scripts/swipe_detector.gd<>uid://b2slfqbakiujv::::res://scenes/Block/block_manager.tscn<>uid://bag1qec30l2p::::res://scripts/counter.gd<>uid://xhlo7mh3pnyy::::res://scripts/game_ui.gd<>uid://7qamxr7t5kyk::::res://scripts/custom_timer.gd<>uid://83t5nd7354ef::::res://assets/blank.png<>uid://qbd2bnunqisi::::res://scenes/platform.tscn
-mainMenu.tscn::PackedScene::3711139588400643076::1753662275::0::1::::<><><>0<>0<><>::uid://iqbgw4fj4riw::::res://scripts/main_menu.gd
-platform.tscn::PackedScene::1125316316908836636::1753662275::0::1::::<><><>0<>0<><>::uid://tpbnjr26nitk::::res://scenes/platform_block.tscn
-platform_block.tscn::PackedScene::1364638127987572136::1753662275::0::1::::<><><>0<>0<><>::uid://dejy3eidrvtdb::::res://assets/3D Models/PlatformModel.glb
+::res://scenes/::1757062627
+game.tscn::PackedScene::8752563798185267783::1757062627::0::1::::<><><>0<>0<><>::uid://05n7qgn4kay0::::res://scripts/Camera/rotation_controller.gd<>uid://dnc3j6chxcnkr::::res://scripts/swipe_detector.gd<>uid://b2slfqbakiujv::::res://scenes/Block/block_manager.tscn<>uid://bag1qec30l2p::::res://scripts/counter.gd<>uid://xhlo7mh3pnyy::::res://scripts/game_ui.gd<>uid://7qamxr7t5kyk::::res://scripts/custom_timer.gd<>uid://83t5nd7354ef::::res://assets/blank.png<>uid://qbd2bnunqisi::::res://scenes/platform.tscn
+mainMenu.tscn::PackedScene/PackedScene::3711139588400643076::1755630465::0::1::::<><><>0<>0<><>::uid://iqbgw4fj4riw::::res://scripts/main_menu.gd
+platform.tscn::PackedScene/PackedScene::1125316316908836636::1755630465::0::1::::<><><>0<>0<><>::uid://tpbnjr26nitk::::res://scenes/platform_block.tscn
+platform_block.tscn::PackedScene/PackedScene::1364638127987572136::1755630465::0::1::::<><><>0<>0<><>::uid://dejy3eidrvtdb::::res://assets/3D Models/PlatformModel.glb
 savedBuilds.tscn::PackedScene/PackedScene::8281469962218955044::1745770014::0::1::::<><><>0<>0<><>::uid://dlwd26kod7pkl::::res://scripts/savedBuilds.gd<>uid://vv336o85oxbs::::res://assets/fonts/ArchivoBlack-Regular.ttf
 state_mashine.tscn::PackedScene/PackedScene::5214891587313478311::1747754284::0::1::::<><><>0<>0<><>::uid://cav7obdlsyea::::res://scripts/StateMachine/StateMachine.gd
-::res://scenes/Block/::1753662275
-block.tscn::PackedScene::7884193768701052108::1753662275::0::1::::<><><>0<>0<><>::uid://b2ocwahal2p7u::::res://scripts/Block/block_controller.gd<>uid://bnkhnde510i5c::::res://assets/3D Models/BlockModel.blend
-block_manager.tscn::PackedScene::4319355919315114935::1753662275::0::1::::<><><>0<>0<><>::uid://c6l1lnnrmgj13::::res://scripts/Block/block_manager.gd<>uid://dnc3j6chxcnkr::::res://scripts/swipe_detector.gd
+::res://scenes/Block/::1758443685
+block.tscn::PackedScene::7884193768701052108::1758443685::0::1::::<><><>0<>0<><>::uid://b2ocwahal2p7u::::res://scripts/Block/block_controller.gd<>uid://bnkhnde510i5c::::res://assets/3D Models/BlockModel.blend
+block_manager.tscn::PackedScene/PackedScene::4319355919315114935::1755630465::0::1::::<><><>0<>0<><>::uid://c6l1lnnrmgj13::::res://scripts/Block/block_manager.gd<>uid://dnc3j6chxcnkr::::res://scripts/swipe_detector.gd
 ::res://scripts/::1751714484
 callable_state_machine.gd::GDScript/GDScript::3734949934549239663::1750516360::0::1::::CallableStateMachine<>RefCounted<><>0<>0<><>::
 counter.gd::GDScript/GDScript::70600422918262937::1750602884::0::1::::Counter<>Label<><>0<>0<><>::
@@ -48,9 +48,9 @@ global.gd::GDScript/GDScript::3472731462099778377::1750512305::0::1::::<>Node<><
 main_menu.gd::GDScript/GDScript::594613425478806466::1749472438::0::1::::<>Control<><>0<>0<><>::
 savedBuilds.gd::GDScript/GDScript::7976987653413985035::1746956883::0::1::::<>Node2D<><>0<>0<><>::
 swipe_detector.gd::GDScript/GDScript::8077563553486789753::1750835445::0::1::::SwipeDetector<>Node3D<><>0<>0<><>::
-::res://scripts/Block/::1751712685
-block_controller.gd::GDScript::4310581482757663192::1753656116::0::1::::Block<>StaticBody3D<><>0<>0<><>::
-block_manager.gd::GDScript/GDScript::6973002664679440132::1753438636::0::1::::BlockManager<>Node3D<><>0<>0<><>::
+::res://scripts/Block/::1756924503
+block_controller.gd::GDScript/GDScript::4310581482757663192::1754129497::0::1::::Block<>StaticBody3D<><>0<>0<><>::
+block_manager.gd::GDScript/GDScript::6973002664679440132::1756924503::0::1::::BlockManager<>Node3D<><>0<>0<><>::
 block_resource.gd::GDScript/GDScript::6565367270087636748::1750246634::0::1::::BlockResource<>Resource<><>0<>0<><>::
 ::res://scripts/Camera/::1750960729
 rotation_controller.gd::GDScript/GDScript::1817499740155760521::1750960729::0::1::::<>Node3D<><>0<>0<><>::

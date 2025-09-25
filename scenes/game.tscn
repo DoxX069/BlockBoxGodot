@@ -15,11 +15,13 @@ ambient_light_source = 2
 ambient_light_color = Color(0.94, 0.94, 0.94, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_u5sy4"]
-font_size = 100
-font_color = Color(0.95, 0.95, 0.95, 1)
+font_size = 150
+font_color = Color(0.6853, 0.876353, 0.89, 1)
+outline_size = 50
+outline_color = Color(0.133375, 0.1215, 0.15, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dinhu"]
-bg_color = Color(0.594681, 0.800458, 0.979794, 1)
+bg_color = Color(0.243137, 0.223529, 0.270588, 1)
 
 [node name="Game" type="Node3D"]
 
@@ -45,8 +47,9 @@ spot_range = 22.5449
 spot_angle = 53.4375
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(0.707107, -0.5, 0.5, 0, 0.707107, 0.707107, -0.707107, -0.5, 0.5, 30, 45, 30)
+transform = Transform3D(0.707107, -0.5, 0.5, 0, 0.707107, 0.707107, -0.707107, -0.5, 0.5, 30, 44, 30)
 keep_aspect = 0
+projection = 1
 fov = 5.0
 size = 5.5
 
@@ -67,18 +70,15 @@ build_timer = NodePath("../../TimerCanvasLayer/PanelContainer/CustomTimer")
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="Counter" type="Label" parent="CanvasLayer"]
-custom_minimum_size = Vector2(200, 0)
 anchors_preset = -1
-anchor_left = 0.499
-anchor_top = 0.062
-anchor_right = 0.499
-anchor_bottom = 0.062
-offset_left = -100.14
-offset_top = 0.743996
-offset_right = 99.86
-offset_bottom = 127.744
-size_flags_horizontal = 4
-text = "198"
+anchor_left = 0.5
+anchor_top = 0.075
+anchor_right = 0.5
+anchor_bottom = 0.075
+grow_horizontal = 2
+size_flags_horizontal = 6
+size_flags_vertical = 0
+text = "1"
 label_settings = SubResource("LabelSettings_u5sy4")
 horizontal_alignment = 1
 autowrap_mode = 2
@@ -106,7 +106,7 @@ nine_patch_stretch = true
 texture_under = ExtResource("8_gee14")
 texture_progress = ExtResource("8_gee14")
 tint_under = Color(0.81, 0.81, 0.81, 0)
-tint_progress = Color(1, 0.542156, 0.690528, 1)
+tint_progress = Color(0.34902, 0.333333, 0.380392, 1)
 script = ExtResource("7_u5sy4")
 timer = NodePath("../CustomTimer")
 
@@ -117,3 +117,5 @@ duration = 30.0
 [connection signal="swipe_down" from="ObjectRig/SwipeDetector" to="ObjectRig/BlockManager" method="_on_swipe_detector_swipe_down"]
 [connection signal="swipe_up" from="ObjectRig/SwipeDetector" to="ObjectRig/BlockManager" method="_on_swipe_detector_swipe_up"]
 [connection signal="timeout" from="TimerCanvasLayer/PanelContainer/CustomTimer" to="ObjectRig/BlockManager" method="_on_custom_timer_timeout"]
+
+[editable path="ObjectRig/BlockManager"]

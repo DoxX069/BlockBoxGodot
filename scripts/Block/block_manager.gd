@@ -4,6 +4,8 @@ class_name BlockManager
 
 var state_machine: CallableStateMachine = CallableStateMachine.new()
 
+@onready var camera: Camera3D = $"../../Camera3D"
+
 @export var counter: Counter
 var multiplier: int = 1
 @export var build_timer: CustomTimer
@@ -66,9 +68,7 @@ func enter_state_new_block() -> void:
 		Vector3(1, 1, -1), Vector3(-1, 1, 1)
 	]
 	for i in number_of_blocks:
-		create_block_pos()
 		instantiate_block()
-		spawn_animation()
 	
 
 func state_new_block() -> void:
@@ -77,9 +77,7 @@ func state_new_block() -> void:
 		build_timer.set_elapsed_time(build_timer.elapsed_time - clampf(reduce_time_new_block, 0.5, 15))
 		reduce_time_new_block += 1
 		reduce_time_correct = 1
-		create_block_pos()
 		instantiate_block()
-		spawn_animation()
 		swipe_up = false
 	if swipe_down:
 		state_machine.change_state(state_build)
@@ -129,7 +127,8 @@ func leave_state_build() -> void:
 	
 
 func enter_state_show_task() -> void:
-	pass
+	var tween = get_tree().create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_CUBIC)
+	tween.tween_property(camera, "size", 6, 1)
 	
 
 func state_show_task() -> void:
@@ -137,7 +136,8 @@ func state_show_task() -> void:
 	
 	
 func leave_state_show_task() -> void:
-	pass
+	var tween = get_tree().create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_CUBIC)
+	tween.tween_property(camera, "size", 5.5, 1)
 
 
 func enter_state_win() -> void:
@@ -193,6 +193,7 @@ func make_task_block() -> void:
 		inst.is_build_block = false
 		var current_tween := get_tree().create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_EXPO)
 		current_tween.tween_property(inst, "position", task_block_pos[i], 0.2)
+		
 		i += 1
 	dragging_disabled = false
 		
@@ -213,11 +214,10 @@ func make_build_block() -> void:
 
 func instantiate_block() -> void:
 	dragging_disabled = true
-	# Task Block
-	update_task_valid_pos()
+	create_block_pos()
 	var instance: Block = block_scene.instantiate()
 	instance.visible = false
-	instance.get_child(0).get_child(0).scale = Vector3(0.001, 0.001, 0.001)
+	instance.scale = Vector3(0.001, 0.001, 0.001)
 	instance.collision_layer = 4
 	instance.collision_mask = 4 | 2
 	instance.is_task_block = true
@@ -227,6 +227,7 @@ func instantiate_block() -> void:
 	instance.visible = true
 	block_inst.append(instance)
 	current_inst = instance
+	spawn_animation()
 	dragging_disabled = false
 	
 
@@ -239,7 +240,7 @@ func remove_block() -> void:
 func spawn_animation() -> void:
 	dragging_disabled = true
 	var current_tween := get_tree().create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
-	current_tween.tween_property(current_inst.block_mesh, "scale", Vector3(1, 1, 1), 0.15)
+	current_tween.tween_property(current_inst, "scale", Vector3(1, 1, 1), 0.2)
 	dragging_disabled = false
 		
 		
@@ -247,7 +248,7 @@ func despawn_animation() -> void:
 	for inst: Block in block_inst:
 		dragging_disabled = true
 		var current_tween := get_tree().create_tween().set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_BACK)
-		current_tween.tween_property(inst.block_mesh, "scale", Vector3(0, 0, 0), 0.15)
+		current_tween.tween_property(inst, "scale", Vector3(0.001, 0.001, 0.001), 0.2)
 		dragging_disabled = false
 			
 

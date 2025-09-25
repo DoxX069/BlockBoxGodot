@@ -3,7 +3,6 @@ class_name Block
 
 
 @onready var block_manager: BlockManager= self.get_parent()
-@onready var block_mesh: MeshInstance3D = self.get_child(0).get_child(0)
 
 var is_task_block: bool = false
 var is_build_block: bool = false
@@ -74,7 +73,7 @@ func enter_state_drag() ->void:
 	Global.dragged_block = self
 	
 	var current_tween := get_tree().create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_BACK)
-	current_tween.tween_property(block_mesh,"scale",Vector3(1.1, 1.1, 1.1),0.2)
+	current_tween.tween_property(self,"scale",Vector3(1.05, 1.05, 1.05),0.2)
 	
 
 func state_drag() ->void:
@@ -90,7 +89,7 @@ func state_drag() ->void:
 
 func leave_state_drag() ->void:
 	var current_tween := get_tree().create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_BACK)
-	current_tween.tween_property(block_mesh,"scale",Vector3(1, 1, 1),0.2)
+	current_tween.tween_property(self,"scale",Vector3(1, 1, 1),0.2)
 
 
 func enter_state_drop() ->void:
@@ -110,14 +109,12 @@ func enter_state_drop() ->void:
 		# Drop to the last raycast collider
 		current_tween.tween_property(self,"position",new_pos,0.3)
 		await current_tween.finished
-		current_tween.kill()
 		# Change state
 		state_machine.change_state(state_idle)
 	else:
 		# Drop to the last raycast collider
 		current_tween.tween_property(self,"position",fallback_pos,0.3)
 		await current_tween.finished
-		current_tween.kill()
 		# Change state
 		state_machine.change_state(state_idle)
 
