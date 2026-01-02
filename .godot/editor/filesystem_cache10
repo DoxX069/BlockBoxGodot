@@ -1,14 +1,14 @@
 72322a848ab928aa5c89f0cb78209805
-::res://::1758789584
+::res://::1767353290
 export_presets.cfg::TextFile::-1::1757061941::0::1::::<><><>0<>0<><>::
 icon.svg::CompressedTexture2D/CompressedTexture2D::4426155498678653369::1745231975::1747926834::1::::<><><>0<>0<>a7372e52d62a3c1a9c5a33c25a7e49f3<>res://.godot/imported/icon.svg-218a8f2b3041327d8a5756f3a245f83b.ctex::
 README.md::TextFile/TextFile::-1::1747926390::0::1::::<><><>0<>0<><>::
 ::res://addons/::1750831213
-::res://assets/::1758443625
+::res://assets/::1767349336
 blank.png::CompressedTexture2D/CompressedTexture2D::2375242302778980977::1749067609::1749067618::1::::<><><>0<>0<>b35c62170093242bf3a06024644b9e10<>res://.godot/imported/blank.png-15e8cde9e53c64a1da7cd6353c9d4ec3.ctex::
 BlockBoxTexture copy.svg::CompressedTexture2D/CompressedTexture2D::2220007229380565237::1748538216::1751036543::1::::<><><>0<>0<>ee6cbacdb4cf98daeecbf1886e21ce20<>res://.godot/imported/BlockBoxTexture copy.svg-2c75dc74cc771b3a2e419aedf604893f.s3tc.ctex<*>res://.godot/imported/BlockBoxTexture copy.svg-2c75dc74cc771b3a2e419aedf604893f.etc2.ctex::
 BlockBoxTexture.svg::CompressedTexture2D/CompressedTexture2D::3840065887507920404::1749652491::1749284181::1::::<><><>0<>0<>ef76e2261e5a3b1868b875a81b303e83<>res://.godot/imported/BlockBoxTexture.svg-a66f743d1b9904df6f8c13372d41415f.s3tc.ctex<*>res://.godot/imported/BlockBoxTexture.svg-a66f743d1b9904df6f8c13372d41415f.etc2.ctex::
-BlockBoxTheme.tres::Theme::8252129846987380823::1758443625::0::1::::<><><>0<>0<><>::uid://bglgbxfp7aub3::::res://assets/fonts/PlusJakartaSans-ExtraBold.ttf
+BlockBoxTheme.tres::Theme::8252129846987380823::1767349336::0::1::::<><><>0<>0<><>::uid://bglgbxfp7aub3::::res://assets/fonts/PlusJakartaSans-ExtraBold.ttf
 ButtonTexture.svg::CompressedTexture2D/CompressedTexture2D::1264091998623450282::1748604878::1751036918::1::::<><><>0<>0<>19ec618757594f54f6a34eead8c8919c<>res://.godot/imported/ButtonTexture.svg-b0041389361e1a3fef4103b7a2da1732.s3tc.ctex<*>res://.godot/imported/ButtonTexture.svg-b0041389361e1a3fef4103b7a2da1732.etc2.ctex::
 tiles.tres::MeshLibrary/MeshLibrary::8198031834569173172::1748706549::0::1::::<><><>0<>0<><>::uid://buyflaxqb4frg::::res://assets/BlockBoxTexture.svg
 Untitled-1.svg::CompressedTexture2D/CompressedTexture2D::3478412942645934389::1747157005::1747926834::1::::<><><>0<>0<>c4e6cddf9b2d9c97d29c93e88e68a4a6<>res://.godot/imported/Untitled-1.svg-0f31e377c5d824dc8e6f5069279a28d3.ctex::
@@ -29,8 +29,8 @@ grid.png::CompressedTexture2D/CompressedTexture2D::8083018605628927759::17452319
 istockphoto-838296134-612x612.jpg::CompressedTexture2D/CompressedTexture2D::5582873058434051226::1745231975::1747926834::1::::<><><>0<>0<>c60aa7a3abeddf05707f09659d9a8d09<>res://.godot/imported/istockphoto-838296134-612x612.jpg-745cbebfbff92066e237f26510581fab.s3tc.ctex<*>res://.godot/imported/istockphoto-838296134-612x612.jpg-745cbebfbff92066e237f26510581fab.etc2.ctex::
 outline_material.tres::ShaderMaterial/ShaderMaterial::5653496791669677019::1753103551::0::1::::<><><>0<>0<><>::
 rm301-eye-10-a.jpg::CompressedTexture2D/CompressedTexture2D::3504126685606087381::1745231975::1747926834::1::::<><><>0<>0<>8a94da82bf9c5de475bc98eaf369d2cb<>res://.godot/imported/rm301-eye-10-a.jpg-4c3035d52fd43e65dc40e4d4362b2816.s3tc.ctex<*>res://.godot/imported/rm301-eye-10-a.jpg-4c3035d52fd43e65dc40e4d4362b2816.etc2.ctex::
-::res://scenes/::1757062627
-game.tscn::PackedScene::8752563798185267783::1757062627::0::1::::<><><>0<>0<><>::uid://05n7qgn4kay0::::res://scripts/Camera/rotation_controller.gd<>uid://dnc3j6chxcnkr::::res://scripts/swipe_detector.gd<>uid://b2slfqbakiujv::::res://scenes/Block/block_manager.tscn<>uid://bag1qec30l2p::::res://scripts/counter.gd<>uid://xhlo7mh3pnyy::::res://scripts/game_ui.gd<>uid://7qamxr7t5kyk::::res://scripts/custom_timer.gd<>uid://83t5nd7354ef::::res://assets/blank.png<>uid://qbd2bnunqisi::::res://scenes/platform.tscn
+::res://scenes/::1767353031
+game.tscn::PackedScene::8752563798185267783::1767353031::0::1::::<><><>0<>0<><>::uid://05n7qgn4kay0::::res://scripts/Camera/rotation_controller.gd<>uid://dnc3j6chxcnkr::::res://scripts/swipe_detector.gd<>uid://b2slfqbakiujv::::res://scenes/Block/block_manager.tscn<>uid://bag1qec30l2p::::res://scripts/counter.gd<>uid://xhlo7mh3pnyy::::res://scripts/game_ui.gd<>uid://7qamxr7t5kyk::::res://scripts/custom_timer.gd<>uid://83t5nd7354ef::::res://assets/blank.png<>uid://qbd2bnunqisi::::res://scenes/platform.tscn
 mainMenu.tscn::PackedScene/PackedScene::3711139588400643076::1755630465::0::1::::<><><>0<>0<><>::uid://iqbgw4fj4riw::::res://scripts/main_menu.gd
 platform.tscn::PackedScene/PackedScene::1125316316908836636::1755630465::0::1::::<><><>0<>0<><>::uid://tpbnjr26nitk::::res://scenes/platform_block.tscn
 platform_block.tscn::PackedScene/PackedScene::1364638127987572136::1755630465::0::1::::<><><>0<>0<><>::uid://dejy3eidrvtdb::::res://assets/3D Models/PlatformModel.glb
