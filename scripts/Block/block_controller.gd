@@ -81,7 +81,7 @@ func state_drag() ->void:
 	var delta = get_process_delta_time()
 	if intersection:
 		# Change position while dragging
-		self.global_position = lerp(self.global_position,intersection.position+Vector3(0,0.6,0),20*delta)
+		self.global_position = lerp(self.global_position,intersection.position+Vector3(0,0.6,0),45*delta)
 	
 	if Input.is_action_just_released("drag"):
 		state_machine.change_state(state_drop)

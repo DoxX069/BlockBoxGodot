@@ -14,7 +14,10 @@ var reduce_time_new_block: float = 1
 var timer_timeout := false
 var swipe_up := false
 var swipe_down := false
-var dragging_disabled: bool = false
+var dragging_disabled := true
+var play_add_task_button_down := false
+var play_add_task_button_up := false
+var play_add_task_button_pressed := false
 
 signal data_saved
 signal data_loaded
@@ -67,24 +70,27 @@ func enter_state_new_block() -> void:
 		Vector3(-1, 1, -1), Vector3(1, 1, 1),
 		Vector3(1, 1, -1), Vector3(-1, 1, 1)
 	]
-	for i in number_of_blocks:
-		instantiate_block()
+	instantiate_block(number_of_blocks)
 	
 
 func state_new_block() -> void:
-	if swipe_up:
+	if play_add_task_button_pressed:
 		number_of_blocks += 1
 		build_timer.set_elapsed_time(build_timer.elapsed_time - clampf(reduce_time_new_block, 0.5, 15))
 		reduce_time_new_block += 1
 		reduce_time_correct = 1
-		instantiate_block()
-		swipe_up = false
+		instantiate_block(1)
+		play_add_task_button_pressed = false
 	if swipe_down:
 		state_machine.change_state(state_build)
 		swipe_down = false
 	
 	
 func leave_state_new_block() -> void:
+	# Change camera
+	var tween = get_tree().create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_CUBIC)
+	tween.tween_property(camera, "size", 5.5, 0.3)
+	
 	if build_timer.is_stopped:
 		build_timer.start()
 	else:
@@ -92,7 +98,23 @@ func leave_state_new_block() -> void:
 	
 	
 func enter_state_build() -> void:
-	make_build_block()
+	# Change camera size
+	var tween = get_tree().create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_CUBIC)
+	tween.tween_property(camera, "size", 5.5, 0.3)
+	
+	# Change to build Blocks
+	
+	var i := 0
+	for inst: Block in block_inst:
+		inst.collision_layer = 1
+		inst.collision_mask = 1 | 2
+		inst.is_task_block = false
+		inst.is_build_block = true
+		var current_tween := get_tree().create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_EXPO)
+		current_tween.tween_property(inst, "position", build_block_pos[i], 0.2)
+		i += 1
+	
+	
 	build_valid_pos = [
 		Vector3(0, 1, 0),
 		Vector3(-1, 1, 0), Vector3(1, 1, 0),
@@ -100,18 +122,18 @@ func enter_state_build() -> void:
 		Vector3(-1, 1, -1), Vector3(1, 1, 1),
 		Vector3(1, 1, -1), Vector3(-1, 1, 1)
 	]
+
 	
 
 func state_build() -> void:
+	# Enable dragging
+	dragging_disabled = false
+	
 	# Check if task- and build block positions are equal
-	if swipe_up == true:
-		make_task_block()
-		dragging_disabled = true
-		swipe_up = false
-	elif swipe_down == true:
-		make_build_block()
-		dragging_disabled = false
-		swipe_down = false
+	if play_add_task_button_down == true:
+		play_add_task_button_down = false
+		state_machine.change_state(state_show_task)
+		
 		
 	task_block_pos.sort_custom(custom_sorter)
 	build_block_pos.sort_custom(custom_sorter)
@@ -123,21 +145,35 @@ func state_build() -> void:
 	
 
 func leave_state_build() -> void:
-	pass
+	# Disable dragging
+	dragging_disabled = true
+	
+	# Change camera
+	var tween = get_tree().create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_CUBIC)
+	tween.tween_property(camera, "size", 6, 0.3)
 	
 
 func enter_state_show_task() -> void:
-	var tween = get_tree().create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_CUBIC)
-	tween.tween_property(camera, "size", 6, 1)
+	# Change to task blocks
+	var i := 0
+	for inst: Block in block_inst:
+		inst.collision_layer = 4
+		inst.collision_mask = 4 | 2
+		inst.is_task_block = true
+		inst.is_build_block = false
+		var current_tween := get_tree().create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_EXPO)
+		current_tween.tween_property(inst, "position", task_block_pos[i], 0.2)
+		i += 1
 	
 
 func state_show_task() -> void:
-	pass
+	if play_add_task_button_up == true:
+		play_add_task_button_up = false
+		state_machine.change_state(state_build)
 	
 	
 func leave_state_show_task() -> void:
-	var tween = get_tree().create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_CUBIC)
-	tween.tween_property(camera, "size", 5.5, 1)
+	pass
 
 
 func enter_state_win() -> void:
@@ -145,23 +181,23 @@ func enter_state_win() -> void:
 	build_timer.set_elapsed_time(build_timer.elapsed_time - reduce_time_correct * number_of_blocks)
 	if reduce_time_correct > 0.25:
 		reduce_time_correct -= 0.15
-	despawn_animation()
+	
+	remove_block()
 	counter.add_to_counter(block_inst.size(), multiplier)
-	await get_tree().create_timer(0.5).timeout
-	state_machine.change_state(state_new_block)
-	
-	
+
+
 func state_win() -> void:
-	pass
+	if Input.is_action_just_pressed("drag"):
+		state_machine.change_state(state_new_block)
 	
 	
 func leave_state_win() -> void:
-	remove_block()
+	pass
 	
 	
 func enter_state_loose() -> void:
 	build_timer.stop()
-	despawn_animation()
+	remove_block()
 	counter.reset_counter()
 	
 	
@@ -172,8 +208,14 @@ func state_loose() -> void:
 
 func leave_state_loose() -> void:
 	number_of_blocks = 1
-	remove_block()
 	
+
+
+
+
+
+
+
 
 # Functions
 
@@ -183,74 +225,34 @@ func custom_sorter(a, b) -> bool:
 	return false
 
 
-func make_task_block() -> void:
-	dragging_disabled = true
-	var i := 0
-	for inst: Block in block_inst:
-		inst.collision_layer = 4
-		inst.collision_mask = 4 | 2
-		inst.is_task_block = true
-		inst.is_build_block = false
-		var current_tween := get_tree().create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_EXPO)
-		current_tween.tween_property(inst, "position", task_block_pos[i], 0.2)
-		
-		i += 1
-	dragging_disabled = false
-		
 
-func make_build_block() -> void:
-	dragging_disabled = true
-	var i := 0
-	for inst: Block in block_inst:
-		inst.collision_layer = 1
-		inst.collision_mask = 1 | 2
-		inst.is_task_block = false
-		inst.is_build_block = true
-		var current_tween := get_tree().create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_EXPO)
-		current_tween.tween_property(inst, "position", build_block_pos[i], 0.2)
-		i += 1
-	dragging_disabled = false
-	
-
-func instantiate_block() -> void:
-	dragging_disabled = true
-	create_block_pos()
-	var instance: Block = block_scene.instantiate()
-	instance.visible = false
-	instance.scale = Vector3(0.001, 0.001, 0.001)
-	instance.collision_layer = 4
-	instance.collision_mask = 4 | 2
-	instance.is_task_block = true
-	instance.is_build_block = false
-	instance.position = current_inst_pos
-	self.add_child(instance)
-	instance.visible = true
-	block_inst.append(instance)
-	current_inst = instance
-	spawn_animation()
-	dragging_disabled = false
+func instantiate_block(number: int) -> void:
+	for i in number:
+		create_block_pos()
+		var instance: Block = block_scene.instantiate()
+		instance.visible = false
+		instance.scale = Vector3(0.001, 0.001, 0.001)
+		instance.collision_layer = 4
+		instance.collision_mask = 4 | 2
+		instance.is_task_block = true
+		instance.is_build_block = false
+		instance.position = current_inst_pos
+		self.add_child(instance)
+		block_inst.append(instance)
+		instance.visible = true
+		var current_tween := get_tree().create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
+		current_tween.tween_property(instance, "scale", Vector3(1, 1, 1), 0.2)
+		
 	
 
 func remove_block() -> void:
 	for inst: Block in block_inst:
+		var current_tween := get_tree().create_tween().set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_BACK)
+		current_tween.tween_property(inst, "scale", Vector3(0.001, 0.001, 0.001), 0.2)
+		await current_tween.finished
 		inst.queue_free()
 	block_inst.clear()
 
-	
-func spawn_animation() -> void:
-	dragging_disabled = true
-	var current_tween := get_tree().create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
-	current_tween.tween_property(current_inst, "scale", Vector3(1, 1, 1), 0.2)
-	dragging_disabled = false
-		
-		
-func despawn_animation() -> void:
-	for inst: Block in block_inst:
-		dragging_disabled = true
-		var current_tween := get_tree().create_tween().set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_BACK)
-		current_tween.tween_property(inst, "scale", Vector3(0.001, 0.001, 0.001), 0.2)
-		dragging_disabled = false
-			
 
 func create_block_pos() -> void:
 	var new_task_pos: Vector3 = task_valid_pos.pick_random()
@@ -349,3 +351,15 @@ func _on_swipe_detector_swipe_up() -> void:
 
 func _on_swipe_detector_swipe_down() -> void:
 	swipe_down = true
+
+
+func _on_play_add_task_button_down() -> void:
+	play_add_task_button_down = true
+
+
+func _on_play_add_task_button_up() -> void:
+	play_add_task_button_up = true
+
+
+func _on_play_add_task_pressed() -> void:
+	play_add_task_button_pressed = true

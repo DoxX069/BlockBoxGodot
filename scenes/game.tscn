@@ -61,7 +61,7 @@ transform = Transform3D(0.707107, -0.5, 0.5, 0, 0.707107, 0.707107, -0.707107, -
 keep_aspect = 0
 projection = 1
 fov = 5.0
-size = 5.5
+size = 6.0
 
 [node name="ObjectRig" type="Node3D" parent="." node_paths=PackedStringArray("swipe_detector")]
 script = ExtResource("2_1g5jo")
@@ -102,7 +102,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 8
 size_flags_stretch_ratio = 0.25
 
-[node name="Button" type="Button" parent="CanvasLayer/MarginContainer/HBoxContainer2/PanelContainer"]
+[node name="RotateRight" type="Button" parent="CanvasLayer/MarginContainer/HBoxContainer2/PanelContainer"]
 layout_mode = 2
 text = "left"
 
@@ -113,7 +113,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 8
 size_flags_stretch_ratio = 0.5
 
-[node name="Button" type="Button" parent="CanvasLayer/MarginContainer/HBoxContainer2/PanelContainer2"]
+[node name="PlayAddTask" type="Button" parent="CanvasLayer/MarginContainer/HBoxContainer2/PanelContainer2"]
 layout_mode = 2
 text = "Tap / Hold"
 
@@ -124,7 +124,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 8
 size_flags_stretch_ratio = 0.25
 
-[node name="Button" type="Button" parent="CanvasLayer/MarginContainer/HBoxContainer2/PanelContainer3"]
+[node name="RotateLeft" type="Button" parent="CanvasLayer/MarginContainer/HBoxContainer2/PanelContainer3"]
 layout_mode = 2
 text = "right"
 
@@ -133,6 +133,9 @@ anchors_preset = 10
 anchor_right = 1.0
 offset_bottom = 150.0
 grow_horizontal = 2
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_right = 50
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/MarginContainer2"]
 layout_mode = 2
@@ -196,6 +199,11 @@ duration = 30.0
 
 [connection signal="swipe_down" from="ObjectRig/SwipeDetector" to="ObjectRig/BlockManager" method="_on_swipe_detector_swipe_down"]
 [connection signal="swipe_up" from="ObjectRig/SwipeDetector" to="ObjectRig/BlockManager" method="_on_swipe_detector_swipe_up"]
+[connection signal="pressed" from="CanvasLayer/MarginContainer/HBoxContainer2/PanelContainer/RotateRight" to="ObjectRig" method="_on_button_rotate_left_pressed"]
+[connection signal="button_down" from="CanvasLayer/MarginContainer/HBoxContainer2/PanelContainer2/PlayAddTask" to="ObjectRig/BlockManager" method="_on_play_add_task_button_down"]
+[connection signal="button_up" from="CanvasLayer/MarginContainer/HBoxContainer2/PanelContainer2/PlayAddTask" to="ObjectRig/BlockManager" method="_on_play_add_task_button_up"]
+[connection signal="pressed" from="CanvasLayer/MarginContainer/HBoxContainer2/PanelContainer2/PlayAddTask" to="ObjectRig/BlockManager" method="_on_play_add_task_pressed"]
+[connection signal="pressed" from="CanvasLayer/MarginContainer/HBoxContainer2/PanelContainer3/RotateLeft" to="ObjectRig" method="_on_button_rotate_right_pressed"]
 [connection signal="timeout" from="TimerCanvasLayer/PanelContainer/CustomTimer" to="ObjectRig/BlockManager" method="_on_custom_timer_timeout"]
 
 [editable path="ObjectRig/BlockManager"]

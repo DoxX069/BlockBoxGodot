@@ -1,3 +1,6 @@
+AnimationPlayer
+TextureProgressBar
+Timer
 MarginContainer
 Button
 PanelContainer
@@ -9,6 +12,3 @@ Node3D
 SubViewport
 SubViewportContainer
 MeshInstance3D
-WorldEnvironment
-SpotLight3D
-OmniLight3D
