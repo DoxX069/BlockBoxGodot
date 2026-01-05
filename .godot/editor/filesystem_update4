@@ -1,6 +1,11 @@
-res://scenes/game.tscn
+res://scenes/add_blocks.tscn
 res://assets/BlockBoxTheme.tres
-res://scripts/Camera/rotation_controller.gd
-res://scripts/Block/block_controller.gd
+res://scenes/build.tscn
+res://scripts/Block/block_resource.gd
+res://scenes/task.tscn
 res://scripts/Block/block_manager.gd
+res://scenes/task_block_manager.gd
+res://scripts/build_block_manager.gd
 res://scenes/main_menu.tscn
+res://scripts/main_menu.gd
+res://scripts/build.gd

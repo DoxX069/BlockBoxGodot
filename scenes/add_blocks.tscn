@@ -1,0 +1,56 @@
+[gd_scene load_steps=5 format=3 uid="uid://b68dbgvtngdv5"]
+
+[ext_resource type="Script" uid="uid://05n7qgn4kay0" path="res://scripts/Camera/rotation_controller.gd" id="1_y4drq"]
+[ext_resource type="Script" uid="uid://dnc3j6chxcnkr" path="res://scripts/swipe_detector.gd" id="2_syw53"]
+[ext_resource type="PackedScene" uid="uid://qbd2bnunqisi" path="res://scenes/platform.tscn" id="3_2e5u7"]
+
+[sub_resource type="Environment" id="Environment_wuwwc"]
+background_mode = 3
+ambient_light_source = 2
+ambient_light_color = Color(0.94, 0.94, 0.94, 1)
+
+[node name="AddBlocks" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_wuwwc")
+
+[node name="SpotLight3D" type="SpotLight3D" parent="."]
+transform = Transform3D(0.719296, 0.437293, -0.539803, 0.0433556, 0.747255, 0.663121, 0.693349, -0.500384, 0.518539, -5.75101, 8.46695, 5.22878)
+light_energy = 10.0
+light_indirect_energy = 10.0
+light_volumetric_fog_energy = 10.0
+shadow_enabled = true
+shadow_blur = 5.0
+spot_range = 22.829
+spot_angle = 45.669
+
+[node name="SpotLight3D2" type="SpotLight3D" parent="."]
+transform = Transform3D(0.586401, 0.640955, 0.495289, 0.162163, -0.691967, 0.703481, 0.793623, -0.332204, -0.509709, 5.28433, 8.63716, -5.33816)
+light_energy = 10.0
+light_indirect_energy = 10.0
+light_volumetric_fog_energy = 10.0
+shadow_enabled = true
+shadow_blur = 2.0
+spot_range = 22.5449
+spot_angle = 53.4375
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.707107, -0.5, 0.5, 0, 0.707107, 0.707107, -0.707107, -0.5, 0.5, 30, 44, 30)
+keep_aspect = 0
+projection = 1
+fov = 5.0
+size = 6.0
+
+[node name="ObjectRig" type="Node3D" parent="." node_paths=PackedStringArray("swipe_detector")]
+script = ExtResource("1_y4drq")
+swipe_detector = NodePath("SwipeDetector")
+
+[node name="SwipeDetector" type="Node3D" parent="ObjectRig"]
+transform = Transform3D(1, 0, 5.96046e-08, 2.98023e-08, 1, 8.9407e-08, 0, 0, 1, 0, 9.53674e-07, 0)
+script = ExtResource("2_syw53")
+
+[node name="platform" parent="ObjectRig" instance=ExtResource("3_2e5u7")]
+
+[node name="BlockManager1" type="Node3D" parent="ObjectRig"]
+
+[editable path="ObjectRig/platform"]

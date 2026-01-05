@@ -58,7 +58,7 @@ var ray_length := 100
 
 func _on_button_rotate_right_pressed() -> void:
 	if is_rotating == false:
-		var current_tween = get_tree().create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
+		var current_tween = get_tree().create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
 		is_rotating = true
 		current_tween.tween_property(self,"rotation_degrees:y",self.rotation_degrees.y - 90, 0.3)
 		await current_tween.finished
@@ -68,7 +68,7 @@ func _on_button_rotate_right_pressed() -> void:
 
 func _on_button_rotate_left_pressed() -> void:
 	if is_rotating == false:
-		var current_tween = get_tree().create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
+		var current_tween = get_tree().create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
 		is_rotating = true
 		current_tween.tween_property(self,"rotation_degrees:y",self.rotation_degrees.y + 90, 0.3)
 		await current_tween.finished

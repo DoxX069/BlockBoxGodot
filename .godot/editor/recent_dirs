@@ -1,3 +1,4 @@
+res://scripts
 res://scenes
 /Users/doxx/Dev/BlockBoxExports
 res://Shaders
@@ -7,7 +8,6 @@ res://scenes/Block
 /Applications/Blender.app/Contents/MacOS
 /Users/doxx/Applications
 res://assets/materials
-res://scripts
 res://
 res://scripts/Camera
 res://scripts/Block

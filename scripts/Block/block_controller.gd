@@ -2,7 +2,7 @@ extends StaticBody3D
 class_name Block
 
 
-@onready var block_manager: BlockManager= self.get_parent()
+@onready var block_manager: BlockManager = self.get_parent()
 
 var is_task_block: bool = false
 var is_build_block: bool = false
@@ -53,7 +53,7 @@ func state_idle() ->void:
 	if ground_distance >= 1.5 and Global.falling_allowed and is_build_block and not is_task_block:
 		state_machine.change_state(state_fall)
 	
-	if Input.is_action_just_pressed("drag") and draggable and not block_manager.dragging_disabled and is_build_block and not is_task_block:
+	if Input.is_action_just_pressed("drag") and draggable and not Global.dragging_disabled and is_build_block and not is_task_block:
 		state_machine.change_state(state_drag)
 		
 

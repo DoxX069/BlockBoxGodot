@@ -1,3 +1,4 @@
+Node3D
 AnimationPlayer
 TextureProgressBar
 Timer
@@ -8,7 +9,6 @@ Panel
 HBoxContainer
 Label
 VBoxContainer
-Node3D
 SubViewport
 SubViewportContainer
 MeshInstance3D

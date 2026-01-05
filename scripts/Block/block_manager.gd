@@ -4,7 +4,7 @@ class_name BlockManager
 
 var state_machine: CallableStateMachine = CallableStateMachine.new()
 
-@onready var camera: Camera3D = $"../../Camera3D"
+@export var camera: Camera3D
 
 @export var counter: Counter
 var multiplier: int = 1
@@ -14,7 +14,6 @@ var reduce_time_new_block: float = 1
 var timer_timeout := false
 var swipe_up := false
 var swipe_down := false
-var dragging_disabled := true
 var play_add_task_button_down := false
 var play_add_task_button_up := false
 var play_add_task_button_pressed := false
@@ -23,9 +22,6 @@ signal data_saved
 signal data_loaded
 
 var number_of_blocks: int = 1
-
-@export var task_blocks: Node3D
-@export var build_blocks: Node3D
 
 @onready var block_scene: PackedScene = preload("res://scenes/Block/block.tscn")
 
@@ -54,99 +50,29 @@ func _process(_delta: float) -> void:
 # States
 
 func enter_state_new_block() -> void:
-	task_block_pos.clear()
-	build_block_pos.clear()
-	task_valid_pos = [
-		Vector3(0, 1, 0),
-		Vector3(-1, 1, 0), Vector3(1, 1, 0),
-		Vector3(0, 1, -1), Vector3(0, 1, 1),
-		Vector3(-1, 1, -1), Vector3(1, 1, 1),
-		Vector3(1, 1, -1), Vector3(-1, 1, 1)
-		]
-	build_valid_pos = [
-		Vector3(0, 1, 0),
-		Vector3(-1, 1, 0), Vector3(1, 1, 0),
-		Vector3(0, 1, -1), Vector3(0, 1, 1),
-		Vector3(-1, 1, -1), Vector3(1, 1, 1),
-		Vector3(1, 1, -1), Vector3(-1, 1, 1)
-	]
-	instantiate_block(number_of_blocks)
+	pass
 	
 
 func state_new_block() -> void:
-	if play_add_task_button_pressed:
-		number_of_blocks += 1
-		build_timer.set_elapsed_time(build_timer.elapsed_time - clampf(reduce_time_new_block, 0.5, 15))
-		reduce_time_new_block += 1
-		reduce_time_correct = 1
-		instantiate_block(1)
-		play_add_task_button_pressed = false
-	if swipe_down:
-		state_machine.change_state(state_build)
-		swipe_down = false
+	pass
 	
 	
 func leave_state_new_block() -> void:
-	# Change camera
-	var tween = get_tree().create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_CUBIC)
-	tween.tween_property(camera, "size", 5.5, 0.3)
-	
-	if build_timer.is_stopped:
-		build_timer.start()
-	else:
-		build_timer.resume()
+	pass
 	
 	
 func enter_state_build() -> void:
-	# Change camera size
-	var tween = get_tree().create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_CUBIC)
-	tween.tween_property(camera, "size", 5.5, 0.3)
-	
-	# Change to build Blocks
-	
-	var i := 0
-	for inst: Block in block_inst:
-		inst.collision_layer = 1
-		inst.collision_mask = 1 | 2
-		inst.is_task_block = false
-		inst.is_build_block = true
-		var current_tween := get_tree().create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_EXPO)
-		current_tween.tween_property(inst, "position", build_block_pos[i], 0.2)
-		i += 1
-	
-	
-	build_valid_pos = [
-		Vector3(0, 1, 0),
-		Vector3(-1, 1, 0), Vector3(1, 1, 0),
-		Vector3(0, 1, -1), Vector3(0, 1, 1),
-		Vector3(-1, 1, -1), Vector3(1, 1, 1),
-		Vector3(1, 1, -1), Vector3(-1, 1, 1)
-	]
+	pass
 
 	
 
 func state_build() -> void:
-	# Enable dragging
-	dragging_disabled = false
-	
-	# Check if task- and build block positions are equal
-	if play_add_task_button_down == true:
-		play_add_task_button_down = false
-		state_machine.change_state(state_show_task)
-		
-		
-	task_block_pos.sort_custom(custom_sorter)
-	build_block_pos.sort_custom(custom_sorter)
-	if build_block_pos == task_block_pos:
-		state_machine.change_state(state_win)
-	if timer_timeout == true:
-		state_machine.change_state(state_loose)
-		timer_timeout = false
+	pass
 	
 
 func leave_state_build() -> void:
 	# Disable dragging
-	dragging_disabled = true
+	Global.dragging_disabled = true
 	
 	# Change camera
 	var tween = get_tree().create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_CUBIC)
@@ -182,7 +108,7 @@ func enter_state_win() -> void:
 	if reduce_time_correct > 0.25:
 		reduce_time_correct -= 0.15
 	
-	remove_block()
+	remove_block(number_of_blocks)
 	counter.add_to_counter(block_inst.size(), multiplier)
 
 
@@ -197,7 +123,7 @@ func leave_state_win() -> void:
 	
 func enter_state_loose() -> void:
 	build_timer.stop()
-	remove_block()
+	remove_block(number_of_blocks)
 	counter.reset_counter()
 	
 	
@@ -245,21 +171,24 @@ func instantiate_block(number: int) -> void:
 		
 	
 
-func remove_block() -> void:
-	for inst: Block in block_inst:
+func remove_block(number) -> void:
+	for i in number:
+		var inst = block_inst.pick_random()
 		var current_tween := get_tree().create_tween().set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_BACK)
 		current_tween.tween_property(inst, "scale", Vector3(0.001, 0.001, 0.001), 0.2)
 		await current_tween.finished
+		block_inst.erase(inst)
 		inst.queue_free()
-	block_inst.clear()
-
+		
 
 func create_block_pos() -> void:
+	
 	var new_task_pos: Vector3 = task_valid_pos.pick_random()
 	task_block_pos.append(new_task_pos)
 	current_inst_pos = new_task_pos
 	task_valid_pos.clear()
 	update_task_valid_pos()
+	
 	
 	var new_build_pos: Vector3 = build_valid_pos.pick_random()
 	build_block_pos.append(new_build_pos)
@@ -304,17 +233,31 @@ func update_task_valid_pos() -> void:
 			
 
 func update_build_valid_pos() -> void:
-	build_valid_pos = [
-		Vector3(0, 1, 0),
-		Vector3(-1, 1, 0), Vector3(1, 1, 0),
-		Vector3(0, 1, -1), Vector3(0, 1, 1),
-		Vector3(-1, 1, -1), Vector3(1, 1, 1),
-		Vector3(1, 1, -1), Vector3(-1, 1, 1)
-	]
 	for pos in build_block_pos:
 		build_valid_pos.erase(pos)
-		var neighbor: Vector3 = pos + Vector3(0, 1, 0)
-		build_valid_pos.append(neighbor)
+		var neighbors: Array = [
+		pos - Vector3(1, 0, 0), pos + Vector3(1, 0, 0),
+		pos + Vector3(0, 1, 0),
+		pos - Vector3(0, 0, 1), pos + Vector3(0, 0, 1)
+		]
+		for n_pos in neighbors:
+			if n_pos.x >= -1 and n_pos.x <= 1 and n_pos.z >= -1 and n_pos.z <= 1:
+				var below_pos := Vector3(n_pos.x, n_pos.y - 1, n_pos.z)
+				if n_pos.y == 1 or below_pos in task_block_pos:
+					if n_pos not in build_block_pos:
+						build_valid_pos.append(n_pos)
+	
+	#build_valid_pos = [
+	#	Vector3(0, 1, 0),
+	#	Vector3(-1, 1, 0), Vector3(1, 1, 0),
+	#	Vector3(0, 1, -1), Vector3(0, 1, 1),
+	#	Vector3(-1, 1, -1), Vector3(1, 1, 1),
+	#	Vector3(1, 1, -1), Vector3(-1, 1, 1)
+	#]
+	#for pos in build_block_pos:
+	#	build_valid_pos.erase(pos)
+	#	var neighbor: Vector3 = pos + Vector3(0, 1, 0)
+	#	build_valid_pos.append(neighbor)
 			
 
 func save_data() -> void:
@@ -344,14 +287,6 @@ func _on_timer_timeout() -> void:
 func _on_custom_timer_timeout() -> void:
 	timer_timeout = true
 	
-
-func _on_swipe_detector_swipe_up() -> void:
-	swipe_up = true
-
-
-func _on_swipe_detector_swipe_down() -> void:
-	swipe_down = true
-
 
 func _on_play_add_task_button_down() -> void:
 	play_add_task_button_down = true

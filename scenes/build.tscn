@@ -1,0 +1,212 @@
+[gd_scene load_steps=14 format=3 uid="uid://dwx2pgyrss8sp"]
+
+[ext_resource type="Script" uid="uid://dkcdc3rhptpu" path="res://scripts/build.gd" id="1_1icng"]
+[ext_resource type="Script" uid="uid://05n7qgn4kay0" path="res://scripts/Camera/rotation_controller.gd" id="1_xd2nw"]
+[ext_resource type="Script" uid="uid://dnc3j6chxcnkr" path="res://scripts/swipe_detector.gd" id="2_1icng"]
+[ext_resource type="PackedScene" uid="uid://qbd2bnunqisi" path="res://scenes/platform.tscn" id="4_8fltv"]
+[ext_resource type="Script" uid="uid://ccxovavlbdce8" path="res://scripts/build_block_manager.gd" id="4_xd2nw"]
+[ext_resource type="Script" uid="uid://bag1qec30l2p" path="res://scripts/counter.gd" id="5_yaycp"]
+[ext_resource type="Texture2D" uid="uid://83t5nd7354ef" path="res://assets/blank.png" id="6_oyfci"]
+[ext_resource type="Script" uid="uid://xhlo7mh3pnyy" path="res://scripts/timer_ui.gd" id="7_i61nl"]
+[ext_resource type="Script" uid="uid://7qamxr7t5kyk" path="res://scripts/custom_timer.gd" id="8_5otdq"]
+
+[sub_resource type="Environment" id="Environment_vtaks"]
+background_mode = 3
+ambient_light_source = 2
+ambient_light_color = Color(0.94, 0.94, 0.94, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gee14"]
+content_margin_left = 50.0
+content_margin_right = 50.0
+bg_color = Color(1, 0.8366667, 0.3, 1)
+corner_radius_top_left = 50
+corner_radius_top_right = 50
+corner_radius_bottom_right = 50
+corner_radius_bottom_left = 50
+expand_margin_right = 50.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0tnpc"]
+content_margin_left = 100.0
+content_margin_right = 50.0
+corner_radius_top_right = 50
+corner_radius_bottom_right = 50
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dinhu"]
+bg_color = Color(0.243137, 0.223529, 0.270588, 1)
+
+[node name="Build" type="Node3D"]
+script = ExtResource("1_1icng")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_vtaks")
+
+[node name="SpotLight3D" type="SpotLight3D" parent="."]
+transform = Transform3D(0.719296, 0.437293, -0.539803, 0.0433556, 0.747255, 0.663121, 0.693349, -0.500384, 0.518539, -5.75101, 8.46695, 5.22878)
+light_energy = 10.0
+light_indirect_energy = 10.0
+light_volumetric_fog_energy = 10.0
+shadow_enabled = true
+shadow_blur = 5.0
+spot_range = 22.829
+spot_angle = 45.669
+
+[node name="SpotLight3D2" type="SpotLight3D" parent="."]
+transform = Transform3D(0.586401, 0.640955, 0.495289, 0.162163, -0.691967, 0.703481, 0.793623, -0.332204, -0.509709, 5.28433, 8.63716, -5.33816)
+light_energy = 10.0
+light_indirect_energy = 10.0
+light_volumetric_fog_energy = 10.0
+shadow_enabled = true
+shadow_blur = 2.0
+spot_range = 22.5449
+spot_angle = 53.4375
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.707107, -0.5, 0.5, 0, 0.707107, 0.707107, -0.707107, -0.5, 0.5, 30, 44, 30)
+keep_aspect = 0
+projection = 1
+fov = 5.0
+size = 6.0
+
+[node name="ObjectRig" type="Node3D" parent="." node_paths=PackedStringArray("swipe_detector")]
+script = ExtResource("1_xd2nw")
+swipe_detector = NodePath("SwipeDetector")
+
+[node name="SwipeDetector" type="Node3D" parent="ObjectRig"]
+transform = Transform3D(1, 0, 5.96046e-08, 2.98023e-08, 1, 8.9407e-08, 0, 0, 1, 0, 9.53674e-07, 0)
+script = ExtResource("2_1icng")
+
+[node name="platform" parent="ObjectRig" instance=ExtResource("4_8fltv")]
+
+[node name="BlockManager" type="Node3D" parent="ObjectRig" node_paths=PackedStringArray("camera", "counter", "build_timer")]
+script = ExtResource("4_xd2nw")
+camera = NodePath("../../Camera3D")
+counter = NodePath("../../CanvasLayer/MarginContainer2/HBoxContainer/PanelContainer/Counter")
+build_timer = NodePath("../../TimerCanvasLayer/PanelContainer/CustomTimer")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer"]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -225.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 75
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="CanvasLayer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/MarginContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(0, 150)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 8
+size_flags_stretch_ratio = 0.25
+
+[node name="RotateRight" type="Button" parent="CanvasLayer/MarginContainer/HBoxContainer2/PanelContainer"]
+layout_mode = 2
+text = "left"
+
+[node name="PanelContainer2" type="PanelContainer" parent="CanvasLayer/MarginContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 8
+size_flags_stretch_ratio = 0.5
+
+[node name="ShowTask" type="Button" parent="CanvasLayer/MarginContainer/HBoxContainer2/PanelContainer2"]
+layout_mode = 2
+text = "Tap / Hold"
+
+[node name="PanelContainer3" type="PanelContainer" parent="CanvasLayer/MarginContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(0, 150)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 8
+size_flags_stretch_ratio = 0.25
+
+[node name="RotateLeft" type="Button" parent="CanvasLayer/MarginContainer/HBoxContainer2/PanelContainer3"]
+layout_mode = 2
+text = "right"
+
+[node name="MarginContainer2" type="MarginContainer" parent="CanvasLayer"]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 150.0
+grow_horizontal = 2
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_right = 50
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/MarginContainer2"]
+layout_mode = 2
+
+[node name="PanelContainer2" type="PanelContainer" parent="CanvasLayer/MarginContainer2/HBoxContainer"]
+z_index = 1
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+size_flags_stretch_ratio = 0.25
+theme_override_styles/panel = SubResource("StyleBoxFlat_gee14")
+
+[node name="Streak" type="Label" parent="CanvasLayer/MarginContainer2/HBoxContainer/PanelContainer2"]
+layout_mode = 2
+text = "5"
+clip_text = true
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/MarginContainer2/HBoxContainer"]
+custom_minimum_size = Vector2(0, 150)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+size_flags_stretch_ratio = 0.75
+theme_override_styles/panel = SubResource("StyleBoxFlat_0tnpc")
+
+[node name="Counter" type="Label" parent="CanvasLayer/MarginContainer2/HBoxContainer/PanelContainer"]
+layout_mode = 2
+text = "0000"
+script = ExtResource("5_yaycp")
+
+[node name="TimerCanvasLayer" type="CanvasLayer" parent="."]
+layer = -1
+
+[node name="PanelContainer" type="PanelContainer" parent="TimerCanvasLayer"]
+z_index = -1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_dinhu")
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="TimerCanvasLayer/PanelContainer" node_paths=PackedStringArray("timer")]
+layout_mode = 2
+mouse_filter = 2
+step = 0.01
+fill_mode = 3
+nine_patch_stretch = true
+texture_under = ExtResource("6_oyfci")
+texture_progress = ExtResource("6_oyfci")
+tint_under = Color(0.81, 0.81, 0.81, 0)
+tint_progress = Color(0.34902, 0.333333, 0.380392, 1)
+script = ExtResource("7_i61nl")
+timer = NodePath("../CustomTimer")
+
+[node name="CustomTimer" type="Node" parent="TimerCanvasLayer/PanelContainer"]
+script = ExtResource("8_5otdq")
+duration = 30.0
+
+[connection signal="swipe_up" from="ObjectRig/SwipeDetector" to="." method="_on_swipe_detector_swipe_up"]
+[connection signal="blocks_matching" from="ObjectRig/BlockManager" to="." method="_on_block_manager_blocks_matching"]
+[connection signal="pressed" from="CanvasLayer/MarginContainer/HBoxContainer2/PanelContainer/RotateRight" to="ObjectRig" method="_on_button_rotate_left_pressed"]
+[connection signal="pressed" from="CanvasLayer/MarginContainer/HBoxContainer2/PanelContainer3/RotateLeft" to="ObjectRig" method="_on_button_rotate_right_pressed"]
+[connection signal="timeout" from="TimerCanvasLayer/PanelContainer/CustomTimer" to="." method="_on_custom_timer_timeout"]
+
+[editable path="ObjectRig/platform"]

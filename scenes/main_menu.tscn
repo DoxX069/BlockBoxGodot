@@ -1,226 +1,13 @@
-[gd_scene load_steps=5 format=3 uid="uid://gua027m8utq7"]
+[gd_scene load_steps=10 format=3 uid="uid://gua027m8utq7"]
 
+[ext_resource type="Script" uid="uid://iqbgw4fj4riw" path="res://scripts/main_menu.gd" id="1_bqqt6"]
 [ext_resource type="PackedScene" uid="uid://qbd2bnunqisi" path="res://scenes/platform.tscn" id="1_l6cm7"]
+[ext_resource type="Script" uid="uid://bag1qec30l2p" path="res://scripts/counter.gd" id="2_ekxnf"]
 
-[sub_resource type="Animation" id="Animation_l6cm7"]
-resource_name = "Startup"
-length = 0.9
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("platform/platform_block1:scale")
-tracks/0/interp = 2
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.16666667),
-"transitions": PackedFloat32Array(0.4665164, 0.4665164),
-"update": 0,
-"values": [Vector3(0, 0, 0), Vector3(1, 1, 1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("platform/platform_block1:visible")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("platform/platform_block2:scale")
-tracks/2/interp = 2
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0.06666667, 0.23333333),
-"transitions": PackedFloat32Array(0.4999999, 0.4999999),
-"update": 0,
-"values": [Vector3(0, 0, 0), Vector3(1, 1, 1)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("platform/platform_block2:visible")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0.06666667),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("platform/platform_block4:scale")
-tracks/4/interp = 2
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0.16666667, 0.33333334),
-"transitions": PackedFloat32Array(0.5743491, 0.5743491),
-"update": 0,
-"values": [Vector3(0, 0, 0), Vector3(1, 1, 1)]
-}
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("platform/platform_block4:visible")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"times": PackedFloat32Array(0.16666667),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/6/type = "value"
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/path = NodePath("platform/platform_block6:scale")
-tracks/6/interp = 2
-tracks/6/loop_wrap = true
-tracks/6/keys = {
-"times": PackedFloat32Array(0.46666667, 0.6333333),
-"transitions": PackedFloat32Array(0.5743491, 0.5743491),
-"update": 0,
-"values": [Vector3(0, 0, 0), Vector3(1, 1, 1)]
-}
-tracks/7/type = "value"
-tracks/7/imported = false
-tracks/7/enabled = true
-tracks/7/path = NodePath("platform/platform_block6:visible")
-tracks/7/interp = 1
-tracks/7/loop_wrap = true
-tracks/7/keys = {
-"times": PackedFloat32Array(0.46666667),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/8/type = "value"
-tracks/8/imported = false
-tracks/8/enabled = true
-tracks/8/path = NodePath("platform/platform_block10:scale")
-tracks/8/interp = 2
-tracks/8/loop_wrap = true
-tracks/8/keys = {
-"times": PackedFloat32Array(0.23333333, 0.4),
-"transitions": PackedFloat32Array(0.5743491, 0.5743491),
-"update": 0,
-"values": [Vector3(0, 0, 0), Vector3(1, 1, 1)]
-}
-tracks/9/type = "value"
-tracks/9/imported = false
-tracks/9/enabled = true
-tracks/9/path = NodePath("platform/platform_block10:visible")
-tracks/9/interp = 1
-tracks/9/loop_wrap = true
-tracks/9/keys = {
-"times": PackedFloat32Array(0.23333333),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/10/type = "value"
-tracks/10/imported = false
-tracks/10/enabled = true
-tracks/10/path = NodePath("platform/platform_block12:scale")
-tracks/10/interp = 2
-tracks/10/loop_wrap = true
-tracks/10/keys = {
-"times": PackedFloat32Array(0.33333334, 0.5),
-"transitions": PackedFloat32Array(0.5743491, 0.5743491),
-"update": 0,
-"values": [Vector3(0, 0, 0), Vector3(1, 1, 1)]
-}
-tracks/11/type = "value"
-tracks/11/imported = false
-tracks/11/enabled = true
-tracks/11/path = NodePath("platform/platform_block12:visible")
-tracks/11/interp = 1
-tracks/11/loop_wrap = true
-tracks/11/keys = {
-"times": PackedFloat32Array(0.33333334),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/12/type = "value"
-tracks/12/imported = false
-tracks/12/enabled = true
-tracks/12/path = NodePath("platform/platform_block14:scale")
-tracks/12/interp = 2
-tracks/12/loop_wrap = true
-tracks/12/keys = {
-"times": PackedFloat32Array(0.53333336, 0.7),
-"transitions": PackedFloat32Array(0.5743491, 0.5743491),
-"update": 0,
-"values": [Vector3(0, 0, 0), Vector3(1, 1, 1)]
-}
-tracks/13/type = "value"
-tracks/13/imported = false
-tracks/13/enabled = true
-tracks/13/path = NodePath("platform/platform_block14:visible")
-tracks/13/interp = 1
-tracks/13/loop_wrap = true
-tracks/13/keys = {
-"times": PackedFloat32Array(0.53333336),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/14/type = "value"
-tracks/14/imported = false
-tracks/14/enabled = true
-tracks/14/path = NodePath("platform/platform_block18:scale")
-tracks/14/interp = 2
-tracks/14/loop_wrap = true
-tracks/14/keys = {
-"times": PackedFloat32Array(0.6333333, 0.8),
-"transitions": PackedFloat32Array(0.61557215, 0.61557215),
-"update": 0,
-"values": [Vector3(0, 0, 0), Vector3(1, 1, 1)]
-}
-tracks/15/type = "value"
-tracks/15/imported = false
-tracks/15/enabled = true
-tracks/15/path = NodePath("platform/platform_block18:visible")
-tracks/15/interp = 1
-tracks/15/loop_wrap = true
-tracks/15/keys = {
-"times": PackedFloat32Array(0.6333333),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/16/type = "value"
-tracks/16/imported = false
-tracks/16/enabled = true
-tracks/16/path = NodePath("platform/platform_block22:scale")
-tracks/16/interp = 2
-tracks/16/loop_wrap = true
-tracks/16/keys = {
-"times": PackedFloat32Array(0.73333335, 0.9),
-"transitions": PackedFloat32Array(0.5358866, 0.5358866),
-"update": 0,
-"values": [Vector3(0, 0, 0), Vector3(1, 1, 1)]
-}
-tracks/17/type = "value"
-tracks/17/imported = false
-tracks/17/enabled = true
-tracks/17/path = NodePath("platform/platform_block22:visible")
-tracks/17/interp = 1
-tracks/17/loop_wrap = true
-tracks/17/keys = {
-"times": PackedFloat32Array(0.73333335),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
+[sub_resource type="Environment" id="Environment_l6cm7"]
+background_mode = 3
+ambient_light_source = 2
+ambient_light_color = Color(0.94, 0.94, 0.94, 1)
 
 [sub_resource type="Animation" id="Animation_ekxnf"]
 length = 0.001
@@ -234,7 +21,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector3(0, 0, 0)]
+"values": [Vector3(0.001, 0.001, 0.001)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -258,7 +45,7 @@ tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector3(0, 0, 0)]
+"values": [Vector3(0.001, 0.001, 0.001)]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
@@ -282,7 +69,7 @@ tracks/4/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector3(0, 0, 0)]
+"values": [Vector3(0.001, 0.001, 0.001)]
 }
 tracks/5/type = "value"
 tracks/5/imported = false
@@ -306,7 +93,7 @@ tracks/6/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector3(0, 0, 0)]
+"values": [Vector3(0.001, 0.001, 0.001)]
 }
 tracks/7/type = "value"
 tracks/7/imported = false
@@ -330,7 +117,7 @@ tracks/8/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector3(0, 0, 0)]
+"values": [Vector3(0.001, 0.001, 0.001)]
 }
 tracks/9/type = "value"
 tracks/9/imported = false
@@ -354,7 +141,7 @@ tracks/10/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector3(0, 0, 0)]
+"values": [Vector3(0.001, 0.001, 0.001)]
 }
 tracks/11/type = "value"
 tracks/11/imported = false
@@ -378,7 +165,7 @@ tracks/12/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector3(0, 0, 0)]
+"values": [Vector3(0.001, 0.001, 0.001)]
 }
 tracks/13/type = "value"
 tracks/13/imported = false
@@ -402,7 +189,7 @@ tracks/14/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector3(0, 0, 0)]
+"values": [Vector3(0.001, 0.001, 0.001)]
 }
 tracks/15/type = "value"
 tracks/15/imported = false
@@ -426,7 +213,7 @@ tracks/16/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector3(0, 0, 0)]
+"values": [Vector3(0.001, 0.001, 0.001)]
 }
 tracks/17/type = "value"
 tracks/17/imported = false
@@ -441,50 +228,317 @@ tracks/17/keys = {
 "values": [false]
 }
 
+[sub_resource type="Animation" id="Animation_l6cm7"]
+resource_name = "Startup"
+length = 0.9
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("platform/platform_block1:scale")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.16666667),
+"transitions": PackedFloat32Array(0.4665164, 0.4665164),
+"update": 0,
+"values": [Vector3(0.001, 0.001, 0.001), Vector3(1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("platform/platform_block1:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("platform/platform_block2:scale")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.06666667, 0.23333333),
+"transitions": PackedFloat32Array(0.4999999, 0.4999999),
+"update": 0,
+"values": [Vector3(0.001, 0.001, 0.001), Vector3(1, 1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("platform/platform_block2:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.06666667),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("platform/platform_block4:scale")
+tracks/4/interp = 2
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0.16666667, 0.33333334),
+"transitions": PackedFloat32Array(0.5743491, 0.5743491),
+"update": 0,
+"values": [Vector3(0.001, 0.001, 0.001), Vector3(1, 1, 1)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("platform/platform_block4:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0.16666667),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("platform/platform_block6:scale")
+tracks/6/interp = 2
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0.46666667, 0.6333333),
+"transitions": PackedFloat32Array(0.5743491, 0.5743491),
+"update": 0,
+"values": [Vector3(0.001, 0.001, 0.001), Vector3(1, 1, 1)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("platform/platform_block6:visible")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0.46666667),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("platform/platform_block10:scale")
+tracks/8/interp = 2
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0.23333333, 0.4),
+"transitions": PackedFloat32Array(0.5743491, 0.5743491),
+"update": 0,
+"values": [Vector3(0.001, 0.001, 0.001), Vector3(1, 1, 1)]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("platform/platform_block10:visible")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0.23333333),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("platform/platform_block12:scale")
+tracks/10/interp = 2
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0.33333334, 0.5),
+"transitions": PackedFloat32Array(0.5743491, 0.5743491),
+"update": 0,
+"values": [Vector3(0.001, 0.001, 0.001), Vector3(1, 1, 1)]
+}
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("platform/platform_block12:visible")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(0.33333334),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/12/type = "value"
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/path = NodePath("platform/platform_block14:scale")
+tracks/12/interp = 2
+tracks/12/loop_wrap = true
+tracks/12/keys = {
+"times": PackedFloat32Array(0.53333336, 0.7),
+"transitions": PackedFloat32Array(0.5743491, 0.5743491),
+"update": 0,
+"values": [Vector3(0.001, 0.001, 0.001), Vector3(1, 1, 1)]
+}
+tracks/13/type = "value"
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/path = NodePath("platform/platform_block14:visible")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/keys = {
+"times": PackedFloat32Array(0.53333336),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/14/type = "value"
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/path = NodePath("platform/platform_block18:scale")
+tracks/14/interp = 2
+tracks/14/loop_wrap = true
+tracks/14/keys = {
+"times": PackedFloat32Array(0.6333333, 0.8),
+"transitions": PackedFloat32Array(0.61557215, 0.61557215),
+"update": 0,
+"values": [Vector3(0.001, 0.001, 0.001), Vector3(1, 1, 1)]
+}
+tracks/15/type = "value"
+tracks/15/imported = false
+tracks/15/enabled = true
+tracks/15/path = NodePath("platform/platform_block18:visible")
+tracks/15/interp = 1
+tracks/15/loop_wrap = true
+tracks/15/keys = {
+"times": PackedFloat32Array(0.6333333),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/16/type = "value"
+tracks/16/imported = false
+tracks/16/enabled = true
+tracks/16/path = NodePath("platform/platform_block22:scale")
+tracks/16/interp = 2
+tracks/16/loop_wrap = true
+tracks/16/keys = {
+"times": PackedFloat32Array(0.73333335, 0.9),
+"transitions": PackedFloat32Array(0.5358866, 0.5358866),
+"update": 0,
+"values": [Vector3(0.001, 0.001, 0.001), Vector3(1, 1, 1)]
+}
+tracks/17/type = "value"
+tracks/17/imported = false
+tracks/17/enabled = true
+tracks/17/path = NodePath("platform/platform_block22:visible")
+tracks/17/interp = 1
+tracks/17/loop_wrap = true
+tracks/17/keys = {
+"times": PackedFloat32Array(0.73333335),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_bqqt6"]
 _data = {
 &"RESET": SubResource("Animation_ekxnf"),
 &"Startup": SubResource("Animation_l6cm7")
 }
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bqqt6"]
+content_margin_left = 50.0
+content_margin_right = 50.0
+bg_color = Color(1, 0.8366667, 0.3, 1)
+corner_radius_top_left = 50
+corner_radius_top_right = 50
+corner_radius_bottom_right = 50
+corner_radius_bottom_left = 50
+expand_margin_right = 50.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wu84c"]
+content_margin_left = 100.0
+content_margin_right = 50.0
+corner_radius_top_right = 50
+corner_radius_bottom_right = 50
+
 [node name="MainMenu" type="Node3D"]
+script = ExtResource("1_bqqt6")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_l6cm7")
+
+[node name="SpotLight3D" type="SpotLight3D" parent="."]
+transform = Transform3D(0.7192962, 0.4372931, -0.5398034, 0.043355614, 0.74725527, 0.66312134, 0.69334924, -0.50038415, 0.5185388, -5.75101, 8.46695, 5.22878)
+light_energy = 10.0
+light_indirect_energy = 10.0
+light_volumetric_fog_energy = 10.0
+shadow_enabled = true
+shadow_blur = 5.0
+spot_range = 22.829
+spot_angle = 45.669
+
+[node name="SpotLight3D2" type="SpotLight3D" parent="."]
+transform = Transform3D(0.5864009, 0.6409544, 0.49528933, 0.16216299, -0.69196665, 0.7034808, 0.79362285, -0.33220416, -0.509709, 5.28433, 8.63716, -5.33816)
+light_energy = 10.0
+light_indirect_energy = 10.0
+light_volumetric_fog_energy = 10.0
+shadow_enabled = true
+shadow_blur = 2.0
+spot_range = 22.5449
+spot_angle = 53.4375
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.7071068, -0.49999994, 0.5000001, 0, 0.70710695, 0.7071067, -0.7071068, -0.49999994, 0.5000001, 30, 44, 30)
+keep_aspect = 0
+projection = 1
+fov = 5.0
+size = 6.0
 
 [node name="platform" parent="." instance=ExtResource("1_l6cm7")]
 
 [node name="platform_block1" parent="platform" index="0"]
-transform = Transform3D(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+transform = Transform3D(0.001, 0, 0, 0, 0.001, 0, 0, 0, 0.001, 0, 0, 0)
 visible = false
 
 [node name="platform_block2" parent="platform" index="1"]
-transform = Transform3D(0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0)
+transform = Transform3D(0.001, 0, 0, 0, 0.001, 0, 0, 0, 0.001, 1, 0, 0)
 visible = false
 
 [node name="platform_block4" parent="platform" index="2"]
-transform = Transform3D(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1)
+transform = Transform3D(0.001, 0, 0, 0, 0.001, 0, 0, 0, 0.001, 0, 0, 1)
 visible = false
 
 [node name="platform_block6" parent="platform" index="3"]
-transform = Transform3D(0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1)
+transform = Transform3D(0.001, 0, 0, 0, 0.001, 0, 0, 0, 0.001, 1, 0, 1)
 visible = false
 
 [node name="platform_block10" parent="platform" index="4"]
-transform = Transform3D(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1)
+transform = Transform3D(0.001, 0, 0, 0, 0.001, 0, 0, 0, 0.001, 0, 0, -1)
 visible = false
 
 [node name="platform_block12" parent="platform" index="5"]
-transform = Transform3D(0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0)
+transform = Transform3D(0.001, 0, 0, 0, 0.001, 0, 0, 0, 0.001, -1, 0, 0)
 visible = false
 
 [node name="platform_block14" parent="platform" index="6"]
-transform = Transform3D(0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, -1)
+transform = Transform3D(0.001, 0, 0, 0, 0.001, 0, 0, 0, 0.001, 1, 0, -1)
 visible = false
 
 [node name="platform_block18" parent="platform" index="7"]
-transform = Transform3D(0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, -1)
+transform = Transform3D(0.001, 0, 0, 0, 0.001, 0, 0, 0, 0.001, -1, 0, -1)
 visible = false
 
 [node name="platform_block22" parent="platform" index="8"]
-transform = Transform3D(0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 1)
+transform = Transform3D(0.001, 0, 0, 0, 0.001, 0, 0, 0, 0.001, -1, 0, 1)
 visible = false
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -492,5 +546,97 @@ libraries = {
 &"": SubResource("AnimationLibrary_bqqt6")
 }
 autoplay = "Startup"
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer"]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -225.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 75
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="CanvasLayer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/MarginContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(0, 150)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 8
+size_flags_stretch_ratio = 0.25
+
+[node name="RotateRight" type="Button" parent="CanvasLayer/MarginContainer/HBoxContainer2/PanelContainer"]
+layout_mode = 2
+text = "left"
+
+[node name="PanelContainer2" type="PanelContainer" parent="CanvasLayer/MarginContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 8
+size_flags_stretch_ratio = 0.5
+
+[node name="Play" type="Button" parent="CanvasLayer/MarginContainer/HBoxContainer2/PanelContainer2"]
+layout_mode = 2
+text = "Tap / Hold"
+
+[node name="PanelContainer3" type="PanelContainer" parent="CanvasLayer/MarginContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(0, 150)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 8
+size_flags_stretch_ratio = 0.25
+
+[node name="RotateLeft" type="Button" parent="CanvasLayer/MarginContainer/HBoxContainer2/PanelContainer3"]
+layout_mode = 2
+text = "right"
+
+[node name="MarginContainer2" type="MarginContainer" parent="CanvasLayer"]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 150.0
+grow_horizontal = 2
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_right = 50
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/MarginContainer2"]
+layout_mode = 2
+
+[node name="PanelContainer2" type="PanelContainer" parent="CanvasLayer/MarginContainer2/HBoxContainer"]
+z_index = 1
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+size_flags_stretch_ratio = 0.25
+theme_override_styles/panel = SubResource("StyleBoxFlat_bqqt6")
+
+[node name="Streak" type="Label" parent="CanvasLayer/MarginContainer2/HBoxContainer/PanelContainer2"]
+layout_mode = 2
+text = "5"
+clip_text = true
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/MarginContainer2/HBoxContainer"]
+custom_minimum_size = Vector2(0, 150)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+size_flags_stretch_ratio = 0.75
+theme_override_styles/panel = SubResource("StyleBoxFlat_wu84c")
+
+[node name="Counter" type="Label" parent="CanvasLayer/MarginContainer2/HBoxContainer/PanelContainer"]
+layout_mode = 2
+text = "0000"
+script = ExtResource("2_ekxnf")
+
+[connection signal="pressed" from="CanvasLayer/MarginContainer/HBoxContainer2/PanelContainer2/Play" to="." method="_on_play_pressed"]
 
 [editable path="platform"]
