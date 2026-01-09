@@ -1,13 +1,14 @@
-[gd_scene load_steps=13 format=3 uid="uid://chb35fs1moqqq"]
+[gd_scene load_steps=14 format=3 uid="uid://chb35fs1moqqq"]
 
 [ext_resource type="Script" uid="uid://05n7qgn4kay0" path="res://scripts/Camera/rotation_controller.gd" id="1_lxhym"]
-[ext_resource type="Script" uid="uid://dnc3j6chxcnkr" path="res://scripts/swipe_detector.gd" id="2_q2rnq"]
-[ext_resource type="Script" uid="uid://y2kino76icly" path="res://scenes/task_block_manager.gd" id="4_lxhym"]
+[ext_resource type="Script" uid="uid://bxn62f3ua1l7k" path="res://scripts/Scene Roots/task.gd" id="1_q2rnq"]
+[ext_resource type="Script" uid="uid://dnc3j6chxcnkr" path="res://scripts/Swipe Detector/swipe_detector.gd" id="2_q2rnq"]
+[ext_resource type="Script" uid="uid://y2kino76icly" path="res://scripts/Block/task_block_manager.gd" id="4_lxhym"]
 [ext_resource type="PackedScene" uid="uid://qbd2bnunqisi" path="res://scenes/platform.tscn" id="4_q5h86"]
-[ext_resource type="Script" uid="uid://bag1qec30l2p" path="res://scripts/counter.gd" id="5_xnbxa"]
+[ext_resource type="Script" uid="uid://bag1qec30l2p" path="res://scripts/Counter/counter.gd" id="5_xnbxa"]
 [ext_resource type="Texture2D" uid="uid://83t5nd7354ef" path="res://assets/blank.png" id="6_a6l42"]
-[ext_resource type="Script" uid="uid://xhlo7mh3pnyy" path="res://scripts/timer_ui.gd" id="7_18jng"]
-[ext_resource type="Script" uid="uid://7qamxr7t5kyk" path="res://scripts/custom_timer.gd" id="8_m3yri"]
+[ext_resource type="Script" uid="uid://xhlo7mh3pnyy" path="res://scripts/Timer/timer_ui.gd" id="7_18jng"]
+[ext_resource type="Script" uid="uid://7qamxr7t5kyk" path="res://scripts/Timer/custom_timer.gd" id="8_m3yri"]
 
 [sub_resource type="Environment" id="Environment_wliv4"]
 background_mode = 3
@@ -33,7 +34,9 @@ corner_radius_bottom_right = 50
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7b2uy"]
 bg_color = Color(0.243137, 0.223529, 0.270588, 1)
 
-[node name="Task" type="Node3D"]
+[node name="Task" type="Node3D" node_paths=PackedStringArray("camera")]
+script = ExtResource("1_q2rnq")
+camera = NodePath("Camera3D")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_wliv4")
@@ -73,13 +76,10 @@ swipe_detector = NodePath("SwipeDetector")
 transform = Transform3D(1, 0, 5.96046e-08, 2.98023e-08, 1, 8.9407e-08, 0, 0, 1, 0, 9.53674e-07, 0)
 script = ExtResource("2_q2rnq")
 
-[node name="platform" parent="ObjectRig" instance=ExtResource("4_q5h86")]
-
-[node name="BlockManager" type="Node3D" parent="ObjectRig" node_paths=PackedStringArray("camera", "counter", "build_timer")]
+[node name="BlockManager" type="Node3D" parent="ObjectRig"]
 script = ExtResource("4_lxhym")
-camera = NodePath("../../Camera3D")
-counter = NodePath("../../CanvasLayer/MarginContainer2/HBoxContainer/PanelContainer/Counter")
-build_timer = NodePath("../../TimerCanvasLayer/PanelContainer/CustomTimer")
+
+[node name="platform" parent="ObjectRig" instance=ExtResource("4_q5h86")]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 follow_viewport_enabled = true
@@ -109,7 +109,7 @@ size_flags_stretch_ratio = 0.25
 
 [node name="Remove" type="Button" parent="CanvasLayer/MarginContainer/HBoxContainer2/PanelContainer"]
 layout_mode = 2
-text = "left"
+text = "Remove"
 
 [node name="PanelContainer2" type="PanelContainer" parent="CanvasLayer/MarginContainer/HBoxContainer2"]
 custom_minimum_size = Vector2(0, 200)
@@ -131,7 +131,7 @@ size_flags_stretch_ratio = 0.25
 
 [node name="Add" type="Button" parent="CanvasLayer/MarginContainer/HBoxContainer2/PanelContainer3"]
 layout_mode = 2
-text = "right"
+text = "Add"
 
 [node name="MarginContainer2" type="MarginContainer" parent="CanvasLayer"]
 anchors_preset = 10
@@ -202,6 +202,8 @@ timer = NodePath("../CustomTimer")
 script = ExtResource("8_m3yri")
 duration = 30.0
 
-[connection signal="pressed" from="CanvasLayer/MarginContainer/HBoxContainer2/PanelContainer/Remove" to="ObjectRig/BlockManager" method="_on_add_pressed"]
+[connection signal="pressed" from="CanvasLayer/MarginContainer/HBoxContainer2/PanelContainer/Remove" to="ObjectRig/BlockManager" method="_on_remove_pressed"]
+[connection signal="pressed" from="CanvasLayer/MarginContainer/HBoxContainer2/PanelContainer/Remove" to="TimerCanvasLayer/PanelContainer/CustomTimer" method="_on_remove_pressed"]
 [connection signal="pressed" from="CanvasLayer/MarginContainer/HBoxContainer2/PanelContainer2/Play" to="ObjectRig/BlockManager" method="_on_play_pressed"]
-[connection signal="pressed" from="CanvasLayer/MarginContainer/HBoxContainer2/PanelContainer3/Add" to="ObjectRig/BlockManager" method="_on_remove_pressed"]
+[connection signal="pressed" from="CanvasLayer/MarginContainer/HBoxContainer2/PanelContainer3/Add" to="ObjectRig/BlockManager" method="_on_add_pressed"]
+[connection signal="pressed" from="CanvasLayer/MarginContainer/HBoxContainer2/PanelContainer3/Add" to="TimerCanvasLayer/PanelContainer/CustomTimer" method="_on_add_pressed"]

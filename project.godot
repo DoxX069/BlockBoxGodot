@@ -17,7 +17,7 @@ config/icon="uid://b4ccetmhkp43v"
 
 [autoload]
 
-Global="*res://scripts/global.gd"
+Global="*res://scripts/Autoload/global.gd"
 
 [display]
 
@@ -30,6 +30,14 @@ window/handheld/orientation=1
 [dotnet]
 
 project/assembly_name="BlockBox"
+
+[file_customization]
+
+folder_colors={
+"res://assets/": "pink",
+"res://scenes/": "blue",
+"res://scripts/": "orange"
+}
 
 [gui]
 

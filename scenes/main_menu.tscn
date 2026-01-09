@@ -1,8 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://gua027m8utq7"]
+[gd_scene load_steps=11 format=3 uid="uid://gua027m8utq7"]
 
-[ext_resource type="Script" uid="uid://iqbgw4fj4riw" path="res://scripts/main_menu.gd" id="1_bqqt6"]
+[ext_resource type="Script" uid="uid://iqbgw4fj4riw" path="res://scripts/Scene Roots/main_menu.gd" id="1_bqqt6"]
 [ext_resource type="PackedScene" uid="uid://qbd2bnunqisi" path="res://scenes/platform.tscn" id="1_l6cm7"]
-[ext_resource type="Script" uid="uid://bag1qec30l2p" path="res://scripts/counter.gd" id="2_ekxnf"]
+[ext_resource type="Script" uid="uid://bag1qec30l2p" path="res://scripts/Counter/counter.gd" id="2_ekxnf"]
+[ext_resource type="Script" uid="uid://23s56elgmxgy" path="res://scripts/Block/main_menu_block_manager.gd" id="2_wu84c"]
 
 [sub_resource type="Environment" id="Environment_l6cm7"]
 background_mode = 3
@@ -14,7 +15,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("platform/platform_block1:scale")
+tracks/0/path = NodePath("ObjectRig/platform/platform_block1:scale")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -26,7 +27,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("platform/platform_block1:visible")
+tracks/1/path = NodePath("ObjectRig/platform/platform_block1:visible")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -38,7 +39,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("platform/platform_block2:scale")
+tracks/2/path = NodePath("ObjectRig/platform/platform_block2:scale")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -50,7 +51,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("platform/platform_block2:visible")
+tracks/3/path = NodePath("ObjectRig/platform/platform_block2:visible")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -62,7 +63,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("platform/platform_block4:scale")
+tracks/4/path = NodePath("ObjectRig/platform/platform_block4:scale")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -74,7 +75,7 @@ tracks/4/keys = {
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("platform/platform_block4:visible")
+tracks/5/path = NodePath("ObjectRig/platform/platform_block4:visible")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
@@ -86,7 +87,7 @@ tracks/5/keys = {
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("platform/platform_block6:scale")
+tracks/6/path = NodePath("ObjectRig/platform/platform_block6:scale")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
@@ -98,7 +99,7 @@ tracks/6/keys = {
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("platform/platform_block6:visible")
+tracks/7/path = NodePath("ObjectRig/platform/platform_block6:visible")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
@@ -110,7 +111,7 @@ tracks/7/keys = {
 tracks/8/type = "value"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("platform/platform_block10:scale")
+tracks/8/path = NodePath("ObjectRig/platform/platform_block10:scale")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/keys = {
@@ -122,7 +123,7 @@ tracks/8/keys = {
 tracks/9/type = "value"
 tracks/9/imported = false
 tracks/9/enabled = true
-tracks/9/path = NodePath("platform/platform_block10:visible")
+tracks/9/path = NodePath("ObjectRig/platform/platform_block10:visible")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/keys = {
@@ -134,7 +135,7 @@ tracks/9/keys = {
 tracks/10/type = "value"
 tracks/10/imported = false
 tracks/10/enabled = true
-tracks/10/path = NodePath("platform/platform_block12:scale")
+tracks/10/path = NodePath("ObjectRig/platform/platform_block12:scale")
 tracks/10/interp = 1
 tracks/10/loop_wrap = true
 tracks/10/keys = {
@@ -146,7 +147,7 @@ tracks/10/keys = {
 tracks/11/type = "value"
 tracks/11/imported = false
 tracks/11/enabled = true
-tracks/11/path = NodePath("platform/platform_block12:visible")
+tracks/11/path = NodePath("ObjectRig/platform/platform_block12:visible")
 tracks/11/interp = 1
 tracks/11/loop_wrap = true
 tracks/11/keys = {
@@ -158,7 +159,7 @@ tracks/11/keys = {
 tracks/12/type = "value"
 tracks/12/imported = false
 tracks/12/enabled = true
-tracks/12/path = NodePath("platform/platform_block14:scale")
+tracks/12/path = NodePath("ObjectRig/platform/platform_block14:scale")
 tracks/12/interp = 1
 tracks/12/loop_wrap = true
 tracks/12/keys = {
@@ -170,7 +171,7 @@ tracks/12/keys = {
 tracks/13/type = "value"
 tracks/13/imported = false
 tracks/13/enabled = true
-tracks/13/path = NodePath("platform/platform_block14:visible")
+tracks/13/path = NodePath("ObjectRig/platform/platform_block14:visible")
 tracks/13/interp = 1
 tracks/13/loop_wrap = true
 tracks/13/keys = {
@@ -182,7 +183,7 @@ tracks/13/keys = {
 tracks/14/type = "value"
 tracks/14/imported = false
 tracks/14/enabled = true
-tracks/14/path = NodePath("platform/platform_block18:scale")
+tracks/14/path = NodePath("ObjectRig/platform/platform_block18:scale")
 tracks/14/interp = 1
 tracks/14/loop_wrap = true
 tracks/14/keys = {
@@ -194,7 +195,7 @@ tracks/14/keys = {
 tracks/15/type = "value"
 tracks/15/imported = false
 tracks/15/enabled = true
-tracks/15/path = NodePath("platform/platform_block18:visible")
+tracks/15/path = NodePath("ObjectRig/platform/platform_block18:visible")
 tracks/15/interp = 1
 tracks/15/loop_wrap = true
 tracks/15/keys = {
@@ -206,7 +207,7 @@ tracks/15/keys = {
 tracks/16/type = "value"
 tracks/16/imported = false
 tracks/16/enabled = true
-tracks/16/path = NodePath("platform/platform_block22:scale")
+tracks/16/path = NodePath("ObjectRig/platform/platform_block22:scale")
 tracks/16/interp = 1
 tracks/16/loop_wrap = true
 tracks/16/keys = {
@@ -218,7 +219,7 @@ tracks/16/keys = {
 tracks/17/type = "value"
 tracks/17/imported = false
 tracks/17/enabled = true
-tracks/17/path = NodePath("platform/platform_block22:visible")
+tracks/17/path = NodePath("ObjectRig/platform/platform_block22:visible")
 tracks/17/interp = 1
 tracks/17/loop_wrap = true
 tracks/17/keys = {
@@ -234,7 +235,7 @@ length = 0.9
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("platform/platform_block1:scale")
+tracks/0/path = NodePath("ObjectRig/platform/platform_block1:scale")
 tracks/0/interp = 2
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -246,7 +247,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("platform/platform_block1:visible")
+tracks/1/path = NodePath("ObjectRig/platform/platform_block1:visible")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -258,7 +259,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("platform/platform_block2:scale")
+tracks/2/path = NodePath("ObjectRig/platform/platform_block2:scale")
 tracks/2/interp = 2
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -270,7 +271,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("platform/platform_block2:visible")
+tracks/3/path = NodePath("ObjectRig/platform/platform_block2:visible")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -282,7 +283,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("platform/platform_block4:scale")
+tracks/4/path = NodePath("ObjectRig/platform/platform_block4:scale")
 tracks/4/interp = 2
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -294,7 +295,7 @@ tracks/4/keys = {
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("platform/platform_block4:visible")
+tracks/5/path = NodePath("ObjectRig/platform/platform_block4:visible")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
@@ -306,7 +307,7 @@ tracks/5/keys = {
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("platform/platform_block6:scale")
+tracks/6/path = NodePath("ObjectRig/platform/platform_block6:scale")
 tracks/6/interp = 2
 tracks/6/loop_wrap = true
 tracks/6/keys = {
@@ -318,7 +319,7 @@ tracks/6/keys = {
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("platform/platform_block6:visible")
+tracks/7/path = NodePath("ObjectRig/platform/platform_block6:visible")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
@@ -330,7 +331,7 @@ tracks/7/keys = {
 tracks/8/type = "value"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("platform/platform_block10:scale")
+tracks/8/path = NodePath("ObjectRig/platform/platform_block10:scale")
 tracks/8/interp = 2
 tracks/8/loop_wrap = true
 tracks/8/keys = {
@@ -342,7 +343,7 @@ tracks/8/keys = {
 tracks/9/type = "value"
 tracks/9/imported = false
 tracks/9/enabled = true
-tracks/9/path = NodePath("platform/platform_block10:visible")
+tracks/9/path = NodePath("ObjectRig/platform/platform_block10:visible")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/keys = {
@@ -354,7 +355,7 @@ tracks/9/keys = {
 tracks/10/type = "value"
 tracks/10/imported = false
 tracks/10/enabled = true
-tracks/10/path = NodePath("platform/platform_block12:scale")
+tracks/10/path = NodePath("ObjectRig/platform/platform_block12:scale")
 tracks/10/interp = 2
 tracks/10/loop_wrap = true
 tracks/10/keys = {
@@ -366,7 +367,7 @@ tracks/10/keys = {
 tracks/11/type = "value"
 tracks/11/imported = false
 tracks/11/enabled = true
-tracks/11/path = NodePath("platform/platform_block12:visible")
+tracks/11/path = NodePath("ObjectRig/platform/platform_block12:visible")
 tracks/11/interp = 1
 tracks/11/loop_wrap = true
 tracks/11/keys = {
@@ -378,7 +379,7 @@ tracks/11/keys = {
 tracks/12/type = "value"
 tracks/12/imported = false
 tracks/12/enabled = true
-tracks/12/path = NodePath("platform/platform_block14:scale")
+tracks/12/path = NodePath("ObjectRig/platform/platform_block14:scale")
 tracks/12/interp = 2
 tracks/12/loop_wrap = true
 tracks/12/keys = {
@@ -390,7 +391,7 @@ tracks/12/keys = {
 tracks/13/type = "value"
 tracks/13/imported = false
 tracks/13/enabled = true
-tracks/13/path = NodePath("platform/platform_block14:visible")
+tracks/13/path = NodePath("ObjectRig/platform/platform_block14:visible")
 tracks/13/interp = 1
 tracks/13/loop_wrap = true
 tracks/13/keys = {
@@ -402,7 +403,7 @@ tracks/13/keys = {
 tracks/14/type = "value"
 tracks/14/imported = false
 tracks/14/enabled = true
-tracks/14/path = NodePath("platform/platform_block18:scale")
+tracks/14/path = NodePath("ObjectRig/platform/platform_block18:scale")
 tracks/14/interp = 2
 tracks/14/loop_wrap = true
 tracks/14/keys = {
@@ -414,7 +415,7 @@ tracks/14/keys = {
 tracks/15/type = "value"
 tracks/15/imported = false
 tracks/15/enabled = true
-tracks/15/path = NodePath("platform/platform_block18:visible")
+tracks/15/path = NodePath("ObjectRig/platform/platform_block18:visible")
 tracks/15/interp = 1
 tracks/15/loop_wrap = true
 tracks/15/keys = {
@@ -426,7 +427,7 @@ tracks/15/keys = {
 tracks/16/type = "value"
 tracks/16/imported = false
 tracks/16/enabled = true
-tracks/16/path = NodePath("platform/platform_block22:scale")
+tracks/16/path = NodePath("ObjectRig/platform/platform_block22:scale")
 tracks/16/interp = 2
 tracks/16/loop_wrap = true
 tracks/16/keys = {
@@ -438,7 +439,7 @@ tracks/16/keys = {
 tracks/17/type = "value"
 tracks/17/imported = false
 tracks/17/enabled = true
-tracks/17/path = NodePath("platform/platform_block22:visible")
+tracks/17/path = NodePath("ObjectRig/platform/platform_block22:visible")
 tracks/17/interp = 1
 tracks/17/loop_wrap = true
 tracks/17/keys = {
@@ -503,41 +504,46 @@ projection = 1
 fov = 5.0
 size = 6.0
 
-[node name="platform" parent="." instance=ExtResource("1_l6cm7")]
+[node name="ObjectRig" type="Node3D" parent="."]
 
-[node name="platform_block1" parent="platform" index="0"]
+[node name="BlockManager" type="Node3D" parent="ObjectRig"]
+script = ExtResource("2_wu84c")
+
+[node name="platform" parent="ObjectRig" instance=ExtResource("1_l6cm7")]
+
+[node name="platform_block1" parent="ObjectRig/platform" index="0"]
 transform = Transform3D(0.001, 0, 0, 0, 0.001, 0, 0, 0, 0.001, 0, 0, 0)
 visible = false
 
-[node name="platform_block2" parent="platform" index="1"]
+[node name="platform_block2" parent="ObjectRig/platform" index="1"]
 transform = Transform3D(0.001, 0, 0, 0, 0.001, 0, 0, 0, 0.001, 1, 0, 0)
 visible = false
 
-[node name="platform_block4" parent="platform" index="2"]
+[node name="platform_block4" parent="ObjectRig/platform" index="2"]
 transform = Transform3D(0.001, 0, 0, 0, 0.001, 0, 0, 0, 0.001, 0, 0, 1)
 visible = false
 
-[node name="platform_block6" parent="platform" index="3"]
+[node name="platform_block6" parent="ObjectRig/platform" index="3"]
 transform = Transform3D(0.001, 0, 0, 0, 0.001, 0, 0, 0, 0.001, 1, 0, 1)
 visible = false
 
-[node name="platform_block10" parent="platform" index="4"]
+[node name="platform_block10" parent="ObjectRig/platform" index="4"]
 transform = Transform3D(0.001, 0, 0, 0, 0.001, 0, 0, 0, 0.001, 0, 0, -1)
 visible = false
 
-[node name="platform_block12" parent="platform" index="5"]
+[node name="platform_block12" parent="ObjectRig/platform" index="5"]
 transform = Transform3D(0.001, 0, 0, 0, 0.001, 0, 0, 0, 0.001, -1, 0, 0)
 visible = false
 
-[node name="platform_block14" parent="platform" index="6"]
+[node name="platform_block14" parent="ObjectRig/platform" index="6"]
 transform = Transform3D(0.001, 0, 0, 0, 0.001, 0, 0, 0, 0.001, 1, 0, -1)
 visible = false
 
-[node name="platform_block18" parent="platform" index="7"]
+[node name="platform_block18" parent="ObjectRig/platform" index="7"]
 transform = Transform3D(0.001, 0, 0, 0, 0.001, 0, 0, 0, 0.001, -1, 0, -1)
 visible = false
 
-[node name="platform_block22" parent="platform" index="8"]
+[node name="platform_block22" parent="ObjectRig/platform" index="8"]
 transform = Transform3D(0.001, 0, 0, 0, 0.001, 0, 0, 0, 0.001, -1, 0, 1)
 visible = false
 
@@ -639,4 +645,4 @@ script = ExtResource("2_ekxnf")
 
 [connection signal="pressed" from="CanvasLayer/MarginContainer/HBoxContainer2/PanelContainer2/Play" to="." method="_on_play_pressed"]
 
-[editable path="platform"]
+[editable path="ObjectRig/platform"]
