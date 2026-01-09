@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=3 uid="uid://d1e44ryxujwcj"]
+
+[ext_resource type="Script" uid="uid://cr6ry0t8snvsr" path="res://scripts/Block/Task/block_controller.gd" id="1_61vty"]
+[ext_resource type="PackedScene" uid="uid://bnkhnde510i5c" path="res://assets/3D Models/BlockModel.blend" id="1_vn1x0"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_7t1db"]
+
+[node name="TaskBlock" type="StaticBody3D"]
+collision_mask = 3
+script = ExtResource("1_61vty")
+
+[node name="BlockModel" parent="." instance=ExtResource("1_vn1x0")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_7t1db")

@@ -1,0 +1,60 @@
+[gd_scene load_steps=7 format=3 uid="uid://dklfrwrpwgghw"]
+
+[ext_resource type="Script" uid="uid://copfppko2bycd" path="res://scripts/Block/Build/block_controller.gd" id="1_n53uy"]
+[ext_resource type="PackedScene" uid="uid://bnkhnde510i5c" path="res://assets/3D Models/BlockModel.blend" id="2_snygx"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_b2q3m"]
+
+[sub_resource type="Animation" id="Animation_jj2qy"]
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_n53uy"]
+resource_name = "scale"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(0.7578583, 1, 1.8660663),
+"update": 0,
+"values": [Vector3(1, 1, 1), Vector3(1.075, 1.075, 1.075), Vector3(1.05, 1.05, 1.05)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_jj2qy"]
+_data = {
+&"RESET": SubResource("Animation_jj2qy"),
+&"scale": SubResource("Animation_n53uy")
+}
+
+[node name="BuildBlock" type="StaticBody3D"]
+collision_mask = 3
+script = ExtResource("1_n53uy")
+
+[node name="BlockModel" parent="." instance=ExtResource("2_snygx")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_b2q3m")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_jj2qy")
+}
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

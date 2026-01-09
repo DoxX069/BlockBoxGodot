@@ -34,3 +34,28 @@ res://scripts/Timer/custom_timer.gd
 res://scripts/Counter/counter.gd
 res://scripts/Block/Build/block_controller.gd
 res://scripts/Block/Task/block_controller.gd
+res://Scenes/Block/Build/build_block.tscn
+res://Scenes/Block/block_manager.tscn
+res://Scenes/Block/Task/task_block.tscn
+res://Scripts/Block/Task/block_manager.gd
+res://Scripts/Block/Build/block_manager.gd
+res://s/main_menu.tscn
+res://s/task.tscn
+res://s/build.tscn
+res://s/platform.tscn
+res://scenes/Block/Build/block.tscn
+res://scenes/Block/Task/block.tscn
+res://scripts/Scene Roots/main_menu.gd
+res://scripts/Block/Build/block_manager.gd
+res://Scripts/State Machine/callable_state_machine.gd
+res://scripts/Camera/rotation_controller.gd
+res://scripts/State Machine/callable_state_machine.gd
+res://scripts/Swipe Detector/swipe_detector.gd
+res://scripts/Timer/timer_ui.gd
+res://scripts/Autoload/scene_transition_controller.gd
+res://scenes/Transitions/Fade.tscn
+res://scripts/Transitions/fade.gd
+res://scenes/Transitions/wipe.tscn
+res://scenes/Transitions/wipe.gd
+res://scenes/Transitions/fade.tscn
+res://Shaders/Transitions/wipe.gdshader

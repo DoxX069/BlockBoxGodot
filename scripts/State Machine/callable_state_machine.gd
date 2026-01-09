@@ -1,6 +1,6 @@
 class_name CallableStateMachine
 
-var state_dictionary := {}
+var state_dictionary: Dictionary = {}
 var current_state: String
 
 func add_states( normal_state_callable: Callable, enter_state_callable: Callable, leave_state_callable: Callable) ->void:

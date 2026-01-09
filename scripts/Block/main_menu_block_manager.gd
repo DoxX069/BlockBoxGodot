@@ -1,5 +1,6 @@
 extends BlockManager
 
 
-func _ready() -> void:
+
+func ready() -> void:
 	Global.number_of_blocks = 1

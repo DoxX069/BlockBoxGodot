@@ -18,6 +18,11 @@ config/icon="uid://b4ccetmhkp43v"
 [autoload]
 
 Global="*res://scripts/Autoload/global.gd"
+SceneTransitionController="*res://scripts/Autoload/scene_transition_controller.gd"
+
+[debug]
+
+gdscript/warnings/inferred_declaration=1
 
 [display]
 

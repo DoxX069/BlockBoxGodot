@@ -1,6 +1,8 @@
+ColorRect
+CanvasLayer
+AnimationPlayer
 Node3D
 StaticBody3D
-AnimationPlayer
 TextureProgressBar
 Timer
 MarginContainer
@@ -10,5 +12,3 @@ Panel
 HBoxContainer
 Label
 VBoxContainer
-SubViewport
-SubViewportContainer

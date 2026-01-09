@@ -7,16 +7,16 @@ var previous_pos: Vector2
 var mouse_pos: Vector2
 var delta_pos: Vector2
 var mouse_vel: Vector2
-var swipe_distance := 125
-var swipe_vel := 1000
-var swiping := false
+var swipe_distance: int = 125
+var swipe_vel: int = 1000
+var swiping: bool = false
 signal swipe_up
 signal swipe_down
 signal swipe_left
 signal swipe_right
 	
 @onready var camera: Camera3D = get_viewport().get_camera_3d()
-var ray_length := 100
+var ray_length: int = 100
 
 
 func _physics_process(delta: float) -> void:

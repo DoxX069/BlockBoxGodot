@@ -15,7 +15,7 @@ func initial_pos(block_type: Dictionary) -> void:
 
 
 func instantiate_block(block_type: Dictionary, scene: PackedScene, number: int) -> void:
-	for i in number:
+	for i:int in number:
 		# create block position
 		var new_pos: Vector3 = block_type.valid_pos.pick_random()
 		block_type.block_pos.append(new_pos)
@@ -23,7 +23,7 @@ func instantiate_block(block_type: Dictionary, scene: PackedScene, number: int) 
 		update_valid_pos(block_type)
 		
 		# instantiate block
-		var instance := scene.instantiate()
+		var instance: StaticBody3D = scene.instantiate()
 		
 		instance.visible = false
 		instance.scale = Vector3(0.001, 0.001, 0.001)
@@ -31,7 +31,7 @@ func instantiate_block(block_type: Dictionary, scene: PackedScene, number: int) 
 		self.add_child(instance)
 		block_type.block_inst.append(instance)
 		instance.visible = true
-		var current_tween := get_tree().create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
+		var current_tween: Tween = get_tree().create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
 		current_tween.tween_property(instance, "scale", Vector3(1, 1, 1), 0.2)
 		
 		
@@ -41,10 +41,10 @@ func instantiate_block(block_type: Dictionary, scene: PackedScene, number: int) 
 
 
 func remove_block(block_type: Dictionary, number: int) -> void:
-	for i in number:
+	for i:int in number:
 		var inst = block_type.block_inst.pick_random()
 		if inst:
-			var current_tween := get_tree().create_tween().bind_node(inst).set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_BACK)
+			var current_tween: Tween = get_tree().create_tween().bind_node(inst).set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_BACK)
 			current_tween.tween_property(inst, "scale", Vector3(0.001, 0.001, 0.001), 0.2)
 			await current_tween.finished
 			block_type.block_inst.erase(inst)
@@ -74,7 +74,7 @@ func update_valid_pos(block_type: Dictionary) -> void:
 		]
 		for n_pos in neighbors:
 			if n_pos.x >= -1 and n_pos.x <= 1 and n_pos.z >= -1 and n_pos.z <= 1:
-				var below_pos := Vector3(n_pos.x, n_pos.y - 1, n_pos.z)
+				var below_pos: Vector3 = Vector3(n_pos.x, n_pos.y - 1, n_pos.z)
 				if n_pos.y == 1 or below_pos in block_type.block_pos:
 					if n_pos not in block_type.block_pos:
 						block_type.valid_pos.append(n_pos)

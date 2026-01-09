@@ -3,7 +3,7 @@ class_name TaskBlockManager
 
 
 
-@onready var task_block_scene: PackedScene = preload("res://scenes/Block/task_block.tscn")
+@onready var task_block_scene: PackedScene = preload("res://scenes/Block/Task/block.tscn")
 
 
 

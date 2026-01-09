@@ -1,6 +1,8 @@
+res://scenes
+res://scenes/Transitions
+res://scripts/Autoload
 res://scenes/Block
 res://scripts
-res://scenes
 /Users/doxx/Dev/BlockBoxExports
 res://Shaders
 res://assets/3D Models

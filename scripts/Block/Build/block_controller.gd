@@ -1,2 +1,135 @@
 extends BlockController
 class_name BuildBlockController
+
+
+
+var state_machine: CallableStateMachine = CallableStateMachine.new()
+
+
+
+func _ready() ->void:
+	state_machine.add_states(Callable(self, "state_idle"), Callable(self, "enter_state_idle"), Callable(self, "leave_state_idle"))
+	state_machine.add_states(Callable(self, "state_drag"), Callable(self, "enter_state_drag"), Callable(self, "leave_state_drag"))
+	state_machine.add_states(Callable(self, "state_drop"), Callable(self, "enter_state_drop"), Callable(self, "leave_state_drop"))
+	state_machine.add_states(Callable(self, "state_fall"), Callable(self, "enter_state_fall"), Callable(self, "leave_state_fall"))
+	state_machine.set_initial_state(state_idle)
+
+
+func _physics_process(_delta) ->void:
+	state_machine.update()
+
+
+
+# States:
+
+func enter_state_idle() ->void:
+	pass
+	
+
+func state_idle() ->void:
+	raycast()
+	raycast_down()
+	if ray_down:
+		ground_distance = ray_down.position.distance_to(self.global_position)
+		
+	if ground_distance >= 1.5 and falling_allowed:
+		state_machine.change_state(state_fall)
+	
+	if Input.is_action_just_pressed("drag") and draggable and not dragging_disabled:
+		state_machine.change_state(state_drag)
+		
+
+func leave_state_idle() ->void:
+	Global.build_block.block_pos.erase(self.position)
+	block_manager.update_valid_pos(Global.build_block)
+	print(" --- Blocks --- ")
+	for pos in Global.build_block.block_pos:
+		print(pos)
+	# update start drag position
+	idle_pos = self.position
+
+
+func enter_state_drag() ->void:
+	raycast()
+	# ignore dragged block in raycast intersection
+	dragged_block = self
+	
+	var current_tween := get_tree().create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_BACK)
+	current_tween.tween_property(self,"scale",Vector3(1.05, 1.05, 1.05),0.2)
+	
+
+func state_drag() ->void:
+	raycast()
+	var delta = get_process_delta_time()
+	if intersection:
+		# Change position while dragging
+		self.global_position = lerp(self.global_position,intersection.position+Vector3(0,0.6,0),45*delta)
+	
+	if Input.is_action_just_released("drag"):
+		state_machine.change_state(state_drop)
+
+
+func leave_state_drag() ->void:
+	var current_tween := get_tree().create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_BACK)
+	current_tween.tween_property(self,"scale",Vector3(1, 1, 1),0.2)
+
+
+func enter_state_drop() ->void:
+	raycast()
+	raycast_down()
+	var new_pos: Vector3 = ray_down.collider.position + ray_down.normal
+	var is_valid_pos:bool = Global.build_block.valid_pos.has(new_pos)
+	var closest_distance: float = 100
+	var fallback_pos: Vector3
+	for pos in Global.build_block.valid_pos:
+		if self.global_position.distance_to(pos) < closest_distance:
+			fallback_pos = pos
+			closest_distance = self.global_position.distance_to(pos)
+	
+	var current_tween := get_tree().create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_BACK)
+	if is_valid_pos:
+		# Drop to the last raycast collider
+		current_tween.tween_property(self,"position",new_pos,0.3)
+		await current_tween.finished
+		# Change state
+		state_machine.change_state(state_idle)
+	else:
+		# Drop to the last raycast collider
+		current_tween.tween_property(self,"position",fallback_pos,0.3)
+		await current_tween.finished
+		# Change state
+		state_machine.change_state(state_idle)
+
+func state_drop() ->void:
+	pass
+
+
+func leave_state_drop() ->void:
+	# ignore dragged block in raycast intersection
+	dragged_block = null
+	
+	# update block position
+	block_manager.update_block_pos(Global.build_block, self.position)
+	
+
+func enter_state_fall() ->void:
+	raycast_down()
+	# set new position
+	var new_pos: Vector3 = ray_down.collider.position + ray_down.normal
+		
+	# fall
+	falling_allowed = false
+	var current_tween := get_tree().create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
+	current_tween.tween_property(self,"position",new_pos,0.1)
+	await current_tween.finished
+	falling_allowed = true
+	state_machine.change_state(state_idle)
+
+
+func state_fall() ->void:
+	pass
+		
+	
+func leave_state_fall() ->void:
+	# update block position
+	block_manager.update_block_pos(Global.build_block, self.position)

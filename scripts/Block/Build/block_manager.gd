@@ -2,9 +2,11 @@ extends BlockManager
 class_name BuildBlockManager
 
 
+
 signal blocks_matching
 signal blocks_removed
-@onready var build_block_scene: PackedScene = preload("res://scenes/Block/build_block.tscn")
+@onready var build_block_scene: PackedScene = preload("res://scenes/Block/Build/block.tscn")
+
 
 
 func _ready() -> void:
@@ -29,7 +31,6 @@ func process() -> void:
 
 func _on_blocks_matching() -> void:
 	remove_block(Global.build_block, Global.number_of_blocks)
-	
 
 
 func _on_custom_timer_timeout() -> void:
@@ -40,20 +41,20 @@ func _on_custom_timer_timeout() -> void:
 
 func _on_show_task_button_down() -> void:
 	# Change to task blocks
-	var i := 0
-	for inst: Block in Global.build_block.block_inst:
+	var i: int = 0
+	for inst: BlockController in Global.build_block.block_inst:
 		inst.dragging_disabled = true
-		var current_tween := get_tree().create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_EXPO)
+		var current_tween: Tween= get_tree().create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_EXPO)
 		current_tween.tween_property(inst, "position", Global.task_block.block_pos[i], 0.2)
 		i += 1
 
 
 func _on_show_task_button_up() -> void:
 	# Change to task blocks
-	var i := 0
-	for inst: Block in Global.build_block.block_inst:
+	var i: int = 0
+	for inst: BlockController in Global.build_block.block_inst:
 		inst.dragging_disabled = false
-		var current_tween := get_tree().create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_EXPO)
+		var current_tween: Tween = get_tree().create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_EXPO)
 		current_tween.tween_property(inst, "position", Global.build_block.block_pos[i], 0.2)
 		i += 1
 

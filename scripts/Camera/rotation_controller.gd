@@ -4,15 +4,15 @@ extends Node3D
 @export var swipe_detector: SwipeDetector
 
 var current_rotation_angle: float = 0
-var is_rotating:= false
+var is_rotating: bool = false
 
 var start_pos: Vector2
 var mouse_pos: Vector2
 var delta_pos: Vector2
-var swiping := false
+var swiping: bool = false
 	
 @onready var camera: Camera3D = get_viewport().get_camera_3d()
-var ray_length := 100
+var ray_length: int = 100
 
 
 #func _physics_process(delta: float) -> void:
