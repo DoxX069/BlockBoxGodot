@@ -1,0 +1,2 @@
+extends BlockController
+class_name TaskBlockController

@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://05n7qgn4kay0" path="res://scripts/Camera/rotation_controller.gd" id="1_xd2nw"]
 [ext_resource type="Script" uid="uid://dnc3j6chxcnkr" path="res://scripts/Swipe Detector/swipe_detector.gd" id="2_1icng"]
 [ext_resource type="PackedScene" uid="uid://qbd2bnunqisi" path="res://scenes/platform.tscn" id="4_8fltv"]
-[ext_resource type="Script" uid="uid://ccxovavlbdce8" path="res://scripts/Block/build_block_manager.gd" id="4_xd2nw"]
+[ext_resource type="Script" uid="uid://ccxovavlbdce8" path="res://scripts/Block/Build/block_manager.gd" id="4_xd2nw"]
 [ext_resource type="Script" uid="uid://bag1qec30l2p" path="res://scripts/Counter/counter.gd" id="5_yaycp"]
 [ext_resource type="Texture2D" uid="uid://83t5nd7354ef" path="res://assets/blank.png" id="6_oyfci"]
 [ext_resource type="Script" uid="uid://xhlo7mh3pnyy" path="res://scripts/Timer/timer_ui.gd" id="7_i61nl"]

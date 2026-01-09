@@ -1,10 +1,10 @@
 72322a848ab928aa5c89f0cb78209805
-::res://::1767715375
+::res://::1767964643
 export_presets.cfg::TextFile::-1::1757061941::0::1::::<><><>0<>0<><>::
 icon.svg::CompressedTexture2D/CompressedTexture2D::4426155498678653369::1745231975::1747926834::1::::<><><>0<>0<>a7372e52d62a3c1a9c5a33c25a7e49f3<>res://.godot/imported/icon.svg-218a8f2b3041327d8a5756f3a245f83b.ctex::
 README.md::TextFile/TextFile::-1::1747926390::0::1::::<><><>0<>0<><>::
-::res://Addons/::1750831213
-::res://assets/::1767715375
+::res://addons/::1750831213
+::res://assets/::1767715376
 blank.png::CompressedTexture2D::2375242302778980977::1749067609::1767715376::1::::<><><>0<>0<>3f590943058144c69f6971a323f4d83a<>res://.godot/imported/blank.png-15e8cde9e53c64a1da7cd6353c9d4ec3.ctex::
 BlockBoxTexture copy.svg::CompressedTexture2D::2220007229380565237::1748538216::1767715376::1::::<><><>0<>0<>514b271c56b538fa367abb16f53964b5<>res://.godot/imported/BlockBoxTexture copy.svg-2c75dc74cc771b3a2e419aedf604893f.s3tc.ctex<*>res://.godot/imported/BlockBoxTexture copy.svg-2c75dc74cc771b3a2e419aedf604893f.etc2.ctex::
 BlockBoxTexture.svg::CompressedTexture2D::3840065887507920404::1749652491::1767715376::1::::<><><>0<>0<>7135fecd27f4392969e46c002be8b080<>res://.godot/imported/BlockBoxTexture.svg-a66f743d1b9904df6f8c13372d41415f.s3tc.ctex<*>res://.godot/imported/BlockBoxTexture.svg-a66f743d1b9904df6f8c13372d41415f.etc2.ctex::
@@ -12,64 +12,67 @@ BlockBoxTheme.tres::Theme::8252129846987380823::1767715375::0::1::::<><><>0<>0<>
 ButtonTexture.svg::CompressedTexture2D::1264091998623450282::1748604878::1767715376::1::::<><><>0<>0<>20a53f1d35feb3c2285698546e5a0359<>res://.godot/imported/ButtonTexture.svg-b0041389361e1a3fef4103b7a2da1732.s3tc.ctex<*>res://.godot/imported/ButtonTexture.svg-b0041389361e1a3fef4103b7a2da1732.etc2.ctex::
 tiles.tres::MeshLibrary::8198031834569173172::1767715375::0::1::::<><><>0<>0<><>::uid://buyflaxqb4frg::::res://assets/BlockBoxTexture.svg
 Untitled-1.svg::CompressedTexture2D::3478412942645934389::1747157005::1767715376::1::::<><><>0<>0<>f14578f82faf40ea1848e03e35e1e16e<>res://.godot/imported/Untitled-1.svg-0f31e377c5d824dc8e6f5069279a28d3.ctex::
-::res://assets/3D Models/::1767713501
+::res://assets/3D Models/::1767715377
 BlockModel.blend::PackedScene::3319967827946317126::1753698929::1767715377::1::::<><><>0<>0<>7a4da28ff08adf6b39e17ed399c0d841<>res://.godot/imported/BlockModel.blend-0ac9f5c7c33340b9ac1de03cba3dcc26.scn::
 BlockModel.glb::PackedScene::3425514417382307199::1753698937::1767715377::1::::<><><>0<>0<>0f5ae30a9dc63c6808dbc864ad369bdd<>res://.godot/imported/BlockModel.glb-dd2d87400b902536bfe27a589bbe083b.scn::
 PlatformModel.blend::PackedScene::4155700054554096525::1753698384::1767715377::1::::<><><>0<>0<>eeb2e98438b043e311e2cc2ff7045f50<>res://.godot/imported/PlatformModel.blend-f0889947f4ae1a4c02eb7ddbdb9a73a7.scn::
 PlatformModel.glb::PackedScene::7460104258085410251::1753698405::1767715376::1::::<><><>0<>0<>615dfb9a83f092c3c97487be7500baee<>res://.godot/imported/PlatformModel.glb-49281b457cf815857b1259abfd8deba2.scn::
-::res://assets/fonts/::1767713498
+::res://assets/fonts/::1767715376
 ArchivoBlack-Regular.ttf::FontFile::1519069378651885696::1745231975::1767715376::1::::<><><>0<>0<>8344f2ceadf3e21c1043461ed7212a85<>res://.godot/imported/ArchivoBlack-Regular.ttf-2072c540025d966aae00ccf326200b77.fontdata::
 Dongle-Regular.ttf::FontFile::4635355514900785019::1732129204::1767715376::1::::<><><>0<>0<>46f5fc7bef09f3a79da97404effb4180<>res://.godot/imported/Dongle-Regular.ttf-c179fd236091264ab7c3e0b31b2021af.fontdata::
 PlusJakartaSans-Bold.ttf::FontFile::2524511994150932713::1725491480::1767715376::1::::<><><>0<>0<>76af09f0a1bdfdc10637c7c8c90885c2<>res://.godot/imported/PlusJakartaSans-Bold.ttf-f117a2d25854ae4bd4ac38722cdb49b9.fontdata::
 PlusJakartaSans-ExtraBold.ttf::FontFile::2830629205051849262::1725491480::1767715376::1::::<><><>0<>0<>61497df02c9832bc8b1fda6d97fcd5b4<>res://.godot/imported/PlusJakartaSans-ExtraBold.ttf-504f0b52313752690a4d875f43ab73f7.fontdata::
-::res://assets/materials/::1767713499
+::res://assets/materials/::1767715376
 1601.m10.i307.n008.F.c05.205439527 Vector grid marking for user HUD interface.jpg::CompressedTexture2D::4939604775291993377::1745231975::1767715376::1::::<><><>0<>0<>1660a11dad4b72b1a4d8900de2181a44<>res://.godot/imported/1601.m10.i307.n008.F.c05.205439527 Vector grid marking for user HUD interface.jpg-3afeaf2af1f45060c2b1f29c8ddb27eb.s3tc.ctex<*>res://.godot/imported/1601.m10.i307.n008.F.c05.205439527 Vector grid marking for user HUD interface.jpg-3afeaf2af1f45060c2b1f29c8ddb27eb.etc2.ctex::
 block.tres::StandardMaterial3D::5102382502794294936::1753379174::0::1::::<><><>0<>0<><>::
 grid.png::CompressedTexture2D::8083018605628927759::1745231975::1767715376::1::::<><><>0<>0<>e2ca9370d3a984e9ef62a510e7572931<>res://.godot/imported/grid.png-82fdb5d890da4db510e99756c7918606.s3tc.ctex<*>res://.godot/imported/grid.png-82fdb5d890da4db510e99756c7918606.etc2.ctex::
 istockphoto-838296134-612x612.jpg::CompressedTexture2D::5582873058434051226::1745231975::1767715376::1::::<><><>0<>0<>4c72a801ee0cfde4f2641a0f34db3c7c<>res://.godot/imported/istockphoto-838296134-612x612.jpg-745cbebfbff92066e237f26510581fab.s3tc.ctex<*>res://.godot/imported/istockphoto-838296134-612x612.jpg-745cbebfbff92066e237f26510581fab.etc2.ctex::
 outline_material.tres::ShaderMaterial::5653496791669677019::1753103551::0::1::::<><><>0<>0<><>::
 rm301-eye-10-a.jpg::CompressedTexture2D::3504126685606087381::1745231975::1767715376::1::::<><><>0<>0<>e41acb2c236755aff37a02d45e09d04c<>res://.godot/imported/rm301-eye-10-a.jpg-4c3035d52fd43e65dc40e4d4362b2816.s3tc.ctex<*>res://.godot/imported/rm301-eye-10-a.jpg-4c3035d52fd43e65dc40e4d4362b2816.etc2.ctex::
-::res://scenes/::1767715375
+::res://scenes/::1767964643
 add_blocks.tscn::PackedScene::4630583587590160916::1767715368::0::1::::<><><>0<>0<><>::uid://05n7qgn4kay0::::res://scripts/Camera/rotation_controller.gd<>uid://dnc3j6chxcnkr::::res://scripts/Swipe Detector/swipe_detector.gd<>uid://qbd2bnunqisi::::res://scenes/platform.tscn
-build.tscn::PackedScene::8752563798185267783::1767715375::0::1::::<><><>0<>0<><>::uid://dkcdc3rhptpu::::res://scripts/Scene Roots/build.gd<>uid://05n7qgn4kay0::::res://scripts/Camera/rotation_controller.gd<>uid://dnc3j6chxcnkr::::res://scripts/Swipe Detector/swipe_detector.gd<>uid://qbd2bnunqisi::::res://scenes/platform.tscn<>uid://ccxovavlbdce8::::res://scripts/Block/build_block_manager.gd<>uid://bag1qec30l2p::::res://scripts/Counter/counter.gd<>uid://83t5nd7354ef::::res://assets/blank.png<>uid://xhlo7mh3pnyy::::res://scripts/Timer/timer_ui.gd<>uid://7qamxr7t5kyk::::res://scripts/Timer/custom_timer.gd
-main_menu.tscn::PackedScene::462466729911340220::1767715368::0::1::::<><><>0<>0<><>::uid://iqbgw4fj4riw::::res://Scripts/Scene Roots/main_menu.gd<>uid://qbd2bnunqisi::::res://scenes/platform.tscn<>uid://bag1qec30l2p::::res://Scripts/Counter/counter.gd<>uid://23s56elgmxgy::::res://Scripts/Block/main_menu_block_manager.gd
+build.tscn::PackedScene::8752563798185267783::1767964654::0::1::::<><><>0<>0<><>::uid://dkcdc3rhptpu::::res://scripts/Scene Roots/build.gd<>uid://05n7qgn4kay0::::res://scripts/Camera/rotation_controller.gd<>uid://dnc3j6chxcnkr::::res://scripts/Swipe Detector/swipe_detector.gd<>uid://qbd2bnunqisi::::res://scenes/platform.tscn<>uid://ccxovavlbdce8::::res://scripts/Block/Build/build_block_manager.gd<>uid://bag1qec30l2p::::res://scripts/Counter/counter.gd<>uid://83t5nd7354ef::::res://assets/blank.png<>uid://xhlo7mh3pnyy::::res://scripts/Timer/timer_ui.gd<>uid://7qamxr7t5kyk::::res://scripts/Timer/custom_timer.gd
+main_menu.tscn::PackedScene::462466729911340220::1767963938::0::1::::<><><>0<>0<><>::uid://iqbgw4fj4riw::::res://scripts/Scene Roots/main_menu.gd<>uid://qbd2bnunqisi::::res://scenes/platform.tscn<>uid://bag1qec30l2p::::res://scripts/Counter/counter.gd<>uid://23s56elgmxgy::::res://scripts/Block/main_menu_block_manager.gd
 platform.tscn::PackedScene::1125316316908836636::1767715363::0::1::::<><><>0<>0<><>::uid://tpbnjr26nitk::::res://scenes/platform_block.tscn
 platform_block.tscn::PackedScene::1364638127987572136::1767715375::0::1::::<><><>0<>0<><>::uid://dejy3eidrvtdb::::res://assets/3D Models/PlatformModel.glb
 savedBuilds.tscn::PackedScene::8281469962218955044::1767715375::0::1::::<><><>0<>0<><>::res://scripts/savedBuilds.gd<>uid://vv336o85oxbs::::res://assets/fonts/ArchivoBlack-Regular.ttf
 state_mashine.tscn::PackedScene::5214891587313478311::1747754284::0::1::::<><><>0<>0<><>::uid://cav7obdlsyea::::res://scripts/StateMachine/StateMachine.gd
-task.tscn::PackedScene::5267981591842253024::1767715375::0::1::::<><><>0<>0<><>::uid://05n7qgn4kay0::::res://scripts/Camera/rotation_controller.gd<>uid://bxn62f3ua1l7k::::res://scripts/Scene Roots/task.gd<>uid://dnc3j6chxcnkr::::res://scripts/Swipe Detector/swipe_detector.gd<>uid://y2kino76icly::::res://scripts/Block/task_block_manager.gd<>uid://qbd2bnunqisi::::res://scenes/platform.tscn<>uid://bag1qec30l2p::::res://scripts/Counter/counter.gd<>uid://83t5nd7354ef::::res://assets/blank.png<>uid://xhlo7mh3pnyy::::res://scripts/Timer/timer_ui.gd<>uid://7qamxr7t5kyk::::res://scripts/Timer/custom_timer.gd
-::res://scenes/Block/::1767715375
+task.tscn::PackedScene::5267981591842253024::1767964643::0::1::::<><><>0<>0<><>::uid://05n7qgn4kay0::::res://scripts/Camera/rotation_controller.gd<>uid://bxn62f3ua1l7k::::res://scripts/Scene Roots/task.gd<>uid://dnc3j6chxcnkr::::res://scripts/Swipe Detector/swipe_detector.gd<>uid://y2kino76icly::::res://scripts/Block/Task/block_manager.gd<>uid://qbd2bnunqisi::::res://scenes/platform.tscn<>uid://bag1qec30l2p::::res://scripts/Counter/counter.gd<>uid://83t5nd7354ef::::res://assets/blank.png<>uid://xhlo7mh3pnyy::::res://scripts/Timer/timer_ui.gd<>uid://7qamxr7t5kyk::::res://scripts/Timer/custom_timer.gd
+::res://scenes/Block/::1767964505
 block_manager.tscn::PackedScene::4319355919315114935::1767715368::0::1::::<><><>0<>0<><>::uid://c6l1lnnrmgj13::::res://Scripts/Block/block_manager.gd
-build_block.tscn::PackedScene::7884193768701052108::1767715375::0::1::::<><><>0<>0<><>::uid://b2ocwahal2p7u::::res://scripts/Block/block_controller.gd<>uid://bnkhnde510i5c::::res://assets/3D Models/BlockModel.blend
-task_block.tscn::PackedScene::8994243008542232845::1767715375::0::1::::<><><>0<>0<><>::uid://bnkhnde510i5c::::res://assets/3D Models/BlockModel.blend
+::res://scenes/Block/Build/::1767964502
+build_block.tscn::PackedScene::7884193768701052108::1767796779::0::1::::<><><>0<>0<><>::uid://b2ocwahal2p7u::::res://scripts/Block/block_controller.gd<>uid://bnkhnde510i5c::::res://assets/3D Models/BlockModel.blend
+::res://scenes/Block/Task/::1767964505
+task_block.tscn::PackedScene::8994243008542232845::1767721378::0::1::::<><><>0<>0<><>::uid://bnkhnde510i5c::::res://assets/3D Models/BlockModel.blend
 ::res://scripts/::1767713446
-::res://scripts/Autoload/::1767713663
-global.gd::GDScript::3472731462099778377::1767619847::0::1::::<>Node<><>0<>0<><>::
-::res://scripts/Block/::1767715211
-block_controller.gd::GDScript::4310581482757663192::1767714958::0::1::::Block<>StaticBody3D<><>0<>0<><>::
-block_manager.gd::GDScript::6973002664679440132::1767713071::0::1::::BlockManager<>Node3D<><>0<>0<><>::
-block_resource.gd::GDScript::6565367270087636748::1767544896::0::1::::BlockResource<>Resource<><>0<>0<><>::
-build_block_manager.gd::GDScript::4961587315518514169::1767715211::0::1::::BuildBlockManager<>BlockManager<><>0<>0<><>::
-main_menu_block_manager.gd::GDScript::1954049469938869600::1767621091::0::1::::<>Node3D<><>0<>0<><>::
-task_block_manager.gd::GDScript::1740892608877785798::1767713071::0::1::::<>BlockManager<><>0<>0<><>::
+::res://scripts/Autoload/::1767959818
+global.gd::GDScript::3472731462099778377::1767959818::0::1::::<>Node<><>0<>0<><>::
+::res://scripts/Block/::1767964609
+block_controller.gd::GDScript::4310581482757663192::1767962180::0::1::::Block<>StaticBody3D<><>0<>0<><>::
+block_manager.gd::GDScript::6973002664679440132::1767963938::0::1::::BlockManager<>Node3D<><>1<>0<><>::
+main_menu_block_manager.gd::GDScript::1954049469938869600::1767963355::0::1::::<>BlockManager<><>0<>0<><>::
+::res://scripts/Block/Build/::1767964539
+build_block_manager.gd::GDScript::4961587315518514169::1767963642::0::1::::BuildBlockManager<>BlockManager<><>0<>0<><>::
+::res://scripts/Block/Task/::1767964643
+block_manager.gd::GDScript::1740892608877785798::1767963823::0::1::::TaskBlockManager<>BlockManager<><>0<>0<><>::
 ::res://scripts/Camera/::1767613822
 rotation_controller.gd::GDScript::1817499740155760521::1767613822::0::1::::<>Node3D<><>0<>0<><>::
-::res://scripts/Counter/::1767713410
-counter.gd::GDScript::70600422918262937::1767620600::0::1::::Counter<>Label<><>0<>0<><>::
+::res://scripts/Counter/::1767958190
+counter.gd::GDScript::70600422918262937::1767958190::0::1::::Counter<>Label<><>0<>0<><>::
 ::res://scripts/Platform/::1767612593
 platform_mesh.gd::GDScript::9018850602819177468::1747580454::0::1::::<>MeshInstance3D<><>0<>1<><>::
 VoxelClass.gd::GDScript::929233017166907195::1747124956::0::1::::Voxel<>RigidBody3D<><>0<>0<><>::
 voxel_platform.gd::GDScript::438165446988110082::1747206739::0::1::::<>Node3D<><>0<>0<><>::
-::res://scripts/Scene Roots/::1767713332
-build.gd::GDScript::231337248905535078::1767618058::0::1::::<>Node3D<><>0<>0<><>::
+::res://scripts/Scene Roots/::1767961369
+build.gd::GDScript::231337248905535078::1767961369::0::1::::<>Node3D<><>0<>0<><>::
 main_menu.gd::GDScript::594613425478806466::1767616392::0::1::::<>Node3D<><>0<>0<><>::
 task.gd::GDScript::4029531748162834118::1767617732::0::1::::<>Node3D<><>0<>0<><>::
 ::res://scripts/State Machine/::1767713380
 callable_state_machine.gd::GDScript::3734949934549239663::1750516360::0::1::::CallableStateMachine<>RefCounted<><>0<>0<><>::
 ::res://scripts/Swipe Detector/::1767713433
 swipe_detector.gd::GDScript::8077563553486789753::1750835445::0::1::::SwipeDetector<>Node3D<><>0<>0<><>::
-::res://scripts/Timer/::1767713279
-custom_timer.gd::GDScript::2279095705788095298::1767619085::0::1::::CustomTimer<>Node<><>0<>0<><>::
+::res://scripts/Timer/::1767794201
+custom_timer.gd::GDScript::2279095705788095298::1767794201::0::1::::CustomTimer<>Node<><>0<>0<><>::
 timer_ui.gd::GDScript::1629488635629191316::1767613822::0::1::::<>TextureProgressBar<><>0<>0<><>::
 ::res://Shaders/::1753440504
 Outline.gdshader::Shader/Shader::4563257101840374699::1753440445::0::1::::<><><>0<>0<><>::

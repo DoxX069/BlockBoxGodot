@@ -18,18 +18,23 @@ func process() -> void:
 	Global.task_block.block_pos.sort_custom(custom_sorter)
 	Global.build_block.block_pos.sort_custom(custom_sorter)
 	if Global.build_block.block_pos == Global.task_block.block_pos:
+		print("MATCH!!!")
+		emit_signal("blocks_matching")
+
+	if Global.build_block.recursive_equal(Global.task_block, 1):
+		print("MATCH!!!")
 		emit_signal("blocks_matching")
 
 
 
 func _on_blocks_matching() -> void:
-	
 	remove_block(Global.build_block, Global.number_of_blocks)
 	
 
 
 func _on_custom_timer_timeout() -> void:
 	await remove_block(Global.build_block, Global.number_of_blocks)
+	await get_tree().create_timer(0.5).timeout
 	emit_signal("blocks_removed")
 
 

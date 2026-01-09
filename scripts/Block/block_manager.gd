@@ -34,9 +34,10 @@ func instantiate_block(block_type: Dictionary, scene: PackedScene, number: int) 
 		var current_tween := get_tree().create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
 		current_tween.tween_property(instance, "scale", Vector3(1, 1, 1), 0.2)
 		
-		# Add to number of Blocks
-		Global.number_of_blocks += 1
-		print("Number of Blocks:", Global.number_of_blocks)
+		
+	print("Number of Blocks:", Global.number_of_blocks)
+	print(" --- Block Pos --- ")
+	print(block_type.block_pos)
 
 
 func remove_block(block_type: Dictionary, number: int) -> void:
@@ -49,9 +50,9 @@ func remove_block(block_type: Dictionary, number: int) -> void:
 			block_type.block_inst.erase(inst)
 			inst.queue_free()
 			
-			# Remove from number of Blocks
-			Global.number_of_blocks -= 1
-			print("Number of Blocks:", Global.number_of_blocks)
+	print("Number of Blocks:", Global.number_of_blocks)
+	print(" --- Block Pos --- ")
+	print(block_type.block_pos)
 
 
 func update_block_pos(block_type: Dictionary, new_pos: Vector3, old_pos: Vector3 = Vector3()) -> void:

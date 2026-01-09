@@ -32,3 +32,5 @@ res://scripts/Scene Roots/build.gd
 res://scripts/Autoload/global.gd
 res://scripts/Timer/custom_timer.gd
 res://scripts/Counter/counter.gd
+res://scripts/Block/Build/block_controller.gd
+res://scripts/Block/Task/block_controller.gd

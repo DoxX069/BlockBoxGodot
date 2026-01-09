@@ -1,9 +1,9 @@
 extends StaticBody3D
-class_name Block
+class_name BlockController
 
 
 
-@onready var block_manager: BuildBlockManager = self.get_parent()
+@onready var block_manager: BlockManager = self.get_parent()
 
 var dragging_disabled := false
 var dict_key: String

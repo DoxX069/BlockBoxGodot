@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://05n7qgn4kay0" path="res://scripts/Camera/rotation_controller.gd" id="1_lxhym"]
 [ext_resource type="Script" uid="uid://bxn62f3ua1l7k" path="res://scripts/Scene Roots/task.gd" id="1_q2rnq"]
 [ext_resource type="Script" uid="uid://dnc3j6chxcnkr" path="res://scripts/Swipe Detector/swipe_detector.gd" id="2_q2rnq"]
-[ext_resource type="Script" uid="uid://y2kino76icly" path="res://scripts/Block/task_block_manager.gd" id="4_lxhym"]
+[ext_resource type="Script" uid="uid://y2kino76icly" path="res://scripts/Block/Task/block_manager.gd" id="4_lxhym"]
 [ext_resource type="PackedScene" uid="uid://qbd2bnunqisi" path="res://scenes/platform.tscn" id="4_q5h86"]
 [ext_resource type="Script" uid="uid://bag1qec30l2p" path="res://scripts/Counter/counter.gd" id="5_xnbxa"]
 [ext_resource type="Texture2D" uid="uid://83t5nd7354ef" path="res://assets/blank.png" id="6_a6l42"]

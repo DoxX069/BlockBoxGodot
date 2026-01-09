@@ -2,4 +2,4 @@ extends BlockManager
 
 
 func _ready() -> void:
-	pass
+	Global.number_of_blocks = 1
