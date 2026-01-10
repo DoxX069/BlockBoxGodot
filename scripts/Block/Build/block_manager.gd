@@ -43,7 +43,6 @@ func _on_show_task_button_down() -> void:
 	# Change to task blocks
 	var i: int = 0
 	for inst: BlockController in Global.build_block.block_inst:
-		inst.dragging_disabled = true
 		var current_tween: Tween= get_tree().create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_EXPO)
 		current_tween.tween_property(inst, "position", Global.task_block.block_pos[i], 0.2)
 		i += 1
@@ -53,7 +52,6 @@ func _on_show_task_button_up() -> void:
 	# Change to task blocks
 	var i: int = 0
 	for inst: BlockController in Global.build_block.block_inst:
-		inst.dragging_disabled = false
 		var current_tween: Tween = get_tree().create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_EXPO)
 		current_tween.tween_property(inst, "position", Global.build_block.block_pos[i], 0.2)
 		i += 1

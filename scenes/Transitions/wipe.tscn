@@ -5,8 +5,9 @@
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_obho2"]
 shader = ExtResource("2_3kkfv")
-shader_parameter/progress = 0.0
-shader_parameter/diamondPixelSize = 10.0
+shader_parameter/progressIn = 0.0
+shader_parameter/progressOut = 0.0
+shader_parameter/diamondPixelSize = 15.0
 
 [node name="Wipe" type="CanvasLayer" node_paths=PackedStringArray("color_rect")]
 layer = 5
@@ -21,4 +22,4 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-color = Color(0, 0, 0, 1)
+color = Color(0.0967749, 0.08949422, 0.17349458, 1)

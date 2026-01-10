@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://gua027m8utq7"]
+[gd_scene load_steps=9 format=3 uid="uid://gua027m8utq7"]
 
 [ext_resource type="Script" uid="uid://iqbgw4fj4riw" path="res://scripts/Scene Roots/main_menu.gd" id="1_bqqt6"]
 [ext_resource type="PackedScene" uid="uid://qbd2bnunqisi" path="res://scenes/platform.tscn" id="1_l6cm7"]
+[ext_resource type="Script" uid="uid://05n7qgn4kay0" path="res://scripts/Camera/Task/rotation_controller.gd" id="2_8ln24"]
 [ext_resource type="Script" uid="uid://bag1qec30l2p" path="res://scripts/Counter/counter.gd" id="2_ekxnf"]
 [ext_resource type="Script" uid="uid://23s56elgmxgy" path="res://scripts/Block/main_menu_block_manager.gd" id="2_wu84c"]
 
@@ -28,17 +29,17 @@ corner_radius_bottom_right = 50
 
 [node name="MainMenu" type="Node3D" node_paths=PackedStringArray("platform_block_1", "platform_block_2", "platform_block_3", "platform_block_4", "platform_block_5", "platform_block_6", "platform_block_7", "platform_block_8", "platform_block_9")]
 script = ExtResource("1_bqqt6")
-platform_block_1 = NodePath("ObjectRig/platform/platform_block1")
-platform_block_2 = NodePath("ObjectRig/platform/platform_block2")
-platform_block_3 = NodePath("ObjectRig/platform/platform_block3")
-platform_block_4 = NodePath("ObjectRig/platform/platform_block4")
-platform_block_5 = NodePath("ObjectRig/platform/platform_block5")
-platform_block_6 = NodePath("ObjectRig/platform/platform_block6")
-platform_block_7 = NodePath("ObjectRig/platform/platform_block7")
-platform_block_8 = NodePath("ObjectRig/platform/platform_block8")
-platform_block_9 = NodePath("ObjectRig/platform/platform_block9")
 transition_type = "wipe"
 next_scene = "res://scenes/task.tscn"
+platform_block_1 = NodePath("platform/platform_block1")
+platform_block_2 = NodePath("platform/platform_block2")
+platform_block_3 = NodePath("platform/platform_block3")
+platform_block_4 = NodePath("platform/platform_block4")
+platform_block_5 = NodePath("platform/platform_block5")
+platform_block_6 = NodePath("platform/platform_block6")
+platform_block_7 = NodePath("platform/platform_block7")
+platform_block_8 = NodePath("platform/platform_block8")
+platform_block_9 = NodePath("platform/platform_block9")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_l6cm7")
@@ -63,24 +64,25 @@ shadow_blur = 2.0
 spot_range = 22.5449
 spot_angle = 53.4375
 
-[node name="Camera3D" type="Camera3D" parent="."]
+[node name="CameraRig" type="Node3D" parent="."]
+script = ExtResource("2_8ln24")
+
+[node name="Camera3D" type="Camera3D" parent="CameraRig"]
 transform = Transform3D(0.7071068, -0.49999994, 0.5000001, 0, 0.70710695, 0.7071067, -0.7071068, -0.49999994, 0.5000001, 30, 44, 30)
 keep_aspect = 0
 projection = 1
 fov = 5.0
 size = 6.0
 
-[node name="ObjectRig" type="Node3D" parent="."]
-
-[node name="BlockManager" type="Node3D" parent="ObjectRig"]
+[node name="BlockManager" type="Node3D" parent="."]
 script = ExtResource("2_wu84c")
 
-[node name="platform" parent="ObjectRig" instance=ExtResource("1_l6cm7")]
+[node name="platform" parent="." instance=ExtResource("1_l6cm7")]
 
-[node name="platform_block4" parent="ObjectRig/platform" index="3"]
+[node name="platform_block4" parent="platform" index="3"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 0)
 
-[node name="platform_block6" parent="ObjectRig/platform" index="5"]
+[node name="platform_block6" parent="platform" index="5"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 1)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
@@ -121,7 +123,7 @@ size_flags_stretch_ratio = 0.5
 
 [node name="Play" type="Button" parent="CanvasLayer/MarginContainer/HBoxContainer2/PanelContainer2"]
 layout_mode = 2
-text = "Tap / Hold"
+text = "Play"
 
 [node name="PanelContainer3" type="PanelContainer" parent="CanvasLayer/MarginContainer/HBoxContainer2"]
 custom_minimum_size = Vector2(0, 150)
@@ -173,6 +175,8 @@ layout_mode = 2
 text = "0000"
 script = ExtResource("2_ekxnf")
 
+[connection signal="pressed" from="CanvasLayer/MarginContainer/HBoxContainer2/PanelContainer/RotateRight" to="CameraRig" method="_on_rotate_right_pressed"]
 [connection signal="pressed" from="CanvasLayer/MarginContainer/HBoxContainer2/PanelContainer2/Play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="CanvasLayer/MarginContainer/HBoxContainer2/PanelContainer3/RotateLeft" to="CameraRig" method="_on_rotate_left_pressed"]
 
-[editable path="ObjectRig/platform"]
+[editable path="platform"]

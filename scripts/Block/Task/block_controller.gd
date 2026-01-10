@@ -1,7 +1,12 @@
-extends BlockController
+extends StaticBody3D
 class_name TaskBlockController
 
 
+
+@onready var block_manager: BlockManager = self.get_parent()
+var falling_allowed: bool = true
+var new_pos: Vector3
+var old_pos: Vector3
 
 var state_machine: CallableStateMachine = CallableStateMachine.new()
 
@@ -21,40 +26,33 @@ func _physics_process(_delta) ->void:
 # States:
 
 func enter_state_idle() ->void:
-	pass
-	
+	# Save old position
+	old_pos = round(self.position)
+
 
 func state_idle() ->void:
-	raycast()
-	raycast_down()
-	if ray_down:
-		ground_distance = ray_down.position.distance_to(self.global_position)
-		
-	if ground_distance >= 1.5 and falling_allowed:
+	# Change to falling state
+	if Global.task_block.valid_pos.has(old_pos - Vector3(0, 1, 0)):
 		state_machine.change_state(state_fall)
 
 
 func leave_state_idle() ->void:
-	Global.build_block.block_pos.erase(self.position)
-	block_manager.update_valid_pos(Global.build_block)
-	print(" --- Blocks --- ")
-	for pos in Global.build_block.block_pos:
-		print(pos)
-	# update start drag position
-	idle_pos = self.position
+	block_manager.update_pos(Global.task_block, Vector3(), old_pos)
 
 
 func enter_state_fall() ->void:
-	raycast_down()
-	# set new position
-	var new_pos: Vector3 = ray_down.collider.position + ray_down.normal
-		
-	# fall
-	falling_allowed = false
-	var current_tween := get_tree().create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
+	# Get new position
+	new_pos = old_pos - Vector3(0, 1, 0)
+	
+	# Claim new position
+	block_manager.update_pos(Global.task_block, new_pos)
+	
+	# Animate fall
+	var current_tween: Tween = get_tree().create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
 	current_tween.tween_property(self,"position",new_pos,0.1)
 	await current_tween.finished
-	falling_allowed = true
+	
+	# Change to idle state
 	state_machine.change_state(state_idle)
 
 
@@ -63,5 +61,4 @@ func state_fall() ->void:
 		
 	
 func leave_state_fall() ->void:
-	# update block position
-	block_manager.update_block_pos(Global.build_block, self.position)
+	pass

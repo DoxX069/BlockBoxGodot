@@ -1,10 +1,12 @@
 extends Node3D
 
 
+
+@export_enum("fade", "wipe") var transition_type: String
+@export_range(0, 10, 0.1) var duration: float = 1
+
 @export var camera: Camera3D
 @export var build_timer: CustomTimer
-
-
 
 
 
@@ -22,8 +24,8 @@ func _ready() -> void:
 
 
 func _on_block_manager_blocks_matching() -> void:
-	get_tree().change_scene_to_file("res://scenes/task.tscn")
+	SceneTransitionController.change_scene("res://scenes/task.tscn", transition_type, duration)
 
 
 func _on_block_manager_blocks_removed() -> void:
-	get_tree().change_scene_to_file("res://scenes/main_menu.tscn")
+	SceneTransitionController.change_scene("res://scenes/main_menu.tscn", transition_type, duration)

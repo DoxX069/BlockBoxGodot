@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://b68dbgvtngdv5"]
 
-[ext_resource type="Script" uid="uid://05n7qgn4kay0" path="res://scripts/Camera/rotation_controller.gd" id="1_y4drq"]
+[ext_resource type="Script" uid="uid://05n7qgn4kay0" path="res://scripts/Camera/Task/rotation_controller.gd" id="1_y4drq"]
 [ext_resource type="Script" uid="uid://dnc3j6chxcnkr" path="res://scripts/Swipe Detector/swipe_detector.gd" id="2_syw53"]
 [ext_resource type="PackedScene" uid="uid://qbd2bnunqisi" path="res://scenes/platform.tscn" id="3_2e5u7"]
 

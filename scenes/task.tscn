@@ -1,8 +1,7 @@
-[gd_scene load_steps=14 format=3 uid="uid://chb35fs1moqqq"]
+[gd_scene load_steps=13 format=3 uid="uid://chb35fs1moqqq"]
 
-[ext_resource type="Script" uid="uid://05n7qgn4kay0" path="res://scripts/Camera/rotation_controller.gd" id="1_lxhym"]
+[ext_resource type="Script" uid="uid://05n7qgn4kay0" path="res://scripts/Camera/Task/rotation_controller.gd" id="1_lxhym"]
 [ext_resource type="Script" uid="uid://bxn62f3ua1l7k" path="res://scripts/Scene Roots/task.gd" id="1_q2rnq"]
-[ext_resource type="Script" uid="uid://dnc3j6chxcnkr" path="res://scripts/Swipe Detector/swipe_detector.gd" id="2_q2rnq"]
 [ext_resource type="Script" uid="uid://y2kino76icly" path="res://scripts/Block/Task/block_manager.gd" id="4_lxhym"]
 [ext_resource type="PackedScene" uid="uid://qbd2bnunqisi" path="res://scenes/platform.tscn" id="4_q5h86"]
 [ext_resource type="Script" uid="uid://bag1qec30l2p" path="res://scripts/Counter/counter.gd" id="5_xnbxa"]
@@ -36,7 +35,9 @@ bg_color = Color(0.243137, 0.223529, 0.270588, 1)
 
 [node name="Task" type="Node3D" node_paths=PackedStringArray("camera")]
 script = ExtResource("1_q2rnq")
-camera = NodePath("Camera3D")
+transition_type = "wipe"
+next_scene = "res://scenes/build.tscn"
+camera = NodePath("CameraRig/Camera3D")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_wliv4")
@@ -61,25 +62,20 @@ shadow_blur = 2.0
 spot_range = 22.5449
 spot_angle = 53.4375
 
-[node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(0.707107, -0.5, 0.5, 0, 0.707107, 0.707107, -0.707107, -0.5, 0.5, 30, 44, 30)
+[node name="CameraRig" type="Node3D" parent="."]
+script = ExtResource("1_lxhym")
+
+[node name="Camera3D" type="Camera3D" parent="CameraRig"]
+transform = Transform3D(0.7071068, -0.49999994, 0.5000001, 0, 0.70710695, 0.7071067, -0.7071068, -0.49999994, 0.5000001, 30, 44, 30)
 keep_aspect = 0
 projection = 1
 fov = 5.0
 size = 6.0
 
-[node name="ObjectRig" type="Node3D" parent="." node_paths=PackedStringArray("swipe_detector")]
-script = ExtResource("1_lxhym")
-swipe_detector = NodePath("SwipeDetector")
-
-[node name="SwipeDetector" type="Node3D" parent="ObjectRig"]
-transform = Transform3D(1, 0, 5.96046e-08, 2.98023e-08, 1, 8.9407e-08, 0, 0, 1, 0, 9.53674e-07, 0)
-script = ExtResource("2_q2rnq")
-
-[node name="BlockManager" type="Node3D" parent="ObjectRig"]
+[node name="BlockManager" type="Node3D" parent="."]
 script = ExtResource("4_lxhym")
 
-[node name="platform" parent="ObjectRig" instance=ExtResource("4_q5h86")]
+[node name="platform" parent="." instance=ExtResource("4_q5h86")]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 follow_viewport_enabled = true
@@ -120,7 +116,7 @@ size_flags_stretch_ratio = 0.5
 
 [node name="Play" type="Button" parent="CanvasLayer/MarginContainer/HBoxContainer2/PanelContainer2"]
 layout_mode = 2
-text = "Tap / Hold"
+text = "Play"
 
 [node name="PanelContainer3" type="PanelContainer" parent="CanvasLayer/MarginContainer/HBoxContainer2"]
 custom_minimum_size = Vector2(0, 150)
@@ -202,8 +198,8 @@ timer = NodePath("../CustomTimer")
 script = ExtResource("8_m3yri")
 duration = 30.0
 
-[connection signal="pressed" from="CanvasLayer/MarginContainer/HBoxContainer2/PanelContainer/Remove" to="ObjectRig/BlockManager" method="_on_remove_pressed"]
+[connection signal="pressed" from="CanvasLayer/MarginContainer/HBoxContainer2/PanelContainer/Remove" to="BlockManager" method="_on_remove_pressed"]
 [connection signal="pressed" from="CanvasLayer/MarginContainer/HBoxContainer2/PanelContainer/Remove" to="TimerCanvasLayer/PanelContainer/CustomTimer" method="_on_remove_pressed"]
-[connection signal="pressed" from="CanvasLayer/MarginContainer/HBoxContainer2/PanelContainer2/Play" to="ObjectRig/BlockManager" method="_on_play_pressed"]
-[connection signal="pressed" from="CanvasLayer/MarginContainer/HBoxContainer2/PanelContainer3/Add" to="ObjectRig/BlockManager" method="_on_add_pressed"]
+[connection signal="pressed" from="CanvasLayer/MarginContainer/HBoxContainer2/PanelContainer2/Play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="CanvasLayer/MarginContainer/HBoxContainer2/PanelContainer3/Add" to="BlockManager" method="_on_add_pressed"]
 [connection signal="pressed" from="CanvasLayer/MarginContainer/HBoxContainer2/PanelContainer3/Add" to="TimerCanvasLayer/PanelContainer/CustomTimer" method="_on_add_pressed"]

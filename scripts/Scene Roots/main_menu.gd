@@ -1,6 +1,11 @@
 extends Node3D
 
 
+
+@export_enum("fade", "wipe") var transition_type: String
+@export_file_path("*.tscn") var next_scene: String
+@export_range(0, 10, 0.1) var duration: float = 1
+
 @export var platform_block_1: StaticBody3D
 @export var platform_block_2: StaticBody3D
 @export var platform_block_3: StaticBody3D
@@ -11,9 +16,6 @@ extends Node3D
 @export var platform_block_8: StaticBody3D
 @export var platform_block_9: StaticBody3D
 
-@export_enum("fade", "wipe") var transition_type: String
-@export_file_path("*.tscn") var next_scene: String
-@export_range(0, 10, 0.1) var duration: float = 1
 
 
 func _ready() -> void:

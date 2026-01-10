@@ -59,3 +59,16 @@ res://scenes/Transitions/wipe.tscn
 res://scenes/Transitions/wipe.gd
 res://scenes/Transitions/fade.tscn
 res://Shaders/Transitions/wipe.gdshader
+res://Shaders/Transitions/wipe2.gdshader
+res://Shaders/tiling_dot.gdshader
+res://scripts/Scene Roots/task.gd
+res://scripts/Block/Task/block_manager.gd
+res://scripts/Camera/Task/rotation_controller.gd
+res://scripts/Camera/Build/rotation_controller.gd
+res://scenes/debug_visual.tscn
+res://scenes/debug_task_valid_pos.tscn
+res://scenes/debug_task_block_pos.tscn
+res://scenes/Debug/debug_build_block_pos.tscn
+res://scenes/Debug/debug_task_valid_pos.tscn
+res://scenes/Debug/debug_build_valid_pos.tscn
+res://scenes/Debug/debug_task_block_pos.tscn

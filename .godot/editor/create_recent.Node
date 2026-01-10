@@ -1,8 +1,10 @@
+MeshInstance3D
+CollisionShape3D
+StaticBody3D
 ColorRect
 CanvasLayer
 AnimationPlayer
 Node3D
-StaticBody3D
 TextureProgressBar
 Timer
 MarginContainer
@@ -10,5 +12,3 @@ Button
 PanelContainer
 Panel
 HBoxContainer
-Label
-VBoxContainer
